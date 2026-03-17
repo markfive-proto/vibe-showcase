@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brewery Taproom Menu Board</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            burgundy: { DEFAULT: '#7C2D12', light: '#9A3412', dark: '#6C2710' },
+            amber: { DEFAULT: '#A16207', light: '#CA8A04', pale: '#FEF3C7' },
+            dark: { DEFAULT: '#1C1917', light: '#292524', lighter: '#44403C' },
+          },
+          fontFamily: {
+            heading: ['Oswald', 'sans-serif'],
+            body: ['Lora', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Lora', serif; }
+    h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Oswald', sans-serif; }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .glow-pulse { animation: pulse-glow 2s ease-in-out infinite; }
+  </style>
+</head>
+<body class="bg-dark min-h-screen overflow-hidden">
+
+  <div class="h-screen flex flex-col p-6 lg:p-8">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-6 shrink-0">
+      <div class="flex items-center gap-4">
+        <!-- Brewery Logo -->
+        <div class="w-16 h-16 rounded-full border-2 border-amber flex items-center justify-center bg-dark-light">
+          <svg class="w-9 h-9 text-amber" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>
+        </div>
+        <div>
+          <h1 class="text-4xl lg:text-5xl font-heading font-bold text-amber-pale uppercase tracking-wider">Ironwood Brewing Co.</h1>
+          <p class="text-amber/60 text-sm mt-0.5 font-body italic">Craft Beer - Small Batch - Since 2018</p>
+        </div>
+      </div>
+      <div class="text-right hidden md:block">
+        <div class="bg-burgundy/30 border border-burgundy rounded-lg px-4 py-2 inline-block">
+          <p class="text-amber font-heading text-sm uppercase tracking-wider">Happy Hour</p>
+          <p class="text-amber-pale font-heading text-lg font-bold">4 PM - 6 PM Daily</p>
+          <p class="text-amber/60 text-xs font-body italic">$1 off all pints</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex-1 grid lg:grid-cols-4 gap-6 overflow-hidden">
+
+      <!-- Tap List - 3 columns -->
+      <div class="lg:col-span-3 flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-2xl font-heading font-bold text-amber-pale uppercase tracking-widest">On Tap</h2>
+          <div class="flex items-center gap-4 text-xs font-heading uppercase tracking-wider">
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-600"></span><span class="text-white/40">IPA</span></span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-stone-800"></span><span class="text-white/40">Stout</span></span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-yellow-400"></span><span class="text-white/40">Lager</span></span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-pink-400"></span><span class="text-white/40">Sour</span></span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-orange-300"></span><span class="text-white/40">Wheat</span></span>
+          </div>
+        </div>
+
+        <!-- Beer Grid -->
+        <div class="grid sm:grid-cols-2 xl:grid-cols-2 gap-3 overflow-y-auto flex-1 pr-1">
+
+          <!-- Beer 1 - NOW POURING Highlight -->
+          <div class="bg-burgundy/30 border-2 border-amber/40 rounded-xl p-4 relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-amber text-dark px-3 py-1 rounded-bl-lg">
+              <span class="font-heading text-xs font-bold uppercase tracking-wider glow-pulse">Now Pouring</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-16 rounded-full bg-amber-600 shrink-0 mt-1"></div>
+              <div class="flex-1">
+                <h3 class="text-amber-pale font-heading text-xl font-bold uppercase">Trailblazer IPA</h3>
+                <p class="text-amber/50 font-heading text-xs uppercase tracking-wider mt-0.5">West Coast IPA</p>
+                <p class="text-white/40 text-xs mt-2 font-body italic">Pine, grapefruit, and resinous hop character. Dry finish with assertive bitterness.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-amber text-xs font-heading font-bold">ABV 6.8%</span>
+                  <span class="text-white/30 text-xs font-heading">IBU 65</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <span class="text-white/30 text-xs font-body italic">Pairs with: Spicy tacos, burger</span>
+              <div class="flex gap-3 font-heading">
+                <span class="text-amber-pale text-sm"><span class="text-white/30 text-xs">Half </span>$4</span>
+                <span class="text-amber-pale text-sm font-bold"><span class="text-white/30 text-xs">Pint </span>$7</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer 2 -->
+          <div class="bg-dark-light border border-white/5 rounded-xl p-4 hover:border-amber/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-16 rounded-full bg-stone-800 shrink-0 mt-1"></div>
+              <div class="flex-1">
+                <h3 class="text-amber-pale font-heading text-xl font-bold uppercase">Midnight Forge Stout</h3>
+                <p class="text-amber/50 font-heading text-xs uppercase tracking-wider mt-0.5">Imperial Stout</p>
+                <p class="text-white/40 text-xs mt-2 font-body italic">Rich chocolate, espresso, and dark fruit. Velvety smooth with warming finish.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-amber text-xs font-heading font-bold">ABV 9.2%</span>
+                  <span class="text-white/30 text-xs font-heading">IBU 45</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <span class="text-white/30 text-xs font-body italic">Pairs with: Chocolate cake, BBQ ribs</span>
+              <div class="flex gap-3 font-heading">
+                <span class="text-amber-pale text-sm"><span class="text-white/30 text-xs">Half </span>$5</span>
+                <span class="text-amber-pale text-sm font-bold"><span class="text-white/30 text-xs">Pint </span>$9</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer 3 -->
+          <div class="bg-dark-light border border-white/5 rounded-xl p-4 hover:border-amber/20 transition relative">
+            <div class="absolute top-2 right-2 bg-green-600 text-white px-2 py-0.5 rounded-full">
+              <span class="font-heading text-[10px] font-bold uppercase tracking-wider">New</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-16 rounded-full bg-yellow-400 shrink-0 mt-1"></div>
+              <div class="flex-1">
+                <h3 class="text-amber-pale font-heading text-xl font-bold uppercase">Golden Anvil Lager</h3>
+                <p class="text-amber/50 font-heading text-xs uppercase tracking-wider mt-0.5">Munich Helles</p>
+                <p class="text-white/40 text-xs mt-2 font-body italic">Clean, crisp, and perfectly balanced. Noble hops with bready malt backbone.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-amber text-xs font-heading font-bold">ABV 4.8%</span>
+                  <span class="text-white/30 text-xs font-heading">IBU 22</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <span class="text-white/30 text-xs font-body italic">Pairs with: Fish and chips, pretzels</span>
+              <div class="flex gap-3 font-heading">
+                <span class="text-amber-pale text-sm"><span class="text-white/30 text-xs">Half </span>$3</span>
+                <span class="text-amber-pale text-sm font-bold"><span class="text-white/30 text-xs">Pint </span>$6</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer 4 -->
+          <div class="bg-dark-light border border-white/5 rounded-xl p-4 hover:border-amber/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-16 rounded-full bg-pink-400 shrink-0 mt-1"></div>
+              <div class="flex-1">
+                <h3 class="text-amber-pale font-heading text-xl font-bold uppercase">Raspberry Reckoning</h3>
+                <p class="text-amber/50 font-heading text-xs uppercase tracking-wider mt-0.5">Berliner Weisse / Sour</p>
+                <p class="text-white/40 text-xs mt-2 font-body italic">Tart raspberry with subtle vanilla. Light body, effervescent, refreshingly sour.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-amber text-xs font-heading font-bold">ABV 4.2%</span>
+                  <span class="text-white/30 text-xs font-heading">IBU 8</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <span class="text-white/30 text-xs font-body italic">Pairs with: Goat cheese, fruit tarts</span>
+              <div class="flex gap-3 font-heading">
+                <span class="text-amber-pale text-sm"><span class="text-white/30 text-xs">Half </span>$4</span>
+                <span class="text-amber-pale text-sm font-bold"><span class="text-white/30 text-xs">Pint </span>$7</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer 5 -->
+          <div class="bg-dark-light border border-white/5 rounded-xl p-4 hover:border-amber/20 transition relative">
+            <div class="absolute top-2 right-2 bg-green-600 text-white px-2 py-0.5 rounded-full">
+              <span class="font-heading text-[10px] font-bold uppercase tracking-wider">New</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-16 rounded-full bg-amber-600 shrink-0 mt-1"></div>
+              <div class="flex-1">
+                <h3 class="text-amber-pale font-heading text-xl font-bold uppercase">Haze Hammer</h3>
+                <p class="text-amber/50 font-heading text-xs uppercase tracking-wider mt-0.5">New England IPA</p>
+                <p class="text-white/40 text-xs mt-2 font-body italic">Juicy, tropical, and hazy. Mango and passionfruit with soft pillowy body.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-amber text-xs font-heading font-bold">ABV 7.1%</span>
+                  <span class="text-white/30 text-xs font-heading">IBU 42</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <span class="text-white/30 text-xs font-body italic">Pairs with: Fried chicken, nachos</span>
+              <div class="flex gap-3 font-heading">
+                <span class="text-amber-pale text-sm"><span class="text-white/30 text-xs">Half </span>$4</span>
+                <span class="text-amber-pale text-sm font-bold"><span class="text-white/30 text-xs">Pint </span>$7</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer 6 -->
+          <div class="bg-dark-light border border-white/5 rounded-xl p-4 hover:border-amber/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-16 rounded-full bg-orange-300 shrink-0 mt-1"></div>
+              <div class="flex-1">
+                <h3 class="text-amber-pale font-heading text-xl font-bold uppercase">Wheatstone Wit</h3>
+                <p class="text-amber/50 font-heading text-xs uppercase tracking-wider mt-0.5">Belgian Witbier</p>
+                <p class="text-white/40 text-xs mt-2 font-body italic">Coriander and orange peel. Light, hazy, with spicy yeast character.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-amber text-xs font-heading font-bold">ABV 4.5%</span>
+                  <span class="text-white/30 text-xs font-heading">IBU 15</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <span class="text-white/30 text-xs font-body italic">Pairs with: Mussels, salads</span>
+              <div class="flex gap-3 font-heading">
+                <span class="text-amber-pale text-sm"><span class="text-white/30 text-xs">Half </span>$3</span>
+                <span class="text-amber-pale text-sm font-bold"><span class="text-white/30 text-xs">Pint </span>$6</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer 7 -->
+          <div class="bg-dark-light border border-white/5 rounded-xl p-4 hover:border-amber/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-16 rounded-full bg-amber-800 shrink-0 mt-1"></div>
+              <div class="flex-1">
+                <h3 class="text-amber-pale font-heading text-xl font-bold uppercase">Copperhead Red</h3>
+                <p class="text-amber/50 font-heading text-xs uppercase tracking-wider mt-0.5">Irish Red Ale</p>
+                <p class="text-white/40 text-xs mt-2 font-body italic">Caramel and toffee sweetness balanced with a touch of roast. Sessionable.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-amber text-xs font-heading font-bold">ABV 5.0%</span>
+                  <span class="text-white/30 text-xs font-heading">IBU 28</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <span class="text-white/30 text-xs font-body italic">Pairs with: Shepherd's pie, grilled sausage</span>
+              <div class="flex gap-3 font-heading">
+                <span class="text-amber-pale text-sm"><span class="text-white/30 text-xs">Half </span>$3</span>
+                <span class="text-amber-pale text-sm font-bold"><span class="text-white/30 text-xs">Pint </span>$6</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer 8 -->
+          <div class="bg-dark-light border border-white/5 rounded-xl p-4 hover:border-amber/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-16 rounded-full bg-stone-700 shrink-0 mt-1"></div>
+              <div class="flex-1">
+                <h3 class="text-amber-pale font-heading text-xl font-bold uppercase">Smokehouse Porter</h3>
+                <p class="text-amber/50 font-heading text-xs uppercase tracking-wider mt-0.5">Smoked Porter</p>
+                <p class="text-white/40 text-xs mt-2 font-body italic">Mesquite smoke, dark chocolate, and dried plum. Medium-bodied with dry finish.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-amber text-xs font-heading font-bold">ABV 5.8%</span>
+                  <span class="text-white/30 text-xs font-heading">IBU 35</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <span class="text-white/30 text-xs font-body italic">Pairs with: Smoked brisket, aged cheddar</span>
+              <div class="flex gap-3 font-heading">
+                <span class="text-amber-pale text-sm"><span class="text-white/30 text-xs">Half </span>$4</span>
+                <span class="text-amber-pale text-sm font-bold"><span class="text-white/30 text-xs">Pint </span>$7</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer 9 -->
+          <div class="bg-dark-light border border-white/5 rounded-xl p-4 hover:border-amber/20 transition">
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-16 rounded-full bg-yellow-300 shrink-0 mt-1"></div>
+              <div class="flex-1">
+                <h3 class="text-amber-pale font-heading text-xl font-bold uppercase">Summit Pilsner</h3>
+                <p class="text-amber/50 font-heading text-xs uppercase tracking-wider mt-0.5">Czech Pilsner</p>
+                <p class="text-white/40 text-xs mt-2 font-body italic">Floral Saaz hops, biscuity malt. Crisp, clean, with a lingering bitter snap.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-amber text-xs font-heading font-bold">ABV 5.1%</span>
+                  <span class="text-white/30 text-xs font-heading">IBU 38</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <span class="text-white/30 text-xs font-body italic">Pairs with: Bratwurst, soft pretzels</span>
+              <div class="flex gap-3 font-heading">
+                <span class="text-amber-pale text-sm"><span class="text-white/30 text-xs">Half </span>$3</span>
+                <span class="text-amber-pale text-sm font-bold"><span class="text-white/30 text-xs">Pint </span>$6</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer 10 -->
+          <div class="bg-dark-light border border-white/5 rounded-xl p-4 hover:border-amber/20 transition relative">
+            <div class="absolute top-2 right-2 bg-burgundy text-amber-pale px-2 py-0.5 rounded-full">
+              <span class="font-heading text-[10px] font-bold uppercase tracking-wider">Limited</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-4 h-16 rounded-full bg-pink-300 shrink-0 mt-1"></div>
+              <div class="flex-1">
+                <h3 class="text-amber-pale font-heading text-xl font-bold uppercase">Wild Cherry Gose</h3>
+                <p class="text-amber/50 font-heading text-xs uppercase tracking-wider mt-0.5">Fruited Gose / Sour</p>
+                <p class="text-white/40 text-xs mt-2 font-body italic">Wild cherries with sea salt and coriander. Tart, slightly salty, deeply refreshing.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-amber text-xs font-heading font-bold">ABV 4.0%</span>
+                  <span class="text-white/30 text-xs font-heading">IBU 5</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <span class="text-white/30 text-xs font-body italic">Pairs with: Ceviche, summer salads</span>
+              <div class="flex gap-3 font-heading">
+                <span class="text-amber-pale text-sm"><span class="text-white/30 text-xs">Half </span>$5</span>
+                <span class="text-amber-pale text-sm font-bold"><span class="text-white/30 text-xs">Pint </span>$8</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Food Pairings + Info -->
+      <div class="lg:col-span-1 flex flex-col gap-4 overflow-y-auto">
+
+        <!-- Featured Flight -->
+        <div class="bg-burgundy/30 border border-burgundy rounded-xl p-4">
+          <h3 class="font-heading text-lg font-bold text-amber-pale uppercase tracking-wider mb-2">Tasting Flight</h3>
+          <p class="text-white/40 text-xs font-body italic mb-3">Pick any 4 beers - 5oz each</p>
+          <p class="text-amber font-heading text-2xl font-bold">$12</p>
+        </div>
+
+        <!-- Food Menu -->
+        <div class="bg-dark-light border border-white/5 rounded-xl p-4 flex-1">
+          <h3 class="font-heading text-lg font-bold text-amber-pale uppercase tracking-wider mb-3">Kitchen Menu</h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-amber-pale text-sm font-heading font-semibold uppercase">Spent Grain Pretzel</p>
+                <p class="text-white/30 text-xs font-body italic">Beer cheese dip, stone ground mustard</p>
+              </div>
+              <span class="text-amber font-heading font-bold text-sm">$9</span>
+            </div>
+            <div class="border-t border-white/5"></div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-amber-pale text-sm font-heading font-semibold uppercase">Smoked Wings</p>
+                <p class="text-white/30 text-xs font-body italic">IPA buffalo or stout BBQ glaze (8 pcs)</p>
+              </div>
+              <span class="text-amber font-heading font-bold text-sm">$14</span>
+            </div>
+            <div class="border-t border-white/5"></div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-amber-pale text-sm font-heading font-semibold uppercase">Brewmaster Burger</p>
+                <p class="text-white/30 text-xs font-body italic">Porter onion jam, smoked gouda, brioche</p>
+              </div>
+              <span class="text-amber font-heading font-bold text-sm">$16</span>
+            </div>
+            <div class="border-t border-white/5"></div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-amber-pale text-sm font-heading font-semibold uppercase">Charcuterie Board</p>
+                <p class="text-white/30 text-xs font-body italic">Cured meats, aged cheeses, pickles</p>
+              </div>
+              <span class="text-amber font-heading font-bold text-sm">$22</span>
+            </div>
+            <div class="border-t border-white/5"></div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-amber-pale text-sm font-heading font-semibold uppercase">Fish and Chips</p>
+                <p class="text-white/30 text-xs font-body italic">Lager-battered cod, malt vinegar fries</p>
+              </div>
+              <span class="text-amber font-heading font-bold text-sm">$15</span>
+            </div>
+            <div class="border-t border-white/5"></div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-amber-pale text-sm font-heading font-semibold uppercase">Loaded Nachos</p>
+                <p class="text-white/30 text-xs font-body italic">Beer queso, pulled pork, jalapenos</p>
+              </div>
+              <span class="text-amber font-heading font-bold text-sm">$13</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Happy Hour Reminder -->
+        <div class="bg-amber/10 border border-amber/30 rounded-xl p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <h3 class="font-heading text-sm font-bold text-amber uppercase tracking-wider">Happy Hour Active</h3>
+          </div>
+          <p class="text-amber/60 text-xs font-body">$1 off all pints. $2 off tasting flights. Every day 4-6 PM.</p>
+        </div>
+
+        <!-- Taproom Info -->
+        <div class="bg-dark-light border border-white/5 rounded-xl p-4">
+          <h3 class="font-heading text-sm font-bold text-amber-pale uppercase tracking-wider mb-2">Taproom Hours</h3>
+          <div class="space-y-1 text-xs">
+            <div class="flex justify-between"><span class="text-white/30">Mon - Thu</span><span class="text-amber-pale">3 PM - 10 PM</span></div>
+            <div class="flex justify-between"><span class="text-white/30">Fri - Sat</span><span class="text-amber-pale">12 PM - 12 AM</span></div>
+            <div class="flex justify-between"><span class="text-white/30">Sunday</span><span class="text-amber-pale">12 PM - 8 PM</span></div>
+          </div>
+          <div class="mt-3 pt-3 border-t border-white/10 text-xs text-white/30">
+            <p>Ask about crowlers and growler fills to go!</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Health Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { manrope: ['Manrope', 'sans-serif'] },
+                    colors: {
+                        cyan: { 600: '#0891B2' },
+                        green: { 600: '#059669' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>body { font-family: 'Manrope', sans-serif; }</style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+    <!-- Top Nav -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+            <div class="flex items-center gap-3">
+                <svg class="w-8 h-8 text-[#0891B2]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4m0 0v4m0-4h4m-4 0H8"/></svg>
+                <span class="text-lg font-bold text-gray-900">MedVault</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+                <a href="#" class="text-[#0891B2] border-b-2 border-[#0891B2] pb-1">Dashboard</a>
+                <a href="#" class="hover:text-[#0891B2]">Appointments</a>
+                <a href="#" class="hover:text-[#0891B2]">Lab Results</a>
+                <a href="#" class="hover:text-[#0891B2]">Medications</a>
+                <a href="#" class="hover:text-[#0891B2]">Messages</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button class="relative p-2 rounded-full hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                </button>
+                <div class="w-9 h-9 rounded-full bg-[#0891B2] text-white flex items-center justify-center text-sm font-semibold">SR</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Welcome -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">Welcome back, Sarah</h1>
+            <p class="text-gray-500 mt-1">Here's your health overview for today, March 17, 2026</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white rounded-xl p-4 border border-gray-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-5 h-5 text-[#0891B2]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="text-xs font-medium text-gray-500 uppercase">Heart Rate</span>
+                </div>
+                <p class="text-2xl font-bold text-gray-900">72 <span class="text-sm font-normal text-gray-400">bpm</span></p>
+                <p class="text-xs text-[#059669] mt-1">Normal range</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 border border-gray-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-5 h-5 text-[#0891B2]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    <span class="text-xs font-medium text-gray-500 uppercase">Blood Pressure</span>
+                </div>
+                <p class="text-2xl font-bold text-gray-900">118/76 <span class="text-sm font-normal text-gray-400">mmHg</span></p>
+                <p class="text-xs text-[#059669] mt-1">Optimal</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 border border-gray-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-5 h-5 text-[#0891B2]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v6m0 0v6m0-6h6m-6 0H6"/><circle cx="12" cy="12" r="10"/></svg>
+                    <span class="text-xs font-medium text-gray-500 uppercase">Weight</span>
+                </div>
+                <p class="text-2xl font-bold text-gray-900">142 <span class="text-sm font-normal text-gray-400">lbs</span></p>
+                <p class="text-xs text-gray-400 mt-1">-2 lbs this month</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 border border-gray-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-5 h-5 text-[#0891B2]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    <span class="text-xs font-medium text-gray-500 uppercase">Next Appt</span>
+                </div>
+                <p class="text-2xl font-bold text-gray-900">Mar 21</p>
+                <p class="text-xs text-gray-400 mt-1">Dr. Patel, 10:30 AM</p>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+            <!-- Left Column -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Upcoming Appointments -->
+                <div class="bg-white rounded-xl border border-gray-200">
+                    <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+                        <h2 class="text-base font-bold text-gray-900">Upcoming Appointments</h2>
+                        <button class="text-sm text-[#0891B2] font-semibold hover:underline">Book New</button>
+                    </div>
+                    <div class="divide-y divide-gray-100">
+                        <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                            <div class="w-12 h-12 rounded-lg bg-cyan-50 text-[#0891B2] flex flex-col items-center justify-center text-xs font-bold">
+                                <span class="text-lg leading-none">21</span><span class="font-normal">Mar</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm text-gray-900">Annual Physical Exam</p>
+                                <p class="text-xs text-gray-500">Dr. Anita Patel &middot; Internal Medicine</p>
+                            </div>
+                            <span class="text-xs bg-cyan-50 text-[#0891B2] px-2 py-1 rounded-full font-medium">10:30 AM</span>
+                        </div>
+                        <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                            <div class="w-12 h-12 rounded-lg bg-cyan-50 text-[#0891B2] flex flex-col items-center justify-center text-xs font-bold">
+                                <span class="text-lg leading-none">28</span><span class="font-normal">Mar</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm text-gray-900">Dental Cleaning</p>
+                                <p class="text-xs text-gray-500">Dr. James Whitfield &middot; Dentistry</p>
+                            </div>
+                            <span class="text-xs bg-cyan-50 text-[#0891B2] px-2 py-1 rounded-full font-medium">2:00 PM</span>
+                        </div>
+                        <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                            <div class="w-12 h-12 rounded-lg bg-cyan-50 text-[#0891B2] flex flex-col items-center justify-center text-xs font-bold">
+                                <span class="text-lg leading-none">04</span><span class="font-normal">Apr</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm text-gray-900">Eye Exam</p>
+                                <p class="text-xs text-gray-500">Dr. Lisa Chen &middot; Ophthalmology</p>
+                            </div>
+                            <span class="text-xs bg-cyan-50 text-[#0891B2] px-2 py-1 rounded-full font-medium">11:15 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Lab Results -->
+                <div class="bg-white rounded-xl border border-gray-200">
+                    <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+                        <h2 class="text-base font-bold text-gray-900">Recent Lab Results</h2>
+                        <span class="text-xs text-gray-400">Collected Mar 10, 2026</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50 text-gray-500 text-xs uppercase">
+                                <tr>
+                                    <th class="px-5 py-3 text-left font-medium">Test</th>
+                                    <th class="px-5 py-3 text-left font-medium">Result</th>
+                                    <th class="px-5 py-3 text-left font-medium">Normal Range</th>
+                                    <th class="px-5 py-3 text-left font-medium">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-5 py-3 font-medium text-gray-900">Hemoglobin A1C</td>
+                                    <td class="px-5 py-3">5.4%</td>
+                                    <td class="px-5 py-3 text-gray-500">4.0 - 5.6%</td>
+                                    <td class="px-5 py-3"><span class="inline-flex items-center gap-1 text-[#059669] text-xs font-semibold"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Normal</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-5 py-3 font-medium text-gray-900">Total Cholesterol</td>
+                                    <td class="px-5 py-3">210 mg/dL</td>
+                                    <td class="px-5 py-3 text-gray-500">&lt;200 mg/dL</td>
+                                    <td class="px-5 py-3"><span class="inline-flex items-center gap-1 text-amber-600 text-xs font-semibold"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01"/></svg>Borderline</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-5 py-3 font-medium text-gray-900">TSH</td>
+                                    <td class="px-5 py-3">2.1 mIU/L</td>
+                                    <td class="px-5 py-3 text-gray-500">0.4 - 4.0 mIU/L</td>
+                                    <td class="px-5 py-3"><span class="inline-flex items-center gap-1 text-[#059669] text-xs font-semibold"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Normal</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-5 py-3 font-medium text-gray-900">Vitamin D</td>
+                                    <td class="px-5 py-3">22 ng/mL</td>
+                                    <td class="px-5 py-3 text-gray-500">30 - 100 ng/mL</td>
+                                    <td class="px-5 py-3"><span class="inline-flex items-center gap-1 text-red-500 text-xs font-semibold"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>Low</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-5 py-3 font-medium text-gray-900">CBC - WBC</td>
+                                    <td class="px-5 py-3">6.8 K/uL</td>
+                                    <td class="px-5 py-3 text-gray-500">4.5 - 11.0 K/uL</td>
+                                    <td class="px-5 py-3"><span class="inline-flex items-center gap-1 text-[#059669] text-xs font-semibold"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Normal</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-5 py-3 font-medium text-gray-900">Fasting Glucose</td>
+                                    <td class="px-5 py-3">92 mg/dL</td>
+                                    <td class="px-5 py-3 text-gray-500">70 - 100 mg/dL</td>
+                                    <td class="px-5 py-3"><span class="inline-flex items-center gap-1 text-[#059669] text-xs font-semibold"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Normal</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Vitals History -->
+                <div class="bg-white rounded-xl border border-gray-200">
+                    <div class="p-5 border-b border-gray-100">
+                        <h2 class="text-base font-bold text-gray-900">Vitals History (Last 6 Months)</h2>
+                    </div>
+                    <div class="p-5">
+                        <div class="grid sm:grid-cols-3 gap-4">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <p class="text-xs text-gray-500 mb-3 font-medium uppercase">Blood Pressure</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between"><span class="text-gray-500">Mar 10</span><span class="font-medium">118/76</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Feb 05</span><span class="font-medium">122/80</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Jan 08</span><span class="font-medium">120/78</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Dec 11</span><span class="font-medium">125/82</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Nov 14</span><span class="font-medium">119/77</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Oct 09</span><span class="font-medium">121/79</span></div>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <p class="text-xs text-gray-500 mb-3 font-medium uppercase">Heart Rate (bpm)</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between"><span class="text-gray-500">Mar 10</span><span class="font-medium">72</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Feb 05</span><span class="font-medium">75</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Jan 08</span><span class="font-medium">70</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Dec 11</span><span class="font-medium">78</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Nov 14</span><span class="font-medium">74</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Oct 09</span><span class="font-medium">71</span></div>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <p class="text-xs text-gray-500 mb-3 font-medium uppercase">Weight (lbs)</p>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between"><span class="text-gray-500">Mar 10</span><span class="font-medium">142</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Feb 05</span><span class="font-medium">144</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Jan 08</span><span class="font-medium">146</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Dec 11</span><span class="font-medium">148</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Nov 14</span><span class="font-medium">147</span></div>
+                                    <div class="flex justify-between"><span class="text-gray-500">Oct 09</span><span class="font-medium">149</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="space-y-6">
+                <!-- Medication Schedule -->
+                <div class="bg-white rounded-xl border border-gray-200">
+                    <div class="p-5 border-b border-gray-100">
+                        <h2 class="text-base font-bold text-gray-900">Medication Schedule</h2>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <div class="flex items-start gap-3 p-3 bg-cyan-50 rounded-lg">
+                            <div class="w-8 h-8 rounded-full bg-[#0891B2] text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Levothyroxine 50mcg</p>
+                                <p class="text-xs text-gray-500">Morning, empty stomach</p>
+                                <p class="text-xs text-[#0891B2] font-medium mt-1">Next dose: 7:00 AM tomorrow</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+                            <div class="w-8 h-8 rounded-full bg-[#059669] text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Vitamin D3 2000 IU</p>
+                                <p class="text-xs text-gray-500">Daily with food</p>
+                                <p class="text-xs text-[#059669] font-medium mt-1">Taken today</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-8 h-8 rounded-full bg-gray-400 text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Atorvastatin 10mg</p>
+                                <p class="text-xs text-gray-500">Evening, with dinner</p>
+                                <p class="text-xs text-gray-400 font-medium mt-1">Due at 6:00 PM</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-8 h-8 rounded-full bg-gray-400 text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Magnesium 400mg</p>
+                                <p class="text-xs text-gray-500">Bedtime</p>
+                                <p class="text-xs text-gray-400 font-medium mt-1">Due at 10:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secure Messages -->
+                <div class="bg-white rounded-xl border border-gray-200">
+                    <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+                        <h2 class="text-base font-bold text-gray-900">Messages</h2>
+                        <span class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-semibold">2 new</span>
+                    </div>
+                    <div class="divide-y divide-gray-100">
+                        <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="w-2 h-2 rounded-full bg-[#0891B2]"></div>
+                                <span class="text-sm font-semibold text-gray-900">Dr. Patel</span>
+                                <span class="text-xs text-gray-400 ml-auto">2h ago</span>
+                            </div>
+                            <p class="text-xs text-gray-600 pl-4">Your lab results look good overall. I'd like to discuss your Vitamin D levels at our next...</p>
+                        </div>
+                        <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="w-2 h-2 rounded-full bg-[#0891B2]"></div>
+                                <span class="text-sm font-semibold text-gray-900">Nurse Johnson</span>
+                                <span class="text-xs text-gray-400 ml-auto">1d ago</span>
+                            </div>
+                            <p class="text-xs text-gray-600 pl-4">Reminder: Please fast for 12 hours before your upcoming blood work on March 21...</p>
+                        </div>
+                        <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-sm font-semibold text-gray-900 pl-4">Dr. Whitfield</span>
+                                <span class="text-xs text-gray-400 ml-auto">5d ago</span>
+                            </div>
+                            <p class="text-xs text-gray-600 pl-4">Your dental X-rays from last visit are now available in your records. Everything looks...</p>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-gray-100">
+                        <button class="w-full text-center text-sm text-[#0891B2] font-semibold hover:underline">View All Messages</button>
+                    </div>
+                </div>
+
+                <!-- Health Goals -->
+                <div class="bg-white rounded-xl border border-gray-200">
+                    <div class="p-5 border-b border-gray-100">
+                        <h2 class="text-base font-bold text-gray-900">Health Goals</h2>
+                    </div>
+                    <div class="p-4 space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1.5">
+                                <span class="font-medium text-gray-700">Weight Loss Target</span>
+                                <span class="text-gray-500">142 / 135 lbs</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-[#0891B2] rounded-full" style="width: 50%"></div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1">7 lbs to go</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1.5">
+                                <span class="font-medium text-gray-700">Daily Steps</span>
+                                <span class="text-gray-500">7,240 / 10,000</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-[#059669] rounded-full" style="width: 72%"></div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1">72% of daily goal</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1.5">
+                                <span class="font-medium text-gray-700">Water Intake</span>
+                                <span class="text-gray-500">5 / 8 glasses</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-[#0891B2] rounded-full" style="width: 62%"></div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1">3 more glasses today</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1.5">
+                                <span class="font-medium text-gray-700">Cholesterol Reduction</span>
+                                <span class="text-gray-500">210 / &lt;200 mg/dL</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-amber-400 rounded-full" style="width: 85%"></div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1">Almost there - keep it up!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

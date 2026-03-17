@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Control Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                    colors: {
+                        slate: { 900: '#1E293B', 800: '#1E293B', 700: '#334155', 600: '#475569' },
+                        active: '#22C55E',
+                        accent: '#3B82F6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0F172A; color: #E2E8F0; }
+        .toggle-track { transition: background-color 0.2s; }
+        .toggle-thumb { transition: transform 0.2s; }
+        .toggle-on .toggle-track { background-color: #22C55E; }
+        .toggle-on .toggle-thumb { transform: translateX(20px); }
+        .dimmer-fill { transition: width 0.3s; }
+        .glow-green { box-shadow: 0 0 20px rgba(34, 197, 94, 0.15); }
+        .glow-blue { box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Top Bar -->
+    <header class="bg-[#1E293B] border-b border-slate-700 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <svg class="w-8 h-8 text-[#22C55E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="text-xl font-semibold">HomeLink</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-sm text-slate-400">Tuesday, Mar 17 &middot; 7:42 PM</span>
+            <div class="flex items-center gap-2 text-sm">
+                <svg class="w-4 h-4 text-[#22C55E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+                <span class="text-slate-400">Connected</span>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-[#3B82F6] flex items-center justify-center text-sm font-medium">M</div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-[#1E293B] min-h-[calc(100vh-64px)] p-4 hidden lg:block border-r border-slate-700">
+            <nav class="space-y-1">
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-slate-700/50 text-white text-sm font-medium">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/30 text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    Devices
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/30 text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m17.36-5.64l-4.24 4.24M6.88 17.12l-4.24 4.24m0-12.72l4.24 4.24m10.24 4.24l4.24 4.24"/></svg>
+                    Automations
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/30 text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    Energy
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/30 text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    Schedules
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/30 text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Settings
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 overflow-auto">
+            <!-- Room Tabs -->
+            <div class="flex gap-2 mb-6 overflow-x-auto pb-2">
+                <button class="px-4 py-2 rounded-lg bg-[#3B82F6] text-white text-sm font-medium whitespace-nowrap">Living Room</button>
+                <button class="px-4 py-2 rounded-lg bg-slate-700 text-slate-300 text-sm font-medium whitespace-nowrap hover:bg-slate-600">Bedroom</button>
+                <button class="px-4 py-2 rounded-lg bg-slate-700 text-slate-300 text-sm font-medium whitespace-nowrap hover:bg-slate-600">Kitchen</button>
+                <button class="px-4 py-2 rounded-lg bg-slate-700 text-slate-300 text-sm font-medium whitespace-nowrap hover:bg-slate-600">Office</button>
+            </div>
+
+            <!-- Scene Presets -->
+            <div class="mb-6">
+                <h2 class="text-sm font-medium text-slate-400 uppercase tracking-wider mb-3">Scene Presets</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <button class="bg-[#1E293B] border border-slate-700 rounded-xl p-4 flex items-center gap-3 hover:border-[#3B82F6] transition glow-blue">
+                        <div class="w-10 h-10 rounded-lg bg-[#3B82F6]/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-[#3B82F6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-sm font-medium text-white">Movie Night</p>
+                            <p class="text-xs text-slate-400">Dim lights, close blinds</p>
+                        </div>
+                    </button>
+                    <button class="bg-[#1E293B] border border-[#22C55E] rounded-xl p-4 flex items-center gap-3 glow-green">
+                        <div class="w-10 h-10 rounded-lg bg-[#22C55E]/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-[#22C55E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-sm font-medium text-white">Good Morning</p>
+                            <p class="text-xs text-[#22C55E]">Active</p>
+                        </div>
+                    </button>
+                    <button class="bg-[#1E293B] border border-slate-700 rounded-xl p-4 flex items-center gap-3 hover:border-slate-500 transition">
+                        <div class="w-10 h-10 rounded-lg bg-slate-600/30 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14l5-5-5-5m5 5H9"/></svg>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-sm font-medium text-white">Away</p>
+                            <p class="text-xs text-slate-400">Lock all, arm security</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Device Cards -->
+            <div class="mb-6">
+                <h2 class="text-sm font-medium text-slate-400 uppercase tracking-wider mb-3">Devices</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    <!-- Ceiling Light -->
+                    <div class="bg-[#1E293B] rounded-xl p-5 border border-slate-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-[#22C55E]/20 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-[#22C55E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18h6m-5 4h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium">Ceiling Light</p>
+                                    <p class="text-xs text-[#22C55E]">On &middot; 72%</p>
+                                </div>
+                            </div>
+                            <div class="toggle-on cursor-pointer">
+                                <div class="toggle-track w-11 h-6 rounded-full bg-[#22C55E] relative">
+                                    <div class="toggle-thumb w-5 h-5 rounded-full bg-white absolute top-0.5 left-0.5" style="transform:translateX(20px)"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span>Brightness</span>
+                                <span>72%</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="dimmer-fill h-full bg-[#22C55E] rounded-full" style="width:72%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floor Lamp -->
+                    <div class="bg-[#1E293B] rounded-xl p-5 border border-slate-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-slate-600/30 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18h6m-5 4h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium">Floor Lamp</p>
+                                    <p class="text-xs text-slate-500">Off</p>
+                                </div>
+                            </div>
+                            <div class="cursor-pointer">
+                                <div class="toggle-track w-11 h-6 rounded-full bg-slate-600 relative">
+                                    <div class="toggle-thumb w-5 h-5 rounded-full bg-white absolute top-0.5 left-0.5"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span>Brightness</span>
+                                <span>0%</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="dimmer-fill h-full bg-slate-500 rounded-full" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thermostat -->
+                    <div class="bg-[#1E293B] rounded-xl p-5 border border-slate-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-[#3B82F6]/20 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-[#3B82F6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium">Thermostat</p>
+                                    <p class="text-xs text-[#3B82F6]">Cooling</p>
+                                </div>
+                            </div>
+                            <div class="toggle-on cursor-pointer">
+                                <div class="toggle-track w-11 h-6 rounded-full bg-[#22C55E] relative">
+                                    <div class="toggle-thumb w-5 h-5 rounded-full bg-white absolute top-0.5 left-0.5" style="transform:translateX(20px)"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center gap-6 py-2">
+                            <button class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-slate-300 hover:bg-slate-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+                            </button>
+                            <div class="text-center">
+                                <span class="text-3xl font-light">72</span>
+                                <span class="text-lg text-slate-400">&deg;F</span>
+                            </div>
+                            <button class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-slate-300 hover:bg-slate-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14m-7-7h14"/></svg>
+                            </button>
+                        </div>
+                        <p class="text-xs text-center text-slate-500">Current: 74&deg;F &middot; Humidity: 45%</p>
+                    </div>
+
+                    <!-- Smart Lock -->
+                    <div class="bg-[#1E293B] rounded-xl p-5 border border-slate-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-[#22C55E]/20 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-[#22C55E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium">Front Door Lock</p>
+                                    <p class="text-xs text-[#22C55E]">Locked</p>
+                                </div>
+                            </div>
+                            <div class="toggle-on cursor-pointer">
+                                <div class="toggle-track w-11 h-6 rounded-full bg-[#22C55E] relative">
+                                    <div class="toggle-thumb w-5 h-5 rounded-full bg-white absolute top-0.5 left-0.5" style="transform:translateX(20px)"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-400">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            <span>Last unlocked: Today, 6:12 PM by Marcus</span>
+                        </div>
+                    </div>
+
+                    <!-- Security Camera -->
+                    <div class="bg-[#1E293B] rounded-xl p-5 border border-slate-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-[#22C55E]/20 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-[#22C55E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium">Security Camera</p>
+                                    <p class="text-xs text-[#22C55E]">Recording</p>
+                                </div>
+                            </div>
+                            <div class="toggle-on cursor-pointer">
+                                <div class="toggle-track w-11 h-6 rounded-full bg-[#22C55E] relative">
+                                    <div class="toggle-thumb w-5 h-5 rounded-full bg-white absolute top-0.5 left-0.5" style="transform:translateX(20px)"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800 rounded-lg h-24 flex items-center justify-center mb-2">
+                            <div class="flex items-center gap-2 text-xs text-slate-500">
+                                <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                                <span>Live Feed &middot; Front Porch</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500">Motion detected 12 min ago</p>
+                    </div>
+
+                    <!-- Speakers -->
+                    <div class="bg-[#1E293B] rounded-xl p-5 border border-slate-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-[#3B82F6]/20 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-[#3B82F6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium">Living Room Speaker</p>
+                                    <p class="text-xs text-[#3B82F6]">Playing</p>
+                                </div>
+                            </div>
+                            <div class="toggle-on cursor-pointer">
+                                <div class="toggle-track w-11 h-6 rounded-full bg-[#22C55E] relative">
+                                    <div class="toggle-thumb w-5 h-5 rounded-full bg-white absolute top-0.5 left-0.5" style="transform:translateX(20px)"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800 rounded-lg p-3">
+                            <p class="text-xs text-slate-300 font-medium truncate">Clair de Lune - Debussy</p>
+                            <p class="text-xs text-slate-500 truncate">Classical Essentials</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-[10px] text-slate-500">1:24</span>
+                                <div class="flex-1 h-1 bg-slate-700 rounded-full overflow-hidden">
+                                    <div class="h-full bg-[#3B82F6] rounded-full" style="width:35%"></div>
+                                </div>
+                                <span class="text-[10px] text-slate-500">4:02</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Energy Usage & Device Status -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- Energy Usage -->
+                <div class="bg-[#1E293B] rounded-xl p-5 border border-slate-700">
+                    <h3 class="text-sm font-medium text-slate-400 uppercase tracking-wider mb-4">Energy Usage Today</h3>
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <div class="text-center">
+                            <p class="text-2xl font-semibold text-white">18.4</p>
+                            <p class="text-xs text-slate-400">kWh Used</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-2xl font-semibold text-[#22C55E]">$2.76</p>
+                            <p class="text-xs text-slate-400">Cost Today</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-2xl font-semibold text-[#3B82F6]">-12%</p>
+                            <p class="text-xs text-slate-400">vs Yesterday</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-slate-400">HVAC</span>
+                                <span class="text-slate-300">8.2 kWh</span>
+                            </div>
+                            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-[#3B82F6] rounded-full" style="width:45%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-slate-400">Lighting</span>
+                                <span class="text-slate-300">4.1 kWh</span>
+                            </div>
+                            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-[#22C55E] rounded-full" style="width:22%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-slate-400">Appliances</span>
+                                <span class="text-slate-300">3.8 kWh</span>
+                            </div>
+                            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-amber-500 rounded-full" style="width:20%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-slate-400">Electronics</span>
+                                <span class="text-slate-300">2.3 kWh</span>
+                            </div>
+                            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-slate-400 rounded-full" style="width:13%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Device Status Grid -->
+                <div class="bg-[#1E293B] rounded-xl p-5 border border-slate-700">
+                    <h3 class="text-sm font-medium text-slate-400 uppercase tracking-wider mb-4">Device Status</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-[#22C55E]"></div>
+                            <div>
+                                <p class="text-xs font-medium">Living Room Light</p>
+                                <p class="text-[10px] text-slate-500">Online &middot; 72%</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-[#22C55E]"></div>
+                            <div>
+                                <p class="text-xs font-medium">Thermostat</p>
+                                <p class="text-[10px] text-slate-500">Online &middot; 72&deg;F</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-[#22C55E]"></div>
+                            <div>
+                                <p class="text-xs font-medium">Front Door Lock</p>
+                                <p class="text-[10px] text-slate-500">Online &middot; Locked</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-[#22C55E]"></div>
+                            <div>
+                                <p class="text-xs font-medium">Security Camera</p>
+                                <p class="text-[10px] text-slate-500">Online &middot; Recording</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-slate-500"></div>
+                            <div>
+                                <p class="text-xs font-medium">Floor Lamp</p>
+                                <p class="text-[10px] text-slate-500">Online &middot; Off</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-[#3B82F6]"></div>
+                            <div>
+                                <p class="text-xs font-medium">Speaker</p>
+                                <p class="text-[10px] text-slate-500">Online &middot; Playing</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-[#22C55E]"></div>
+                            <div>
+                                <p class="text-xs font-medium">Garage Door</p>
+                                <p class="text-[10px] text-slate-500">Online &middot; Closed</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 rounded-lg p-3 flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                            <div>
+                                <p class="text-xs font-medium">Backyard Sensor</p>
+                                <p class="text-[10px] text-red-400">Offline &middot; Battery Low</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Automation Rules -->
+            <div class="bg-[#1E293B] rounded-xl p-5 border border-slate-700">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-medium text-slate-400 uppercase tracking-wider">Automation Rules</h3>
+                    <button class="text-xs text-[#3B82F6] hover:text-blue-400 font-medium">+ Add Rule</button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between bg-slate-800/50 rounded-lg p-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-[#22C55E]/20 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-[#22C55E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">Sunrise Wake Up</p>
+                                <p class="text-xs text-slate-500">At 6:30 AM: Gradually increase bedroom lights to 60%</p>
+                            </div>
+                        </div>
+                        <div class="toggle-on cursor-pointer">
+                            <div class="toggle-track w-9 h-5 rounded-full bg-[#22C55E] relative">
+                                <div class="toggle-thumb w-4 h-4 rounded-full bg-white absolute top-0.5 left-0.5" style="transform:translateX(16px)"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-800/50 rounded-lg p-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-[#3B82F6]/20 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-[#3B82F6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14l5-5-5-5m5 5H9"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">Away Mode</p>
+                                <p class="text-xs text-slate-500">When no motion for 30 min: Lock doors, arm cameras, set thermostat to 65&deg;F</p>
+                            </div>
+                        </div>
+                        <div class="toggle-on cursor-pointer">
+                            <div class="toggle-track w-9 h-5 rounded-full bg-[#22C55E] relative">
+                                <div class="toggle-thumb w-4 h-4 rounded-full bg-white absolute top-0.5 left-0.5" style="transform:translateX(16px)"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-800/50 rounded-lg p-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-amber-500/20 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.36 6.64A9 9 0 0 1 20.77 15M2 12a10 10 0 0 0 18.36 5.64"/><circle cx="12" cy="12" r="1"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">Night Mode</p>
+                                <p class="text-xs text-slate-500">At 11:00 PM: Turn off all lights, lock doors, lower thermostat to 68&deg;F</p>
+                            </div>
+                        </div>
+                        <div class="cursor-pointer">
+                            <div class="toggle-track w-9 h-5 rounded-full bg-slate-600 relative">
+                                <div class="toggle-thumb w-4 h-4 rounded-full bg-white absolute top-0.5 left-0.5"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-800/50 rounded-lg p-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-red-500/20 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">Water Leak Alert</p>
+                                <p class="text-xs text-slate-500">If water sensor triggered: Send notification, shut off main valve</p>
+                            </div>
+                        </div>
+                        <div class="toggle-on cursor-pointer">
+                            <div class="toggle-track w-9 h-5 rounded-full bg-[#22C55E] relative">
+                                <div class="toggle-thumb w-4 h-4 rounded-full bg-white absolute top-0.5 left-0.5" style="transform:translateX(16px)"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

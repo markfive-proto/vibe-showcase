@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running & Jogging Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Barlow', sans-serif; }
+        .phone-frame { width: 375px; height: 812px; }
+        .scrollable { scrollbar-width: none; -ms-overflow-style: none; }
+        .scrollable::-webkit-scrollbar { display: none; }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+        }
+        .pulse-dot { animation: pulse-glow 2s infinite; }
+        .route-line {
+            background: linear-gradient(90deg, #22c55e 0%, #f97316 100%);
+            height: 3px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-950 flex items-center justify-center p-4">
+    <div class="phone-frame bg-[#111827] rounded-[2.5rem] shadow-2xl overflow-hidden relative border-[6px] border-gray-700 flex flex-col">
+        <!-- Status Bar -->
+        <div class="flex items-center justify-between px-6 pt-3 pb-1 bg-[#111827]">
+            <span class="text-sm font-semibold text-white">9:41</span>
+            <div class="w-28 h-6 bg-black rounded-full mx-auto"></div>
+            <div class="flex items-center gap-1.5">
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="5" width="3" height="7" rx="0.5" fill="white"/><rect x="4.5" y="3" width="3" height="9" rx="0.5" fill="white"/><rect x="9" y="1" width="3" height="11" rx="0.5" fill="white"/><rect x="13" y="0" width="3" height="12" rx="0.5" fill="white" opacity="0.3"/></svg>
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 3C10.7 3 13.1 4.2 14.7 6.1L16 4.7C14 2.4 11.2 1 8 1S2 2.4 0 4.7L1.3 6.1C2.9 4.2 5.3 3 8 3z" fill="white"/><path d="M8 7C9.6 7 11 7.7 12 8.8L13.3 7.4C11.9 5.9 10 5 8 5S4.1 5.9 2.7 7.4L4 8.8C5 7.7 6.4 7 8 7z" fill="white"/><circle cx="8" cy="11" r="1.5" fill="white"/></svg>
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0" y="1" width="21" height="10" rx="2" stroke="white" stroke-width="1.2"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="white"/><rect x="22" y="4" width="2" height="4" rx="0.5" fill="white"/></svg>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto scrollable px-4 pb-24">
+            <!-- Active Run Header -->
+            <div class="flex items-center justify-between mt-2 mb-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-2.5 h-2.5 bg-green-500 rounded-full pulse-dot"></div>
+                    <span class="text-xs font-semibold text-green-400 uppercase tracking-wider">Active Run</span>
+                </div>
+                <span class="text-xs text-gray-500">Afternoon Run</span>
+            </div>
+
+            <!-- Main Stats Display -->
+            <div class="bg-gray-800/50 rounded-3xl p-5 mb-4 border border-gray-700/50">
+                <!-- Distance - Hero -->
+                <div class="text-center mb-4">
+                    <div class="text-6xl font-black text-white tracking-tight">5.2</div>
+                    <div class="text-sm text-gray-400 font-medium -mt-1">kilometers</div>
+                </div>
+                <!-- Timer -->
+                <div class="text-center mb-5">
+                    <div class="text-3xl font-bold text-green-400 tracking-widest font-mono">00:28:14</div>
+                </div>
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="bg-gray-900/60 rounded-2xl p-3 text-center">
+                        <div class="text-lg font-bold text-white">5:26</div>
+                        <div class="text-[10px] text-gray-500 font-medium">/km pace</div>
+                    </div>
+                    <div class="bg-gray-900/60 rounded-2xl p-3 text-center">
+                        <div class="text-lg font-bold text-orange-400">342</div>
+                        <div class="text-[10px] text-gray-500 font-medium">calories</div>
+                    </div>
+                    <div class="bg-gray-900/60 rounded-2xl p-3 text-center">
+                        <div class="text-lg font-bold text-red-400">156</div>
+                        <div class="text-[10px] text-gray-500 font-medium">bpm</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Area -->
+            <div class="bg-gray-800/50 rounded-3xl p-4 mb-4 border border-gray-700/50">
+                <div class="relative h-32 bg-gray-900 rounded-2xl overflow-hidden">
+                    <!-- Simulated map grid -->
+                    <div class="absolute inset-0 opacity-10">
+                        <div class="grid grid-cols-8 grid-rows-6 h-full">
+                            <div class="border border-gray-600" style="grid-column: span 1; grid-row: span 1;"></div>
+                            <div class="border border-gray-600" style="grid-column: span 1; grid-row: span 1;"></div>
+                            <div class="border border-gray-600" style="grid-column: span 1; grid-row: span 1;"></div>
+                            <div class="border border-gray-600" style="grid-column: span 1; grid-row: span 1;"></div>
+                            <div class="border border-gray-600" style="grid-column: span 1; grid-row: span 1;"></div>
+                            <div class="border border-gray-600" style="grid-column: span 1; grid-row: span 1;"></div>
+                            <div class="border border-gray-600" style="grid-column: span 1; grid-row: span 1;"></div>
+                            <div class="border border-gray-600" style="grid-column: span 1; grid-row: span 1;"></div>
+                        </div>
+                    </div>
+                    <!-- Route SVG -->
+                    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 300 120">
+                        <path d="M30 90 Q60 85 80 60 Q100 35 130 40 Q160 45 180 30 Q200 15 220 25 Q240 35 260 50 Q270 58 275 65" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="30" cy="90" r="5" fill="#22c55e" opacity="0.5"/>
+                        <circle cx="30" cy="90" r="3" fill="#22c55e"/>
+                        <circle cx="275" cy="65" r="6" fill="#f97316" opacity="0.5"/>
+                        <circle cx="275" cy="65" r="3" fill="#f97316"/>
+                        <!-- KM markers -->
+                        <circle cx="80" cy="60" r="2" fill="#4ade80"/>
+                        <text x="80" y="55" fill="#4ade80" font-size="8" text-anchor="middle">1</text>
+                        <circle cx="130" cy="40" r="2" fill="#4ade80"/>
+                        <text x="130" y="35" fill="#4ade80" font-size="8" text-anchor="middle">2</text>
+                        <circle cx="180" cy="30" r="2" fill="#4ade80"/>
+                        <text x="180" y="25" fill="#4ade80" font-size="8" text-anchor="middle">3</text>
+                        <circle cx="220" cy="25" r="2" fill="#4ade80"/>
+                        <text x="220" y="20" fill="#4ade80" font-size="8" text-anchor="middle">4</text>
+                        <circle cx="260" cy="50" r="2" fill="#4ade80"/>
+                        <text x="260" y="45" fill="#4ade80" font-size="8" text-anchor="middle">5</text>
+                    </svg>
+                    <!-- Labels -->
+                    <div class="absolute bottom-2 left-2 bg-black/60 rounded-lg px-2 py-1">
+                        <span class="text-[9px] text-green-400 font-semibold">Riverside Park Loop</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Split Times -->
+            <div class="bg-gray-800/50 rounded-3xl p-4 mb-4 border border-gray-700/50">
+                <h3 class="text-sm font-semibold text-white mb-3">Split Times</h3>
+                <div class="space-y-1.5">
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-700/30">
+                        <span class="text-xs text-gray-400 w-10">KM 1</span>
+                        <div class="flex-1 mx-3">
+                            <div class="h-1.5 bg-gray-700 rounded-full"><div class="h-1.5 bg-green-500 rounded-full" style="width: 85%"></div></div>
+                        </div>
+                        <span class="text-xs font-semibold text-green-400 w-14 text-right">5:12 /km</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-700/30">
+                        <span class="text-xs text-gray-400 w-10">KM 2</span>
+                        <div class="flex-1 mx-3">
+                            <div class="h-1.5 bg-gray-700 rounded-full"><div class="h-1.5 bg-green-500 rounded-full" style="width: 80%"></div></div>
+                        </div>
+                        <span class="text-xs font-semibold text-green-400 w-14 text-right">5:18 /km</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-700/30">
+                        <span class="text-xs text-gray-400 w-10">KM 3</span>
+                        <div class="flex-1 mx-3">
+                            <div class="h-1.5 bg-gray-700 rounded-full"><div class="h-1.5 bg-green-400 rounded-full" style="width: 90%"></div></div>
+                        </div>
+                        <span class="text-xs font-semibold text-green-300 w-14 text-right">5:05 /km</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-700/30">
+                        <span class="text-xs text-gray-400 w-10">KM 4</span>
+                        <div class="flex-1 mx-3">
+                            <div class="h-1.5 bg-gray-700 rounded-full"><div class="h-1.5 bg-orange-500 rounded-full" style="width: 65%"></div></div>
+                        </div>
+                        <span class="text-xs font-semibold text-orange-400 w-14 text-right">5:42 /km</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1.5">
+                        <span class="text-xs text-gray-400 w-10">KM 5</span>
+                        <div class="flex-1 mx-3">
+                            <div class="h-1.5 bg-gray-700 rounded-full"><div class="h-1.5 bg-orange-400 rounded-full" style="width: 70%"></div></div>
+                        </div>
+                        <span class="text-xs font-semibold text-orange-400 w-14 text-right">5:35 /km</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly & Monthly Goals -->
+            <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="bg-gray-800/50 rounded-2xl p-4 border border-gray-700/50">
+                    <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">This Week</div>
+                    <div class="text-xl font-bold text-white">23.4<span class="text-sm text-gray-500 font-medium"> km</span></div>
+                    <div class="flex items-end gap-0.5 h-10 mt-2">
+                        <div class="flex-1 bg-green-500 rounded-t-sm" style="height: 60%"></div>
+                        <div class="flex-1 bg-green-500 rounded-t-sm" style="height: 80%"></div>
+                        <div class="flex-1 bg-green-400 rounded-t-sm" style="height: 40%"></div>
+                        <div class="flex-1 bg-green-500 rounded-t-sm" style="height: 90%"></div>
+                        <div class="flex-1 bg-gray-700 rounded-t-sm" style="height: 20%"></div>
+                        <div class="flex-1 bg-gray-700 rounded-t-sm" style="height: 10%"></div>
+                        <div class="flex-1 bg-gray-700 rounded-t-sm" style="height: 10%"></div>
+                    </div>
+                </div>
+                <div class="bg-gray-800/50 rounded-2xl p-4 border border-gray-700/50">
+                    <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Monthly Goal</div>
+                    <div class="text-xl font-bold text-white">42<span class="text-sm text-gray-500 font-medium"> / 50 km</span></div>
+                    <div class="mt-2">
+                        <div class="w-full bg-gray-700 rounded-full h-2.5">
+                            <div class="bg-gradient-to-r from-green-500 to-green-400 h-2.5 rounded-full" style="width: 84%"></div>
+                        </div>
+                        <div class="text-[10px] text-green-400 mt-1 font-semibold">84% — 8 km to go</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shoe Tracker -->
+            <div class="bg-gray-800/50 rounded-3xl p-4 mb-4 border border-gray-700/50">
+                <h3 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1 1.9-1.7 3.2-1.7h4.8c1.4 0 2.3 1.4 1.7 2.6L20 14.5c-.4.8-1.2 1.5-2.1 1.5H2z"/></svg>
+                    Shoe Tracker
+                </h3>
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.5"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1 1.9-1.7 3.2-1.7h4.8c1.4 0 2.3 1.4 1.7 2.6L20 14.5c-.4.8-1.2 1.5-2.1 1.5H2z"/></svg>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-sm font-semibold text-white">Nike Air Pegasus 41</div>
+                        <div class="text-[10px] text-gray-500">234 km logged &middot; ~500 km lifespan</div>
+                        <div class="w-full bg-gray-700 rounded-full h-1.5 mt-1.5">
+                            <div class="bg-orange-400 h-1.5 rounded-full" style="width: 47%"></div>
+                        </div>
+                    </div>
+                    <span class="text-xs text-orange-400 font-semibold">47%</span>
+                </div>
+            </div>
+
+            <!-- Recent Runs -->
+            <div class="mb-4">
+                <h3 class="text-sm font-semibold text-white mb-3">Recent Runs</h3>
+                <div class="space-y-2">
+                    <div class="bg-gray-800/50 rounded-2xl p-3 border border-gray-700/30 flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-semibold text-white">Morning Run</div>
+                            <div class="text-[10px] text-gray-500">Mar 15 &middot; 6.8 km &middot; 36:22</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs font-bold text-green-400">5:21 /km</div>
+                            <div class="text-[10px] text-gray-500">412 cal</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-2xl p-3 border border-gray-700/30 flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-semibold text-white">Trail Run</div>
+                            <div class="text-[10px] text-gray-500">Mar 13 &middot; 8.2 km &middot; 48:15</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs font-bold text-orange-400">5:53 /km</div>
+                            <div class="text-[10px] text-gray-500">523 cal</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-2xl p-3 border border-gray-700/30 flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-semibold text-white">Easy Jog</div>
+                            <div class="text-[10px] text-gray-500">Mar 11 &middot; 3.2 km &middot; 20:10</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs font-bold text-green-400">6:18 /km</div>
+                            <div class="text-[10px] text-gray-500">198 cal</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-2xl p-3 border border-gray-700/30 flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-semibold text-white">Interval Training</div>
+                            <div class="text-[10px] text-gray-500">Mar 10 &middot; 5.0 km &middot; 24:30</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs font-bold text-green-300">4:54 /km</div>
+                            <div class="text-[10px] text-gray-500">380 cal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post-Run Summary -->
+            <div class="bg-gradient-to-br from-green-900/30 to-gray-800/50 rounded-3xl p-4 border border-green-800/30 mb-6">
+                <h3 class="text-sm font-semibold text-green-400 mb-2">Post-Run Summary</h3>
+                <div class="grid grid-cols-2 gap-2 text-center">
+                    <div class="bg-gray-900/40 rounded-xl p-2">
+                        <div class="text-[10px] text-gray-500">Avg Pace</div>
+                        <div class="text-sm font-bold text-white">5:26 /km</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-2">
+                        <div class="text-[10px] text-gray-500">Elevation</div>
+                        <div class="text-sm font-bold text-white">+48 m</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-2">
+                        <div class="text-[10px] text-gray-500">Avg HR</div>
+                        <div class="text-sm font-bold text-white">148 bpm</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-2">
+                        <div class="text-[10px] text-gray-500">Cadence</div>
+                        <div class="text-sm font-bold text-white">172 spm</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 px-4 pt-2 pb-6 flex justify-around">
+            <div class="flex flex-col items-center gap-0.5">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#22c55e"/></svg>
+                <span class="text-[10px] font-semibold text-green-400">Run</span>
+            </div>
+            <div class="flex flex-col items-center gap-0.5">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span class="text-[10px] text-gray-500">Stats</span>
+            </div>
+            <div class="flex flex-col items-center gap-0.5">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M16 2v4M8 2v4"/></svg>
+                <span class="text-[10px] text-gray-500">History</span>
+            </div>
+            <div class="flex flex-col items-center gap-0.5">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span class="text-[10px] text-gray-500">Profile</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

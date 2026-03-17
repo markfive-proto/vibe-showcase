@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Health & Vet Records</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Nunito Sans', sans-serif; }
+        .phone-frame { width: 375px; height: 812px; }
+        .scrollable { scrollbar-width: none; -ms-overflow-style: none; }
+        .scrollable::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-teal-100 via-amber-50 to-orange-50 flex items-center justify-center p-4">
+    <div class="phone-frame bg-[#FEF3C7] rounded-[2.5rem] shadow-2xl overflow-hidden relative border-[6px] border-gray-800 flex flex-col">
+        <!-- Status Bar -->
+        <div class="flex items-center justify-between px-6 pt-3 pb-1 bg-[#FEF3C7]">
+            <span class="text-sm font-semibold text-gray-800">9:41</span>
+            <div class="w-28 h-6 bg-black rounded-full mx-auto"></div>
+            <div class="flex items-center gap-1.5">
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="5" width="3" height="7" rx="0.5" fill="#1e293b"/><rect x="4.5" y="3" width="3" height="9" rx="0.5" fill="#1e293b"/><rect x="9" y="1" width="3" height="11" rx="0.5" fill="#1e293b"/><rect x="13" y="0" width="3" height="12" rx="0.5" fill="#1e293b" opacity="0.3"/></svg>
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 3C10.7 3 13.1 4.2 14.7 6.1L16 4.7C14 2.4 11.2 1 8 1S2 2.4 0 4.7L1.3 6.1C2.9 4.2 5.3 3 8 3z" fill="#1e293b"/><path d="M8 7C9.6 7 11 7.7 12 8.8L13.3 7.4C11.9 5.9 10 5 8 5S4.1 5.9 2.7 7.4L4 8.8C5 7.7 6.4 7 8 7z" fill="#1e293b"/><circle cx="8" cy="11" r="1.5" fill="#1e293b"/></svg>
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0" y="1" width="21" height="10" rx="2" stroke="#1e293b" stroke-width="1.2"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="#1e293b"/><rect x="22" y="4" width="2" height="4" rx="0.5" fill="#1e293b"/></svg>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto scrollable px-4 pb-24">
+            <!-- Header -->
+            <div class="flex items-center justify-between mt-2 mb-4">
+                <h1 class="text-xl font-bold text-gray-900">My Pets</h1>
+                <button class="bg-teal-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M5 12h14"/></svg>
+                    Add Pet
+                </button>
+            </div>
+
+            <!-- Pet Profile Card -->
+            <div class="bg-white rounded-3xl p-5 shadow-sm mb-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 bg-gradient-to-br from-amber-300 to-orange-400 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-md">
+                        LU
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-lg font-bold text-gray-900">Luna</h2>
+                        <p class="text-xs text-gray-500">Golden Retriever</p>
+                        <div class="flex gap-3 mt-1.5">
+                            <span class="text-[10px] bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full font-medium">3 years</span>
+                            <span class="text-[10px] bg-orange-50 text-orange-700 px-2 py-0.5 rounded-full font-medium">28 kg</span>
+                            <span class="text-[10px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full font-medium">Female</span>
+                        </div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+            </div>
+
+            <!-- Upcoming Appointments -->
+            <div class="bg-white rounded-3xl p-4 shadow-sm mb-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M16 2v4M8 2v4"/></svg>
+                    Upcoming Appointments
+                </h3>
+                <div class="space-y-2.5">
+                    <div class="bg-teal-50 rounded-2xl p-3 border border-teal-100">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="text-sm font-semibold text-gray-900">Annual Checkup</div>
+                                <div class="text-xs text-gray-500">Dr. Emily Carter</div>
+                                <div class="text-[10px] text-teal-600 mt-1 font-medium">Pawsitive Vet Clinic</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs font-bold text-teal-700 bg-teal-100 px-2 py-1 rounded-lg">Mar 25</div>
+                                <div class="text-[10px] text-gray-400 mt-1">10:30 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-orange-50 rounded-2xl p-3 border border-orange-100">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="text-sm font-semibold text-gray-900">Dental Cleaning</div>
+                                <div class="text-xs text-gray-500">Dr. James Park</div>
+                                <div class="text-[10px] text-orange-600 mt-1 font-medium">Happy Paws Dental</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs font-bold text-orange-700 bg-orange-100 px-2 py-1 rounded-lg">Apr 12</div>
+                                <div class="text-[10px] text-gray-400 mt-1">2:00 PM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vaccination Records -->
+            <div class="bg-white rounded-3xl p-4 shadow-sm mb-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    Vaccinations
+                </h3>
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between py-2 border-b border-gray-50">
+                        <div>
+                            <div class="text-xs font-semibold text-gray-800">Rabies</div>
+                            <div class="text-[10px] text-gray-400">Given: Jan 15, 2026</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Up to date</span>
+                            <div class="text-[9px] text-gray-400 mt-0.5">Next: Jan 2027</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between py-2 border-b border-gray-50">
+                        <div>
+                            <div class="text-xs font-semibold text-gray-800">DHPP</div>
+                            <div class="text-[10px] text-gray-400">Given: Nov 3, 2025</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Up to date</span>
+                            <div class="text-[9px] text-gray-400 mt-0.5">Next: Nov 2026</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between py-2 border-b border-gray-50">
+                        <div>
+                            <div class="text-xs font-semibold text-gray-800">Bordetella</div>
+                            <div class="text-[10px] text-gray-400">Given: Sep 20, 2025</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">Due soon</span>
+                            <div class="text-[9px] text-gray-400 mt-0.5">Next: Mar 2026</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between py-2">
+                        <div>
+                            <div class="text-xs font-semibold text-gray-800">Leptospirosis</div>
+                            <div class="text-[10px] text-gray-400">Given: Jan 15, 2026</div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Up to date</span>
+                            <div class="text-[9px] text-gray-400 mt-0.5">Next: Jan 2027</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medication Reminders -->
+            <div class="bg-white rounded-3xl p-4 shadow-sm mb-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><path d="M10.5 1.5H8A6.5 6.5 0 001.5 8v0a6.5 6.5 0 006.5 6.5h0"/><path d="M13.5 22.5H16a6.5 6.5 0 006.5-6.5v0A6.5 6.5 0 0016 9.5h0"/><line x1="1.5" y1="22.5" x2="22.5" y2="1.5"/></svg>
+                    Medications
+                </h3>
+                <div class="space-y-2.5">
+                    <div class="flex items-center gap-3 bg-orange-50 rounded-2xl p-3">
+                        <div class="w-10 h-10 bg-orange-200 rounded-xl flex items-center justify-center">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-xs font-semibold text-gray-800">Heartworm Pill</div>
+                            <div class="text-[10px] text-gray-500">Monthly &middot; Heartgard Plus</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-orange-600">Due Apr 1</div>
+                            <div class="text-[9px] text-gray-400">Last: Mar 1</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-teal-50 rounded-2xl p-3">
+                        <div class="w-10 h-10 bg-teal-200 rounded-xl flex items-center justify-center">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-xs font-semibold text-gray-800">Flea & Tick Treatment</div>
+                            <div class="text-[10px] text-gray-500">Monthly &middot; NexGard</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-teal-600">Due Mar 28</div>
+                            <div class="text-[9px] text-gray-400">Last: Feb 28</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weight History -->
+            <div class="bg-white rounded-3xl p-4 shadow-sm mb-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-3">Weight History</h3>
+                <div class="flex items-end justify-between gap-1 h-20 mb-2">
+                    <div class="flex-1 flex flex-col items-center gap-1">
+                        <div class="w-full bg-teal-400 rounded-t-sm" style="height: 70%"></div>
+                        <span class="text-[8px] text-gray-400">Oct</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center gap-1">
+                        <div class="w-full bg-teal-400 rounded-t-sm" style="height: 75%"></div>
+                        <span class="text-[8px] text-gray-400">Nov</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center gap-1">
+                        <div class="w-full bg-teal-500 rounded-t-sm" style="height: 80%"></div>
+                        <span class="text-[8px] text-gray-400">Dec</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center gap-1">
+                        <div class="w-full bg-orange-400 rounded-t-sm" style="height: 85%"></div>
+                        <span class="text-[8px] text-gray-400">Jan</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center gap-1">
+                        <div class="w-full bg-teal-500 rounded-t-sm" style="height: 82%"></div>
+                        <span class="text-[8px] text-gray-400">Feb</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center gap-1">
+                        <div class="w-full bg-teal-600 rounded-t-sm" style="height: 78%"></div>
+                        <span class="text-[8px] text-teal-600 font-semibold">Mar</span>
+                    </div>
+                </div>
+                <div class="flex justify-between text-[10px] text-gray-400">
+                    <span>26.5 kg</span>
+                    <span>28.5 kg</span>
+                    <span>29.0 kg</span>
+                    <span>29.5 kg</span>
+                    <span>28.8 kg</span>
+                    <span class="font-semibold text-teal-600">28.0 kg</span>
+                </div>
+            </div>
+
+            <!-- Health Notes -->
+            <div class="bg-white rounded-3xl p-4 shadow-sm mb-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Last Vet Visit Notes
+                </h3>
+                <div class="bg-amber-50 rounded-xl p-3">
+                    <p class="text-xs text-gray-600 leading-relaxed">Luna is in excellent health. Weight is ideal for her breed and age. Teeth show mild tartar buildup — recommend dental cleaning in 4-6 weeks. Coat and skin look healthy. Continue current diet and exercise routine. No concerns at this time.</p>
+                    <p class="text-[10px] text-gray-400 mt-2">— Dr. Emily Carter, Jan 15, 2026</p>
+                </div>
+            </div>
+
+            <!-- Emergency Contact -->
+            <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-3xl p-4 border border-red-100 mb-6">
+                <h3 class="text-sm font-semibold text-red-700 mb-2 flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                    Emergency Vet
+                </h3>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="text-xs font-semibold text-gray-800">City Animal Emergency</div>
+                        <div class="text-[10px] text-gray-500">Open 24/7 &middot; 2.3 mi away</div>
+                    </div>
+                    <a class="bg-red-600 text-white text-xs font-semibold px-4 py-2 rounded-full">Call Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 pt-2 pb-6 flex justify-around">
+            <div class="flex flex-col items-center gap-0.5">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                <span class="text-[10px] font-semibold text-teal-600">Home</span>
+            </div>
+            <div class="flex flex-col items-center gap-0.5">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M16 2v4M8 2v4"/></svg>
+                <span class="text-[10px] text-gray-400">Schedule</span>
+            </div>
+            <div class="flex flex-col items-center gap-0.5">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span class="text-[10px] text-gray-400">Records</span>
+            </div>
+            <div class="flex flex-col items-center gap-0.5">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                <span class="text-[10px] text-gray-400">Health</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

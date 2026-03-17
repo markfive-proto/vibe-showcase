@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forever & Always - Wedding Planning Checklist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Cormorant Garamond', 'serif'],
+            body: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            rose: '#DB2777',
+            gold: '#A16207',
+            goldLight: '#CA8A04',
+            blush: '#FFF1F2',
+            blushDeep: '#FFE4E6',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Nunito', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
+  </style>
+</head>
+<body class="bg-blush min-h-screen">
+
+  <!-- Top Nav -->
+  <nav class="bg-white/70 backdrop-blur-md border-b border-rose/10 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <h1 class="text-xl font-heading font-bold text-gray-900">Forever <span class="text-rose">&</span> Always</h1>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="text-sm text-gray-500 hover:text-rose font-medium hidden sm:block">Dashboard</button>
+        <button class="text-sm text-gray-500 hover:text-rose font-medium hidden sm:block">Guests</button>
+        <button class="text-sm text-gray-500 hover:text-rose font-medium hidden sm:block">Budget</button>
+        <div class="w-8 h-8 rounded-full bg-rose/10 flex items-center justify-center">
+          <span class="text-xs font-bold text-rose">E&J</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+
+    <!-- Countdown Banner -->
+    <div class="bg-white rounded-2xl p-6 sm:p-8 mb-6 border border-rose/10 text-center relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-rose via-goldLight to-rose"></div>
+      <p class="text-sm text-gold font-semibold uppercase tracking-widest mb-1">Emily & James</p>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-gray-900 mb-2">July 23, 2026</h2>
+      <div class="flex items-center justify-center gap-6 mt-4">
+        <div class="text-center">
+          <p class="text-3xl font-heading font-bold text-rose">128</p>
+          <p class="text-xs text-gray-500 font-medium">Days</p>
+        </div>
+        <div class="text-2xl text-gray-300 font-heading">:</div>
+        <div class="text-center">
+          <p class="text-3xl font-heading font-bold text-rose">14</p>
+          <p class="text-xs text-gray-500 font-medium">Hours</p>
+        </div>
+        <div class="text-2xl text-gray-300 font-heading">:</div>
+        <div class="text-center">
+          <p class="text-3xl font-heading font-bold text-rose">32</p>
+          <p class="text-xs text-gray-500 font-medium">Minutes</p>
+        </div>
+      </div>
+      <p class="text-sm text-gray-400 mt-3 italic font-heading">Rosewood Manor, Cotswolds</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Left Column -->
+      <div class="lg:col-span-2 space-y-6">
+
+        <!-- Checklist Categories -->
+        <div class="bg-white rounded-2xl p-6 border border-rose/10">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-xl font-heading font-bold text-gray-900">Planning Checklist</h3>
+            <span class="text-sm text-rose font-semibold">68% Complete</span>
+          </div>
+          <div class="w-full h-2 bg-blushDeep rounded-full mb-6 overflow-hidden">
+            <div class="h-full bg-rose rounded-full" style="width:68%"></div>
+          </div>
+
+          <div class="space-y-3">
+            <!-- Venue -->
+            <div class="border border-gray-100 rounded-xl p-4 hover:border-rose/30 transition">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-rose/10 flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-gray-800">Venue</p>
+                    <p class="text-xs text-gray-400">5 of 5 tasks done</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">100%</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                </div>
+              </div>
+              <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-green-500 rounded-full" style="width:100%"></div></div>
+            </div>
+
+            <!-- Catering -->
+            <div class="border border-gray-100 rounded-xl p-4 hover:border-rose/30 transition">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-gray-800">Catering</p>
+                    <p class="text-xs text-gray-400">6 of 8 tasks done</p>
+                  </div>
+                </div>
+                <span class="text-xs font-bold text-gold bg-gold/10 px-2 py-0.5 rounded-full">75%</span>
+              </div>
+              <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gold rounded-full" style="width:75%"></div></div>
+            </div>
+
+            <!-- Photography -->
+            <div class="border border-gray-100 rounded-xl p-4 hover:border-rose/30 transition">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-rose/10 flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-gray-800">Photography</p>
+                    <p class="text-xs text-gray-400">4 of 5 tasks done</p>
+                  </div>
+                </div>
+                <span class="text-xs font-bold text-rose bg-rose/10 px-2 py-0.5 rounded-full">80%</span>
+              </div>
+              <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-rose rounded-full" style="width:80%"></div></div>
+            </div>
+
+            <!-- Flowers -->
+            <div class="border border-gray-100 rounded-xl p-4 hover:border-rose/30 transition">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-pink-50 flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="2"><path d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V9m-4.5 3a4.5 4.5 0 1 0 4.5 4.5M7.5 12H9m3 4.5a4.5 4.5 0 1 1-4.5-4.5m9 0a4.5 4.5 0 1 0-4.5 4.5m4.5-4.5H15m-3-4.5V9"/></svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-gray-800">Flowers</p>
+                    <p class="text-xs text-gray-400">3 of 6 tasks done</p>
+                  </div>
+                </div>
+                <span class="text-xs font-bold text-rose bg-rose/10 px-2 py-0.5 rounded-full">50%</span>
+              </div>
+              <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-rose rounded-full" style="width:50%"></div></div>
+            </div>
+
+            <!-- Music -->
+            <div class="border border-gray-100 rounded-xl p-4 hover:border-rose/30 transition">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-gray-800">Music & Entertainment</p>
+                    <p class="text-xs text-gray-400">2 of 4 tasks done</p>
+                  </div>
+                </div>
+                <span class="text-xs font-bold text-gold bg-gold/10 px-2 py-0.5 rounded-full">50%</span>
+              </div>
+              <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gold rounded-full" style="width:50%"></div></div>
+            </div>
+
+            <!-- Attire -->
+            <div class="border border-gray-100 rounded-xl p-4 hover:border-rose/30 transition">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-rose/10 flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="2"><path d="M20.38 3.46L16 2 12 5.5 8 2l-4.38 1.46a2 2 0 0 0-1.34 2.23l2.1 12.37A2 2 0 0 0 6.35 19.5h11.3a2 2 0 0 0 1.97-1.44l2.1-12.37a2 2 0 0 0-1.34-2.23z"/></svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-gray-800">Attire</p>
+                    <p class="text-xs text-gray-400">4 of 7 tasks done</p>
+                  </div>
+                </div>
+                <span class="text-xs font-bold text-rose bg-rose/10 px-2 py-0.5 rounded-full">57%</span>
+              </div>
+              <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-rose rounded-full" style="width:57%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Budget Tracker -->
+        <div class="bg-white rounded-2xl p-6 border border-rose/10">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-xl font-heading font-bold text-gray-900">Budget Overview</h3>
+            <div class="text-right">
+              <p class="text-sm font-bold text-gray-900">$28,500 <span class="text-gray-400 font-normal">/ $35,000</span></p>
+              <p class="text-xs text-gray-400">81% allocated</p>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600 font-medium w-28">Venue</span>
+              <div class="flex-1 mx-4">
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-rose rounded-full" style="width:95%"></div>
+                </div>
+              </div>
+              <span class="text-xs text-gray-500 w-28 text-right">$9,500 / $10,000</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600 font-medium w-28">Catering</span>
+              <div class="flex-1 mx-4">
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gold rounded-full" style="width:80%"></div>
+                </div>
+              </div>
+              <span class="text-xs text-gray-500 w-28 text-right">$6,400 / $8,000</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600 font-medium w-28">Photography</span>
+              <div class="flex-1 mx-4">
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-rose rounded-full" style="width:100%"></div>
+                </div>
+              </div>
+              <span class="text-xs text-gray-500 w-28 text-right">$4,500 / $4,500</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600 font-medium w-28">Flowers</span>
+              <div class="flex-1 mx-4">
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-rose rounded-full" style="width:60%"></div>
+                </div>
+              </div>
+              <span class="text-xs text-gray-500 w-28 text-right">$1,800 / $3,000</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600 font-medium w-28">Music</span>
+              <div class="flex-1 mx-4">
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gold rounded-full" style="width:75%"></div>
+                </div>
+              </div>
+              <span class="text-xs text-gray-500 w-28 text-right">$2,250 / $3,000</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600 font-medium w-28">Attire</span>
+              <div class="flex-1 mx-4">
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-rose rounded-full" style="width:63%"></div>
+                </div>
+              </div>
+              <span class="text-xs text-gray-500 w-28 text-right">$4,050 / $6,500</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wedding Day Timeline -->
+        <div class="bg-white rounded-2xl p-6 border border-rose/10">
+          <h3 class="text-xl font-heading font-bold text-gray-900 mb-5">Wedding Day Timeline</h3>
+          <div class="space-y-0">
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-rose border-2 border-white shadow"></div>
+                <div class="w-0.5 h-12 bg-rose/20"></div>
+              </div>
+              <div class="pb-6">
+                <p class="text-xs font-bold text-rose">8:00 AM</p>
+                <p class="text-sm font-semibold text-gray-800">Hair & Makeup</p>
+                <p class="text-xs text-gray-400">Bridal suite at Rosewood Manor</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-gold border-2 border-white shadow"></div>
+                <div class="w-0.5 h-12 bg-gold/20"></div>
+              </div>
+              <div class="pb-6">
+                <p class="text-xs font-bold text-gold">11:00 AM</p>
+                <p class="text-sm font-semibold text-gray-800">First Look Photos</p>
+                <p class="text-xs text-gray-400">Garden terrace</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-rose border-2 border-white shadow"></div>
+                <div class="w-0.5 h-12 bg-rose/20"></div>
+              </div>
+              <div class="pb-6">
+                <p class="text-xs font-bold text-rose">2:00 PM</p>
+                <p class="text-sm font-semibold text-gray-800">Ceremony</p>
+                <p class="text-xs text-gray-400">Rose garden, officiated by Rev. Thompson</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-gold border-2 border-white shadow"></div>
+                <div class="w-0.5 h-12 bg-gold/20"></div>
+              </div>
+              <div class="pb-6">
+                <p class="text-xs font-bold text-gold">3:00 PM</p>
+                <p class="text-sm font-semibold text-gray-800">Cocktail Hour</p>
+                <p class="text-xs text-gray-400">Terrace & lawn, string quartet</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-rose border-2 border-white shadow"></div>
+                <div class="w-0.5 h-12 bg-rose/20"></div>
+              </div>
+              <div class="pb-6">
+                <p class="text-xs font-bold text-rose">5:00 PM</p>
+                <p class="text-sm font-semibold text-gray-800">Reception & Dinner</p>
+                <p class="text-xs text-gray-400">Grand ballroom, seated dinner</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-gold border-2 border-white shadow"></div>
+                <div class="w-0.5 h-12 bg-gold/20"></div>
+              </div>
+              <div class="pb-6">
+                <p class="text-xs font-bold text-gold">7:00 PM</p>
+                <p class="text-sm font-semibold text-gray-800">First Dance & Speeches</p>
+                <p class="text-xs text-gray-400">Song: "At Last" by Etta James</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full bg-rose border-2 border-white shadow"></div>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-rose">8:00 PM</p>
+                <p class="text-sm font-semibold text-gray-800">Dance Floor Opens</p>
+                <p class="text-xs text-gray-400">Live band until midnight</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-6">
+
+        <!-- Guest List Summary -->
+        <div class="bg-white rounded-2xl p-6 border border-rose/10">
+          <h3 class="text-lg font-heading font-bold text-gray-900 mb-4">Guest List</h3>
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div class="bg-blush rounded-xl p-3 text-center">
+              <p class="text-2xl font-heading font-bold text-rose">156</p>
+              <p class="text-xs text-gray-500">Invited</p>
+            </div>
+            <div class="bg-green-50 rounded-xl p-3 text-center">
+              <p class="text-2xl font-heading font-bold text-green-600">98</p>
+              <p class="text-xs text-gray-500">Accepted</p>
+            </div>
+            <div class="bg-red-50 rounded-xl p-3 text-center">
+              <p class="text-2xl font-heading font-bold text-red-500">12</p>
+              <p class="text-xs text-gray-500">Declined</p>
+            </div>
+            <div class="bg-gold/5 rounded-xl p-3 text-center">
+              <p class="text-2xl font-heading font-bold text-gold">46</p>
+              <p class="text-xs text-gray-500">Pending</p>
+            </div>
+          </div>
+          <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden flex">
+            <div class="h-full bg-green-500" style="width:63%"></div>
+            <div class="h-full bg-red-400" style="width:8%"></div>
+            <div class="h-full bg-gold" style="width:29%"></div>
+          </div>
+          <p class="text-xs text-gray-400 mt-2 text-center">63% responded</p>
+        </div>
+
+        <!-- Vendor Contacts -->
+        <div class="bg-white rounded-2xl p-6 border border-rose/10">
+          <h3 class="text-lg font-heading font-bold text-gray-900 mb-4">Vendor Contacts</h3>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-rose/10 flex items-center justify-center shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-gray-800 truncate">Sarah Chen Photography</p>
+                <p class="text-xs text-gray-400">Photographer</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.69 2.34"/></svg>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-gray-800 truncate">La Belle Cuisine</p>
+                <p class="text-xs text-gray-400">Caterer</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.69 2.34"/></svg>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-rose/10 flex items-center justify-center shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="2"><path d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-gray-800 truncate">Bloom & Petal</p>
+                <p class="text-xs text-gray-400">Florist</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.69 2.34"/></svg>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-gray-800 truncate">The Midnight Jazz Band</p>
+                <p class="text-xs text-gray-400">Live Music</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.69 2.34"/></svg>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-rose/10 flex items-center justify-center shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-gray-800 truncate">Elegant Events Co.</p>
+                <p class="text-xs text-gray-400">Wedding Planner</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.69 2.34"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seating Chart -->
+        <div class="bg-white rounded-2xl p-6 border border-rose/10">
+          <h3 class="text-lg font-heading font-bold text-gray-900 mb-4">Seating Chart</h3>
+          <div class="bg-blush rounded-xl p-6 flex flex-wrap justify-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-rose/20 border-2 border-rose/30 flex items-center justify-center">
+              <span class="text-[10px] font-bold text-rose">Head</span>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-gold/20 border border-gold/30 flex items-center justify-center">
+              <span class="text-[10px] font-bold text-gold">T1</span>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-gold/20 border border-gold/30 flex items-center justify-center">
+              <span class="text-[10px] font-bold text-gold">T2</span>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-gold/20 border border-gold/30 flex items-center justify-center">
+              <span class="text-[10px] font-bold text-gold">T3</span>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-rose/20 border border-rose/30 flex items-center justify-center">
+              <span class="text-[10px] font-bold text-rose">T4</span>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-rose/20 border border-rose/30 flex items-center justify-center">
+              <span class="text-[10px] font-bold text-rose">T5</span>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-gold/20 border border-gold/30 flex items-center justify-center">
+              <span class="text-[10px] font-bold text-gold">T6</span>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-gold/20 border border-gold/30 flex items-center justify-center">
+              <span class="text-[10px] font-bold text-gold">T7</span>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-rose/20 border border-rose/30 flex items-center justify-center">
+              <span class="text-[10px] font-bold text-rose">T8</span>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-rose/20 border border-rose/30 flex items-center justify-center">
+              <span class="text-[10px] font-bold text-rose">T9</span>
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 text-center mt-3">10 tables, 98 guests seated</p>
+          <button class="w-full mt-3 py-2 text-sm font-semibold text-rose border border-rose/30 rounded-xl hover:bg-rose/5 transition">Edit Seating</button>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

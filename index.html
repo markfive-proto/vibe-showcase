@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Showcase — 60 Products You Can Build</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.4); }
+        .card-hover:hover .thumb-overlay { opacity: 1; }
+        .thumb-overlay { opacity: 0; transition: opacity 0.2s ease; }
+        .section-nav a { transition: color 0.2s; }
+        .section-nav a:hover { color: #22C55E; }
+        .prompt-modal { display: none; }
+        .prompt-modal.active { display: flex; }
+        .toast { animation: fadeInOut 2s ease; }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(10px); }
+            15% { opacity: 1; transform: translateY(0); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-[#020617] text-white min-h-screen">
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden">
+        <div class="toast bg-green-500 text-black px-6 py-3 rounded-xl font-semibold text-sm shadow-lg shadow-green-500/20">
+            Prompt copied to clipboard!
+        </div>
+    </div>
+
+    <!-- Prompt Modal -->
+    <div id="promptModal" class="prompt-modal fixed inset-0 z-40 items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onclick="if(event.target===this)closeModal()">
+        <div class="bg-gray-900 border border-gray-700 rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl">
+            <div class="flex items-center justify-between p-5 border-b border-gray-700">
+                <h3 id="modalTitle" class="font-bold text-lg"></h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white p-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="p-5 overflow-y-auto flex-1">
+                <pre id="modalPrompt" class="text-sm text-gray-300 whitespace-pre-wrap leading-relaxed font-[inherit]"></pre>
+            </div>
+            <div class="p-5 border-t border-gray-700 flex gap-3">
+                <button onclick="copyCurrentPrompt()" class="flex-1 bg-green-500 hover:bg-green-400 text-black font-semibold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    Copy Prompt
+                </button>
+                <a id="modalViewLink" href="#" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    View Demo
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Vibe Showcase</h1>
+                    <p class="text-gray-400 mt-2 text-lg">60 real-world products you can vibe code. Click any card to explore, or copy the prompt to build your own.</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-gray-500 text-sm">
+                        <span class="text-green-400 font-semibold text-2xl">22</span> mobile apps &nbsp;&middot;&nbsp;
+                        <span class="text-blue-400 font-semibold text-2xl">38</span> web apps
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section Nav -->
+    <nav class="border-b border-gray-800 sticky top-0 bg-[#020617]/95 backdrop-blur-sm z-10 section-nav">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex gap-6">
+            <a href="#mobile" class="text-green-400 font-semibold flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18" stroke-linecap="round"/></svg>
+                Mobile Apps (22)
+            </a>
+            <a href="#web" class="text-blue-400 font-semibold flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Web Apps & Dashboards (38)
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6">
+
+        <!-- ===================== MOBILE APPS ===================== -->
+        <section id="mobile" class="pt-10 pb-6">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-1 h-8 bg-green-400 rounded-full"></div>
+                <h2 class="text-3xl font-bold">Mobile Apps</h2>
+            </div>
+            <p class="text-gray-400 mb-8 ml-5">22 mobile app UIs wrapped in realistic phone frames</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5" id="mobile-grid">
+            </div>
+        </section>
+
+        <div class="border-t border-gray-800 my-4"></div>
+
+        <!-- ===================== WEB APPS ===================== -->
+        <section id="web" class="pt-10 pb-6">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-1 h-8 bg-blue-400 rounded-full"></div>
+                <h2 class="text-3xl font-bold">Web Apps & Dashboards</h2>
+            </div>
+            <p class="text-gray-400 mb-8 ml-5">38 desktop web applications, dashboards, and internal tools</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="web-grid">
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 mt-12">
+        <div class="max-w-7xl mx-auto px-6 py-8 text-center text-gray-500 text-sm">
+            <p>60 self-contained HTML products built with Tailwind CSS. Click "Copy Prompt" on any card to get the exact prompt to build your own version.</p>
+        </div>
+    </footer>
+
+    <script>
+    // ========== PRODUCT DATA WITH PROMPTS ==========
+    const products = [
+        // --- MOBILE APPS ---
+        {
+            id: "07", file: "07-fitness-tracker.html", type: "mobile",
+            name: "Fitness Workout Tracker",
+            desc: "Workouts, activity rings, PRs",
+            prompt: `Build a mobile fitness workout tracker app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Wrap in a phone frame mockup (375x812, rounded corners, status bar with time/battery/signal)
+- Bold athletic style with Orange #F97316 primary, Dark #1F2937, Green #22C55E for completed
+- Use Outfit font from Google Fonts
+- Inline SVG icons only (Lucide-style), no emoji
+
+Content to include:
+- Today's workout plan with exercises, sets, reps, and weight (e.g., Bench Press 4x10 @ 135lb, Squats 3x12 @ 185lb)
+- Weekly activity ring or progress visualization
+- Workout history list with dates and muscle groups
+- Personal records section (Deadlift: 315lb, Bench: 225lb, etc.)
+- Calorie burn summary for today
+- Bottom tab navigation (Home, Workouts, Stats, Profile)
+
+Make it look like a real app someone would use daily. Use realistic exercise data.`
+        },
+        {
+            id: "08", file: "08-mental-health.html", type: "mobile",
+            name: "Meditation & Mood",
+            desc: "Mood check-in, timer, journal",
+            prompt: `Build a meditation and mood tracker mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Soft calming style with Sage #6B8F71, Sand #D4C5A9, Warm White #FEFDF8
+- Use Figtree font from Google Fonts
+- Inline SVG icons only, no emoji
+
+Content to include:
+- Daily mood check-in with 5 mood levels (use SVG faces, not emoji)
+- Meditation timer with session length options (5, 10, 15, 20 min)
+- Mood history calendar heatmap showing the current month
+- Breathing exercise quick-start section
+- Journal prompt of the day
+- Streak counter (e.g., 14 days)
+- Weekly mood summary with averages
+- Bottom tab navigation
+
+Keep the aesthetic very calming and minimal. Use soft shadows and rounded elements.`
+        },
+        {
+            id: "12", file: "12-restaurant-ordering.html", type: "mobile",
+            name: "Restaurant Ordering",
+            desc: "Menu, items, cart summary",
+            prompt: `Build a restaurant online ordering mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Appetizing warm style with Red #DC2626, Warm Gold #A16207, Cream #FEF3C7
+- Use Playfair Display for headings + Inter for body from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Restaurant name and logo area at top
+- Menu categories (Appetizers, Mains, Desserts, Drinks) with horizontal scroll tabs
+- Food items with name, description, price, and quantity controls (+/-)
+- Include realistic items like "Truffle Mushroom Risotto $18.50", "Grilled Salmon $24.00"
+- Cart summary sticky at bottom showing item count and total
+- Estimated delivery time display
+- Special instructions text field
+- Bottom navigation
+
+Make the food descriptions appetizing and the prices realistic.`
+        },
+        {
+            id: "22", file: "22-language-learning.html", type: "mobile",
+            name: "Language Learning",
+            desc: "Vocab, streaks, XP, leaderboard",
+            prompt: `Build a language learning mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Playful illustrated style with Indigo #4F46E5, Green #16A34A, Warm White #FFFBEB
+- Use Nunito font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Active lesson card (Spanish vocabulary) with a word matching exercise
+- Daily streak counter (e.g., 12 days) with flame icon
+- XP progress bar (e.g., 30/50 XP to next level)
+- Daily goal tracker
+- Lesson categories grid (Basics, Food, Travel, Business) with completion progress
+- Mini leaderboard showing top 5 friends with XP scores
+- Practice reminder toggle
+- Bottom tab navigation (Home, Lessons, Review, Profile)
+
+Make it feel gamified and motivational, like Duolingo but with your own visual identity.`
+        },
+        {
+            id: "28", file: "28-expense-tracker.html", type: "mobile",
+            name: "Expense Tracker",
+            desc: "Budget, categories, savings",
+            prompt: `Build a personal expense tracker mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Friendly approachable style with Green #059669, Coral #F43F5E, Light bg #F0FDF4
+- Use Outfit font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Monthly budget overview bar (spent $1,240 vs budget $2,000)
+- Category breakdown with progress bars (Food $380, Transport $120, Entertainment $95, Bills $450, Shopping $195)
+- Recent transactions list (6+ transactions with merchant name, amount, category icon, date)
+- Floating "+" button to add expense
+- Spending trend mini chart area for the week
+- Savings goal progress (e.g., "Vacation Fund" $1,200/$3,000)
+- Bottom tab navigation
+
+Use realistic transaction data like "Whole Foods $67.42", "Uber $12.80", "Netflix $15.99".`
+        },
+        {
+            id: "32", file: "32-travel-planner.html", type: "mobile",
+            name: "Trip Planner",
+            desc: "Itinerary, budget, packing",
+            prompt: `Build a trip planner and itinerary mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Adventure modern style with Sky #0EA5E9, Orange #EA580C, White bg
+- Use Sora font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Trip header with destination ("Tokyo, Japan"), date range, and traveler count
+- Day-by-day itinerary (Day 1, 2, 3) with time slots and activities (e.g., "9:00 AM - Senso-ji Temple", "12:30 PM - Tsukiji Fish Market")
+- Budget tracker with categories (Flights $1,240, Hotels $1,400, Food $480, Activities $300)
+- Packing checklist with checkboxes
+- Saved places list with ratings
+- Trip notes section
+- Bottom tab navigation
+
+Use real Tokyo landmarks and realistic prices. Make it feel like planning an actual trip.`
+        },
+        {
+            id: "34", file: "34-food-delivery.html", type: "mobile",
+            name: "Food Delivery Driver",
+            desc: "Active delivery, map, earnings",
+            prompt: `Build a food delivery driver app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Bold utility style with Red #DC2626, Dark #1E293B background, White text
+- Use Inter font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Current delivery card (restaurant name, customer name, delivery address, order items, estimated time)
+- Map placeholder area with a route indicator (use colored CSS rectangle)
+- Earnings today summary ($127.40)
+- Delivery queue showing next 3 orders
+- Large "Navigate" button
+- Delivery status toggle (Picked Up → On The Way → Delivered)
+- Shift stats (12 deliveries, 34.2 km, $18.50 tips)
+- Bottom navigation
+
+Make it feel like a working driver app with high contrast for readability while driving.`
+        },
+        {
+            id: "44", file: "44-warehouse-inventory.html", type: "mobile",
+            name: "Warehouse Scanner",
+            desc: "Barcode scan, location nav",
+            prompt: `Build a warehouse inventory scanner mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Utility rugged high-visibility style with Yellow #EAB308, Dark #1E293B background, Safety Orange #EA580C
+- Use IBM Plex Mono font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Barcode scan area (camera viewfinder placeholder with scan line animation)
+- Last scanned item detail card (SKU, item name, warehouse location, quantity on hand)
+- Quick action buttons grid (Receive, Pick, Move, Count)
+- Recent scans history list (5+ items)
+- Location navigator (Aisle-Shelf-Bin format like "A3-S2-B4")
+- Inventory count summary widget
+- Alert banner for misplaced items
+- Bottom tab navigation
+
+Make it feel industrial and designed for quick scanning in a warehouse environment.`
+        },
+        {
+            id: "45", file: "45-ev-charging.html", type: "mobile",
+            name: "EV Charging Finder",
+            desc: "Station map, session, filters",
+            prompt: `Build an EV charging station finder mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Electric clean modern style with Cyan #0891B2, Green #16A34A, White bg
+- Use Outfit font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Map area at top showing station markers (colored dots on a styled rectangle)
+- Station list below map (5 stations with name, distance, connector types like CCS/CHAdeMO, available ports, pricing per kWh)
+- Active charging session card (charging progress %, estimated time remaining, cost so far)
+- Filter chips (connector type, charging speed, network)
+- Station detail card with amenities nearby and reviews
+- Favorite stations section
+- Bottom tab navigation
+
+Use realistic station names and pricing. Show a charging session in progress at 68%.`
+        },
+        {
+            id: "46", file: "46-plant-care.html", type: "mobile",
+            name: "Plant Care",
+            desc: "Watering, journal, care tips",
+            prompt: `Build a plant care and watering tracker mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Botanical fresh style with Forest #15803D, Pink #EC4899 accent, Leaf Green #22C55E, White bg
+- Use Quicksand font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- My plants grid (6+ plants with name, species, last watered date, health status indicator, water need level)
+- Plant detail card with watering schedule, sunlight needs, and care tips
+- Today's watering reminders list (3 plants due)
+- Plant journal/notes section with dated entries
+- Add new plant form
+- Seasonal care tips section
+- Bottom tab navigation
+
+Use real plant names like "Monstera Deliciosa", "Fiddle Leaf Fig", "Snake Plant". Make it feel nurturing.`
+        },
+        {
+            id: "47", file: "47-music-practice.html", type: "mobile",
+            name: "Music Practice",
+            desc: "Timer, metronome, repertoire",
+            prompt: `Build a music practice session logger mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Acoustic warm intimate style with Dark #1E1B4B background, Amber #F59E0B, Wood Brown #92400E
+- Use Lora font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Large circular practice timer display (showing 32:14 elapsed, 45 min goal)
+- Start/stop/reset controls
+- Instrument selector (Guitar, Piano, Violin, Drums)
+- Today's practice session log (pieces practiced with duration and notes)
+- Weekly practice bar chart (CSS bars for Mon-Sun)
+- Repertoire list with mastery level indicators (beginner/intermediate/advanced dots)
+- Metronome BPM setting with presets (60, 80, 100, 120)
+- Bottom tab navigation
+
+Use real piece names like "Clair de Lune", "Stairway to Heaven intro", "Bach Cello Suite No. 1".`
+        },
+        {
+            id: "51", file: "51-habit-tracker.html", type: "mobile",
+            name: "Habit Tracker",
+            desc: "Streaks, progress rings, heat grid",
+            prompt: `Build a daily habit tracker mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Clean motivational minimal style with Indigo #4338CA primary, Green #16A34A success, Warm White #FEFCE8
+- Use Nunito font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Today's habits checklist (8 habits: "Drink 8 glasses water", "Read 30 min", "Exercise", "Meditate 10 min", "No social media before noon", "Journal", "Walk 10k steps", "Sleep by 11pm")
+- Each habit has a toggle and streak count
+- Current streak banner (e.g., 18 days)
+- Overall daily progress ring (6/8 complete)
+- Weekly completion heat grid (Mon-Sun with colored cells based on completion %)
+- Motivational quote at top
+- Bottom tab navigation
+
+Make it feel satisfying to check off habits. Use green for completed, gray for pending.`
+        },
+        {
+            id: "52", file: "52-dog-walker.html", type: "mobile",
+            name: "Dog Walker",
+            desc: "Live walk, dog profiles, earnings",
+            prompt: `Build a dog walking service mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Playful friendly rounded style with Orange #EA580C, Teal #0D9488, Cream #FFF7ED
+- Use Quicksand font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Active walk in progress card with map placeholder, duration timer (00:23:14), distance (1.2 km), dog name "Buddy" with breed
+- Upcoming walks schedule (3 walks today with time, dog name, owner, address)
+- Walk history with stats
+- Dog profile cards (3 dogs with name, breed, behavioral notes like "pulls on leash" or "friendly with other dogs")
+- Earnings summary ($127 this week)
+- Bottom tab navigation
+
+Make it feel warm and friendly. Use realistic dog breeds and owner names.`
+        },
+        {
+            id: "53", file: "53-sleep-tracker.html", type: "mobile",
+            name: "Sleep Tracker",
+            desc: "Score, stages, sounds, alarm",
+            prompt: `Build a sleep quality tracker mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Dark night mode soothing style with Dark Navy #0F172A background, Blue #3B82F6, Amber #F59E0B for sleep score
+- Use Inter font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Last night's sleep score as a large circular gauge (82/100)
+- Sleep duration display "7h 23m"
+- Sleep stages breakdown (Awake, Light, Deep, REM) with colored bars showing time in each stage
+- Weekly sleep trend chart (7 bars)
+- Sleep quality factors (caffeine intake, screen time, exercise — showing correlation)
+- Smart alarm setting with toggle
+- Sleep sounds section (Rain, Ocean, White Noise with play buttons)
+- Bottom tab navigation
+
+Use a dark, soothing color palette that feels appropriate for a bedtime app.`
+        },
+        {
+            id: "54", file: "54-parking-finder.html", type: "mobile",
+            name: "Parking Finder",
+            desc: "Map, spots, session timer",
+            prompt: `Build a parking spot finder mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Utility clean style with Blue #2563EB, Green #16A34A for available, Red #DC2626 for taken, White bg
+- Use DM Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Map area at top with parking markers (green dots for available, red for taken)
+- Nearby parking list (5 spots with name, distance, price/hr, available spaces, rating stars)
+- Active parking session card (time remaining "1:23:40", location name, cost so far "$4.50", extend button)
+- Filter chips (Indoor, Outdoor, EV Charging, Handicap)
+- Parking history list
+- Saved locations
+- Bottom tab navigation
+
+Use realistic parking garage names and pricing ($2-5/hr range).`
+        },
+        {
+            id: "55", file: "55-grocery-list.html", type: "mobile",
+            name: "Grocery List",
+            desc: "Aisles, budget, deals",
+            prompt: `Build a smart grocery list mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Fresh organized cheerful style with Green #15803D, Orange #F97316 for deals, White bg
+- Use Poppins font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Shopping list organized by store aisle (Produce, Dairy, Bakery, Meat, Pantry)
+- Items under each aisle with checkbox, name, quantity, and price estimate
+- Budget tracker at top (estimated total $67.40, budget $80.00)
+- Deals/coupons section (3 current deals with savings amount)
+- Recent shopping trips list (last 3 with date and total)
+- Quick-add bar at bottom with common item buttons
+- Store selector dropdown
+- Bottom tab navigation
+
+Use realistic grocery items and prices. Make it feel organized and efficient.`
+        },
+        {
+            id: "56", file: "56-water-intake.html", type: "mobile",
+            name: "Water Intake",
+            desc: "Fill level, hydration streak",
+            prompt: `Build a water intake tracker mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Fresh liquid blue-forward style with Cyan #0891B2 primary, Blue #0EA5E9, Light #F0F9FF bg
+- Use Outfit font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Large water bottle/glass visualization showing fill level (6/8 glasses) — use CSS for the liquid fill effect
+- Daily goal progress "1.5L / 2.0L"
+- Quick-add buttons (+250ml, +500ml, +Custom)
+- Hourly intake timeline showing when each glass was consumed
+- Weekly overview bar chart (7 days)
+- Hydration streak counter (12 days)
+- Reminder settings
+- Drink type options (Water, Tea, Coffee, Juice with different ml amounts)
+- Bottom tab navigation
+
+Make the water visualization visually satisfying with a gradient or wave effect using CSS.`
+        },
+        {
+            id: "57", file: "57-budget-splitter.html", type: "mobile",
+            name: "Budget Splitter",
+            desc: "Groups, debts, settlement",
+            prompt: `Build a group expense splitter mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Social fun clear style with Rose #E11D48, Teal #0D9488, Warm White #FFFBEB
+- Use Space Grotesk font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Active group "Weekend Trip" with 4 members showing avatars (initials)
+- Who-owes-who summary with amounts ("You owe Sarah $34.50", "Mike owes you $12.00")
+- Recent expenses list (Restaurant $124, Gas $45, Groceries $67, Airbnb $320 — each showing who paid and how it's split)
+- Add expense floating button
+- Simplified settlement summary
+- Group selector tabs (Weekend Trip, Roommates, Work Lunch)
+- Total group spending display
+- Bottom tab navigation
+
+Use realistic names and expense amounts. Make the debt visualization clear and easy to understand.`
+        },
+        {
+            id: "58", file: "58-pet-health.html", type: "mobile",
+            name: "Pet Health",
+            desc: "Vet records, vaccines, meds",
+            prompt: `Build a pet health and vet records mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Warm caring rounded style with Teal #0D9488, Coral #F97316, Cream #FEF3C7
+- Use Nunito Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Pet profile card (name "Luna", breed "Golden Retriever", age "3 years", weight "28 kg")
+- Upcoming vet appointments with date, vet name, and reason
+- Vaccination records table (Rabies, DHPP, Bordetella with dates given and next due dates)
+- Medication reminders (heartworm pill monthly, flea treatment)
+- Weight history mini chart
+- Health notes from last vet visit
+- Emergency vet contact card
+- "Add Another Pet" option
+- Bottom tab navigation
+
+Make it feel caring and organized. Use realistic vet/medical terminology.`
+        },
+        {
+            id: "59", file: "59-running-tracker.html", type: "mobile",
+            name: "Running Tracker",
+            desc: "Live run, splits, shoe tracker",
+            prompt: `Build a running and jogging tracker mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Athletic energetic bold style with Neon Green #22C55E, Dark #111827 background, Orange #F97316 accent
+- Use Barlow font from Google Fonts
+- Inline SVG icons only
+- Dark background for the page itself (behind the phone frame)
+
+Content to include:
+- Active run display with large distance "5.2 km", timer "00:28:14", current pace "5:26 /km", calories "342", heart rate "156 bpm"
+- Map area with route line (CSS styled colored rectangle)
+- Split times table (km 1 through 5 with pace for each)
+- Weekly mileage summary (23.4 km)
+- Monthly goal progress bar (42/50 km)
+- Shoe tracker ("Nike Pegasus — 234 km logged")
+- Recent runs history list (last 3 runs)
+- Bottom tab navigation
+
+Make it feel high-energy and data-rich, like a real running app mid-workout.`
+        },
+        {
+            id: "60", file: "60-journal-app.html", type: "mobile",
+            name: "Daily Journal",
+            desc: "Gratitude, mood, reflections",
+            prompt: `Build a daily journal and gratitude mobile app as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Phone frame mockup (375x812, rounded corners, status bar)
+- Warm paper-like intimate style with Amber #D97706, Brown #78350F, Parchment #FEF3C7 background
+- Use Lora font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Today's entry area with a lined-paper aesthetic (date header "Monday, March 17")
+- Gratitude prompts ("3 things I'm grateful for") with filled-in example entries
+- Mood selector (5 face options as SVG icons)
+- Daily reflection text area with sample thoughtful text
+- Journal entries calendar showing dots for days with entries
+- Past entries list (last 5 with date, mood indicator, and preview snippet)
+- Writing streak counter (23 days)
+- Tags/categories (Growth, Work, Relationships, Health)
+- Bottom tab navigation
+
+Make it feel personal, warm, and reflective. Use a serif font for the journal text to feel like handwriting.`
+        },
+
+        // --- WEB APPS & DASHBOARDS ---
+        {
+            id: "01", file: "01-financial-dashboard.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Financial Trading Dashboard",
+            prompt: `Build a financial trading dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Dark mode, data-dense layout with sidebar
+- Colors: Navy #0F172A background, Green #22C55E for gains, Red #EF4444 for losses
+- Use Space Grotesk font from Google Fonts
+- Inline SVG icons only (Lucide-style)
+
+Content to include:
+- Portfolio value card with total value ($284,392.57), daily P&L, and percentage change
+- Buying power and open orders summary cards
+- 30-day portfolio performance bar chart (CSS-only bars with green/red for up/down days)
+- Holdings table with 7 stocks (AAPL, MSFT, TSLA, NVDA, GOOGL, AMZN, META) showing shares, avg cost, current price, market value, P&L, and daily change
+- Order book panel for one stock (bid/ask with sizes)
+- Watchlist sidebar with 8 tickers showing price and daily %
+- Market indices display (S&P 500, NASDAQ, DOW, VIX)
+- Quick trade panel with symbol input and buy/sell buttons
+
+Use realistic stock prices and financial data. Make it feel like a Bloomberg terminal.`
+        },
+        {
+            id: "02", file: "02-analytics-dashboard.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Marketing Analytics",
+            prompt: `Build a marketing analytics dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Minimalist Swiss design with lots of whitespace
+- Colors: Blue #1E40AF primary, Amber #D97706 accent, White background
+- Use Inter font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- KPI cards row (Visitors 124,892, Conversion Rate 3.2%, Bounce Rate 42.1%, Avg Session 4:23)
+- Traffic overview bar chart (CSS bars for last 7 days)
+- Channel breakdown table (Organic, Paid Search, Social, Email, Direct) with sessions, revenue, and share
+- Campaign performance cards (3 active campaigns with metrics)
+- Top pages grid with pageviews and engagement
+- Date range picker UI element
+
+Make it clean, professional, and data-focused with strong visual hierarchy.`
+        },
+        {
+            id: "03", file: "03-sales-crm.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Sales CRM Pipeline",
+            prompt: `Build a sales CRM pipeline view as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Flat design with cards, kanban-style layout
+- Colors: Teal #0D9488 primary, Orange #EA580C accent, Light gray bg #F8FAFC
+- Use DM Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Kanban columns: Lead, Qualified, Proposal, Negotiation, Won
+- Deal cards in each column showing company name, deal value, contact person, days in stage
+- Summary bar at top with total pipeline value ($2.8M), win rate (34.2%), and average deal size
+- At least 3-4 deal cards per column
+- Priority indicators on cards
+- Search and filter controls
+
+Use realistic B2B company names and deal values ($5K-$500K range). Make it feel like a real CRM tool.`
+        },
+        {
+            id: "04", file: "04-server-monitoring.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Server Monitoring",
+            prompt: `Build a server infrastructure monitoring dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Terminal/hacker dark theme
+- Colors: Slate #1E293B background, Lime #84CC16 for healthy, Cyan #22D3EE for info, Red for critical alerts
+- Use IBM Plex Mono font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Server grid showing 8+ servers with hostname, status indicators, CPU %, Memory %, Disk % usage bars
+- Color-coded status (green healthy, yellow warning, red critical)
+- Alert feed sidebar with 5+ active alerts (timestamps, severity, message)
+- Uptime percentage badges per server (99.9%, 99.7%, etc.)
+- Network throughput visualization
+- Terminal-style log viewer at bottom showing recent log entries
+- Incident history
+- On-call information
+
+Make it feel like a real DevOps monitoring tool. Use realistic server names like "prod-web-01", "db-primary", "cache-redis-03".`
+        },
+        {
+            id: "05", file: "05-hr-people-ops.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "HR People Ops",
+            prompt: `Build an HR people operations dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Warm corporate friendly style
+- Colors: Warm Gray #78716C, Amber #F59E0B accent, Cream #FFFBEB background
+- Use Plus Jakarta Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Employee headcount stats cards
+- Headcount by department chart (Engineering, Design, Marketing, Sales, Operations)
+- Employee directory mini-cards (6+ employees with initials avatar, name, department, status)
+- Upcoming birthdays and work anniversaries section
+- Open positions list with department and applicants count
+- Pending leave requests (4+ requests with approve/deny buttons)
+- Team satisfaction survey results with score categories
+
+Use realistic employee names and departments. Make it feel welcoming and organized.`
+        },
+        {
+            id: "06", file: "06-patient-portal.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Patient Health Portal",
+            prompt: `Build a patient health portal as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Clean medical trustworthy style
+- Colors: Cyan #0891B2, Green #059669, White background
+- Use Manrope font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Patient welcome banner with name
+- Upcoming appointments list (3+ appointments with doctor name, specialty, date/time)
+- Recent lab results table with values and normal ranges (show some in/out of range)
+- Medication schedule with drug names, dosage, and timing
+- Vitals history section (Blood Pressure, Heart Rate, Weight over 6 months)
+- Secure messages from doctor with unread badges
+- Health goals with progress bars (e.g., "Walk 30 min daily" at 75%)
+- Sidebar navigation
+
+Use realistic medical data and terminology. Make it feel trustworthy and professional.`
+        },
+        {
+            id: "09", file: "09-veterinary-clinic.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Veterinary Clinic Manager",
+            prompt: `Build a veterinary clinic management system as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Friendly but professional style with sidebar navigation
+- Colors: Teal #0D9488, Warm Orange #EA580C, Light bg #F0FDF4
+- Use Sora font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Today's appointments list (8+ entries with pet name, species, owner name, reason for visit, status)
+- Patient records search bar
+- Vaccination schedule due this week
+- Boarding reservations with check-out dates
+- Inventory alerts for low stock medications
+- Revenue summary widget
+- Sidebar navigation (Dashboard, Appointments, Patients, Inventory, Billing)
+
+Use realistic pet names, breeds, and veterinary procedures. Mix dogs, cats, and other pets.`
+        },
+        {
+            id: "10", file: "10-pharmacy-inventory.html", type: "web", badge: "Internal Tool", badgeClass: "bg-gray-700/50 text-gray-300",
+            name: "Pharmacy Inventory",
+            prompt: `Build a pharmacy inventory management system as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Clinical precise tabular style
+- Colors: Green #15803D, Blue #0369A1, Clean White background
+- Use IBM Plex Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Medication inventory table (10+ medications with name, NDC code, quantity on hand, expiry date, reorder point, status)
+- Expiring soon alerts panel (medications expiring within 30 days)
+- Low stock warnings with reorder buttons
+- Recent dispensing log with pharmacist and patient info
+- Supplier quick-reorder form
+- Controlled substance tracking section (Schedule II-V) with variance tracking
+
+Use realistic medication names (Amoxicillin, Lisinopril, Metformin, etc.) and NDC codes.`
+        },
+        {
+            id: "11", file: "11-luxury-ecommerce.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Luxury Fashion Store",
+            prompt: `Build a luxury fashion e-commerce store as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Elegant editorial high-fashion aesthetic
+- Colors: Black #1C1917, Gold #A16207, Ivory #FFFBEB
+- Use Cormorant Garamond for headings + DM Sans for body from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Product grid of 6+ luxury items (handbags, watches, shoes, coats) with brand-style names and prices ($1,200+)
+- Product detail sidebar with color and size selectors
+- "Add to Bag" and wishlist buttons
+- Recently viewed section
+- Editorial photography placeholders (use colored rectangles with fashion-appropriate aspect ratios)
+- Navigation with categories (Women, Men, Accessories, New Arrivals)
+
+Make it feel like Net-a-Porter or Farfetch. Use luxury brand-style product names and premium pricing.`
+        },
+        {
+            id: "13", file: "13-farm-marketplace.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Farm-to-Table Marketplace",
+            prompt: `Build a farm-to-table marketplace as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Organic natural earthy style
+- Colors: Green #15803D, Earth Brown #92400E, Natural #FEF9EF background
+- Use Bitter for headings + Source Sans 3 for body from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Product grid of farm goods (organic eggs, heirloom tomatoes, raw honey, artisan cheese, sourdough bread) with farm name, price, and organic/local badges
+- Farmer profiles sidebar (3 farmers with farm name and location)
+- Seasonal picks section
+- Delivery schedule showing next delivery dates
+- Order basket with running total
+- Search and category filters
+
+Use realistic farm names and product descriptions. Make it feel wholesome and local.`
+        },
+        {
+            id: "14", file: "14-freelancer-platform.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Freelancer Job Board",
+            prompt: `Build a freelancer job board platform as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Creative modern clean style
+- Colors: Indigo #6366F1, Green #16A34A, Light bg #F8FAFC
+- Use Space Grotesk font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Job listing cards (6+ jobs with title, budget range, required skills as tags, posted time, proposals count)
+- Filter sidebar (category, budget range, experience level, job type)
+- Freelancer profile mini-cards (top freelancers with avatar, rating, hourly rate)
+- Active contracts section with progress bars
+- Earnings overview widget
+
+Use realistic job titles ("Build a React Dashboard", "Logo Design for Startup") and budgets ($500-$15,000).`
+        },
+        {
+            id: "15", file: "15-car-dealership.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Auto Dealership Inventory",
+            prompt: `Build an auto dealership inventory system as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Premium industrial style
+- Colors: Dark Slate #1E293B, Red #DC2626, Silver #E2E8F0
+- Use Rajdhani for headings + Inter for body from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Vehicle grid cards (6 vehicles with make/model, year, mileage, price)
+- Filter bar (make, price range, year, body type dropdowns)
+- Vehicle detail panel with specs table and features list
+- Side-by-side comparison tool area
+- Financing calculator widget (loan amount, term, interest rate, monthly payment)
+- "Schedule Test Drive" call-to-action button
+
+Use real car makes/models (2024 BMW X5, 2023 Toyota Camry, etc.) with realistic pricing and mileage.`
+        },
+        {
+            id: "16", file: "16-project-kanban.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Project Kanban Board",
+            prompt: `Build a project kanban board as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Neumorphic light style with soft shadows
+- Colors: Soft Gray #E5E7EB background, Teal #0D9488 accent, Blue #3B82F6 links
+- Use Nunito Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Kanban board with 4 columns: Backlog, In Progress, Review, Done
+- Task cards with title, assignee (initials avatar), priority badge (High/Med/Low with colors), due date, subtask count
+- Board header with project name, member avatars, filter and search
+- "Add Task" button in each column
+- 3-5 cards per column with varied priorities
+
+Use realistic software project tasks like "Implement user authentication", "Fix pagination bug", "Design onboarding flow".`
+        },
+        {
+            id: "17", file: "17-invoice-tracker.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Invoice & Payment Tracker",
+            prompt: `Build a client invoice and payment tracker dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Modern bento grid layout
+- Colors: Navy #0F172A sidebar, Emerald #059669, Light bg #F8FAFC
+- Use Inter font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Bento-style widget grid with: outstanding balance card, monthly revenue with progress bar, paid this month summary
+- Recent invoices table (7+ rows with invoice #, client name, amount, status pill, due date)
+- Overdue alerts section
+- Monthly revenue trend bar chart
+- Top clients list
+- Quick "Create Invoice" form
+- Sidebar navigation
+
+Use realistic client company names and invoice amounts ($500-$15,000). Show mix of Paid, Pending, and Overdue statuses.`
+        },
+        {
+            id: "18", file: "18-document-approval.html", type: "web", badge: "Internal Tool", badgeClass: "bg-gray-700/50 text-gray-300",
+            name: "Document Approval Workflow",
+            prompt: `Build a document approval workflow system as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Corporate flat serious style
+- Colors: Slate Blue #475569, Blue #2563EB, White background
+- Use Source Sans 3 font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Document queue table (7+ documents with name, submitted by, department, status: pending/approved/rejected, date)
+- Document detail panel with approval chain (3 approvers showing current approval status)
+- Comments thread (3+ messages)
+- Version history (3 versions)
+- Action buttons: Approve, Reject, Request Changes
+- Department filter
+
+Use realistic document names like "Q4 Budget Proposal", "Vendor Contract - Acme Corp", "Marketing Campaign Brief".`
+        },
+        {
+            id: "19", file: "19-employee-onboarding.html", type: "web", badge: "Internal Tool", badgeClass: "bg-gray-700/50 text-gray-300",
+            name: "Employee Onboarding",
+            prompt: `Build an employee onboarding checklist as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Friendly flat welcoming style
+- Colors: Sky Blue #0EA5E9, Orange #F97316, Warm bg #FFF7ED
+- Use Poppins font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Welcome banner with new hire name, role, and start date
+- Onboarding progress bar (65% complete)
+- Checklist categories: IT Setup (laptop, accounts, VPN), HR Forms (tax, benefits, NDA), Team Intros, Training
+- Each category has 4-6 items with checkboxes showing completed/pending
+- Buddy/mentor assignment card with mentor name and photo placeholder
+- First week schedule (Mon-Fri with activities)
+- Resources and links section
+
+Make it feel welcoming for a new employee's first day. Use a specific role like "Senior Product Designer".`
+        },
+        {
+            id: "20", file: "20-meeting-scheduler.html", type: "web", badge: "Internal Tool", badgeClass: "bg-gray-700/50 text-gray-300",
+            name: "Meeting Room Scheduler",
+            prompt: `Build a meeting room scheduler as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Grid-based minimal clean style
+- Colors: Zinc #3F3F46, Teal #0D9488, Clean White
+- Use DM Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Weekly calendar grid (Mon-Fri, 9am-5pm) with colored blocks for booked meetings
+- Room selector sidebar (6 rooms with capacity, amenities icons, and availability dot green/red)
+- Booking form panel (room, date, time, duration, attendees, meeting title inputs)
+- Today's schedule quick view
+- Room availability at-a-glance indicators
+
+Use realistic meeting room names ("Everest", "Aurora", "Horizon") with capacities (4-20 people) and amenities (whiteboard, video, phone).`
+        },
+        {
+            id: "21", file: "21-coding-bootcamp.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Coding Bootcamp Platform",
+            prompt: `Build a coding bootcamp learning platform as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Terminal dark developer-focused style
+- Colors: Dark #020617 background, Green #22C55E, Blue #3B82F6
+- Use JetBrains Mono for code + Inter for UI from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Code editor panel with syntax-highlighted code (use colored spans for HTML/CSS/JS)
+- File tabs above editor (index.html, style.css, script.js)
+- Lesson sidebar with module list showing completed/active/locked states
+- Progress tracker ("Module 3 of 8")
+- Code output/preview area
+- Hint system with expandable hints
+- Submit button
+- Peer chat widget in corner
+
+Show realistic beginner-level code in the editor. Make it feel like a real interactive coding environment.`
+        },
+        {
+            id: "23", file: "23-quiz-builder.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Interactive Quiz Builder",
+            prompt: `Build an interactive quiz builder as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Vibrant block-based fun style
+- Colors: Rose #E11D48, Amber #F59E0B, Light bg #FFFBEB
+- Use Space Grotesk font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Question list sidebar (5+ questions numbered)
+- Active question editor (question text input, 4 answer options with correct answer toggle, point value)
+- Question type selector (Multiple Choice, True/False, Short Answer)
+- Preview pane showing how the quiz looks to a taker
+- Quiz settings panel (time limit, randomize questions, passing score with toggles)
+- Publish button and quiz stats
+
+Use realistic quiz questions (geography, science, general knowledge). Make the editor feel intuitive.`
+        },
+        {
+            id: "24", file: "24-student-gradebook.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Student Gradebook Portal",
+            prompt: `Build a student gradebook portal as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Clean academic traditional style
+- Colors: Navy #1E3A8A, Green #059669, Paper White #FAFAF9
+- Use Merriweather for headings + Source Sans 3 for body from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Student info header (name, student ID, semester "Fall 2025", cumulative GPA 3.72)
+- Course grades table (5 courses with course name, instructor, letter grade, credits, status)
+- Assignment detail view for one course (7+ assignments with name, score, weight, due date)
+- GPA calculator
+- Academic calendar sidebar with key dates
+- Transcript download button
+
+Use realistic course names ("CS 370 Database Systems", "MATH 201 Linear Algebra") and instructor names.`
+        },
+        {
+            id: "25", file: "25-course-creator.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Course Creator Dashboard",
+            prompt: `Build an online course creator dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Modern SaaS clean style
+- Colors: Teal #0D9488, Orange #EA580C, Warm Gray #F5F5F4
+- Use Manrope font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Module/lesson tree sidebar (8 modules with 3-4 lessons each, showing completed/draft status)
+- Lesson content editor with rich text toolbar (bold, italic, heading, code, image, link buttons)
+- Video upload placeholder area
+- Quiz attachment option
+- Course settings panel (pricing $79, enrollment type, drip schedule)
+- Student enrollment stats (247 students, 68% completion rate)
+- Revenue analytics widget ($19,513 total revenue with monthly bar chart)
+- Edit/Preview toggle
+
+Make it feel like a real course platform like Teachable or Thinkific.`
+        },
+        {
+            id: "26", file: "26-property-manager.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Property Management",
+            prompt: `Build a property management dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Trust-building professional style
+- Colors: Teal #0F766E, Blue #0369A1, Light bg #F0FDFA
+- Use Plus Jakarta Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Property portfolio overview (6+ properties with address, unit count, occupancy %, monthly revenue)
+- Tenant directory with search
+- Maintenance request queue (6+ tickets with status, priority, property, description)
+- Lease expiration alerts
+- Rent collection status (paid/pending/overdue breakdown)
+- Financial summary (income vs expenses, net operating income)
+- Sidebar navigation
+
+Use realistic property addresses and rental amounts. Mix residential and commercial properties.`
+        },
+        {
+            id: "27", file: "27-legal-case-tracker.html", type: "web", badge: "Internal Tool", badgeClass: "bg-gray-700/50 text-gray-300",
+            name: "Legal Case Tracker",
+            prompt: `Build a legal case tracking system as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Authority formal traditional style
+- Colors: Navy #1E3A8A, Gold #B45309, Parchment #FEF3C7
+- Use Libre Baskerville for headings + Inter for body from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Active cases table (6+ cases with case #, client name, case type, court, next hearing date, assigned attorney, status)
+- Case detail panel with timeline of events
+- Document repository list
+- Billing hours tracker
+- Upcoming deadline calendar
+- Opposing counsel information
+- Notes section
+
+Use realistic case types (Contract Dispute, Personal Injury, IP Infringement) and court names.`
+        },
+        {
+            id: "29", file: "29-insurance-claims.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Insurance Claims Portal",
+            prompt: `Build an insurance claims portal as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Secure institutional trustworthy style
+- Colors: Blue #0369A1, Green #16A34A, Cool White #F8FAFC
+- Use Source Sans 3 font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Status summary cards (New, In Review, Approved, Denied with counts)
+- Claims table (6+ claims with claim #, policy holder, type, amount, filed date, status)
+- Claim detail panel with uploaded documents list, adjuster notes, and payout calculation
+- Policy information section
+- File new claim form with drag-and-drop upload area
+
+Use realistic claim types (Auto Collision, Property Damage, Medical) and amounts.`
+        },
+        {
+            id: "30", file: "30-crypto-portfolio.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Crypto Portfolio Tracker",
+            prompt: `Build a crypto portfolio tracker dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Fintech dark mode modern style
+- Colors: Gold #F59E0B, Dark #0F172A background, Cyan #22D3EE accents
+- Use Space Grotesk font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Portfolio value header with 24h change percentage
+- Holdings table (BTC, ETH, SOL, ADA, DOT) with quantity, avg cost, current price, P&L, allocation %
+- Scrolling price ticker bar at top
+- Market sentiment indicator
+- Transaction history list
+- Watchlist section
+- CSS-only mini price sparklines using gradients or clip-path
+
+Use current-realistic crypto prices. Make it feel like a professional trading interface.`
+        },
+        {
+            id: "31", file: "31-recipe-manager.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Recipe Manager",
+            prompt: `Build a recipe manager and meal planner as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Warm kitchen cozy style
+- Colors: Brown #92400E, Cream #FEF3C7 background, Terracotta #C2410C
+- Use Playfair Display for headings + DM Sans for body from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Recipe card grid (6+ recipes with cook time, servings, difficulty level)
+- Weekly meal planner grid (Mon-Sun with breakfast/lunch/dinner slots)
+- Shopping list generator
+- Recipe detail view (ingredients checklist, step-by-step instructions)
+- Favorites and collections section
+- Nutritional info summary
+
+Use real recipe names like "Tuscan Chicken Pasta", "Thai Green Curry", "Chocolate Lava Cake" with realistic cook times and ingredients.`
+        },
+        {
+            id: "33", file: "33-hotel-booking.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Hotel Booking Admin",
+            prompt: `Build a hotel booking admin panel as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Luxury hospitality refined style
+- Colors: Navy #1E3A8A, Gold #A16207, Marble-like White #FAF9F6
+- Use Cormorant Garamond for headings + Inter for body from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Room availability grid (5 room types: Standard, Deluxe, Suite, Junior Suite, Penthouse across 7 days)
+- Today's check-ins and check-outs lists
+- Occupancy rate dashboard (87.3%)
+- Guest information cards with details
+- Housekeeping status board (16 rooms with Clean/Dirty/In Progress status)
+- RevPAR and daily revenue metrics
+- Reservation search
+- Sidebar navigation
+
+Use realistic room rates ($150-$800/night) and guest names. Make it feel like a real hotel PMS.`
+        },
+        {
+            id: "35", file: "35-brewery-taproom.html", type: "web", badge: "Kiosk", badgeClass: "bg-amber-900/50 text-amber-300",
+            name: "Brewery Taproom Menu",
+            prompt: `Build a brewery taproom digital menu board as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Craft rustic artisanal full-screen kiosk display (no browser chrome, designed for TV)
+- Colors: Burgundy #7C2D12, Amber #A16207, Dark #1C1917 background
+- Use Oswald for headings + Lora for body from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Brewery name header with logo area
+- Tap list with 10 beers showing: name, style, ABV, IBU, description, food pairing, price (half pint/pint)
+- Color indicators for beer type (IPA=amber, Stout=dark brown, Lager=gold, Sour=pink, Wheat=orange)
+- "Now Pouring" highlight with glow animation on featured beer
+- New/Limited/Seasonal badges
+- Tasting flight promotional section
+- Food menu section
+- Happy hour notice with times
+- Taproom hours
+
+Use creative craft beer names like "Hopscotch IPA", "Midnight Velvet Stout", "Citrus Haze Wheat".`
+        },
+        {
+            id: "36", file: "36-podcast-dashboard.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Podcast Analytics",
+            prompt: `Build a podcast analytics dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Audio dark mode atmospheric style
+- Colors: Dark #1E1B4B background, Orange #F97316 accent, Slate #94A3B8 text
+- Use Space Grotesk font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Show stats header (total downloads, subscribers, avg listen duration)
+- Episode list with per-episode metrics (downloads, completion rate, publish date)
+- Listener geography breakdown (top 5 countries with percentages)
+- Platform distribution bars (Apple Podcasts, Spotify, Google, Others with %)
+- Top episodes ranking
+- Recent listener reviews with star ratings
+- Recording schedule cards
+
+Use a realistic podcast name and episode titles. Make it feel like Spotify for Podcasters or Anchor.`
+        },
+        {
+            id: "37", file: "37-newsletter-builder.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Newsletter Builder",
+            prompt: `Build a newsletter builder and email sender as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Editorial clean paper-like style
+- Colors: Blue #0369A1, Orange #EA580C accent, Paper #FAF9F6 background
+- Use Libre Franklin font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Email editor with draggable content block list (Header, Text, Image, Button, Divider, Columns blocks)
+- Preview pane showing the rendered newsletter with sample content
+- Subscriber count widget (12,847 subscribers)
+- Send schedule options (Send Now, Schedule, Save Draft)
+- A/B test configuration
+- Past campaigns table with open rate and click rate per campaign
+- Template gallery thumbnails
+
+Make it feel like Mailchimp or ConvertKit. Show a realistic newsletter preview with actual content.`
+        },
+        {
+            id: "38", file: "38-community-forum.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Community Forum",
+            prompt: `Build a community discussion forum as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Modern social engaging style
+- Colors: Rose #E11D48, Blue #2563EB, Light bg #F8FAFC
+- Use Nunito Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Category cards (General, Help & Support, Show & Tell, Feature Requests with post counts and latest activity)
+- Thread list view (8+ threads with title, author avatar/initials, reply count, last activity time, tags)
+- Thread detail view with original post and replies
+- User profile sidebar (reputation points, badges, join date)
+- Compose new post area with formatting buttons
+- Pinned announcements
+- Search bar and trending tags
+
+Use realistic forum thread titles and usernames. Make it feel like a thriving community.`
+        },
+        {
+            id: "39", file: "39-event-manager.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Event Management",
+            prompt: `Build an event management dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Vibrant organized energetic style
+- Colors: Coral #F43F5E, Teal #0D9488, White background
+- Use Outfit font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Upcoming events cards (3+ events with name, date, venue, ticket sales %, capacity)
+- Event detail panel with attendee list
+- Ticket tiers table (Early Bird, Regular, VIP with prices, quantities sold, revenue)
+- Check-in scanner placeholder area
+- Revenue summary
+- Event schedule/timeline builder
+- Speaker/performer lineup with confirmation status
+
+Use realistic event names like "TechConf 2026", "Summer Music Festival", "Design Workshop". Include realistic pricing.`
+        },
+        {
+            id: "40", file: "40-social-scheduler.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Social Media Scheduler",
+            prompt: `Build a social media post scheduler as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Content creator fun but functional style
+- Colors: Pink #EC4899, Cyan #0891B2, Light bg #FFF1F2
+- Use DM Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Month calendar grid with colored dots for scheduled posts (different colors per platform)
+- Post composer (text area, image placeholder, platform checkboxes: Twitter, Instagram, LinkedIn, TikTok)
+- Content queue list (5+ scheduled posts with time, platform icons, preview, status)
+- Analytics summary cards (engagement rate, follower growth, impressions)
+- Content library / media gallery grid
+- Best times to post suggestions
+- Recently published posts section
+
+Make it feel like Buffer or Later. Use realistic social media post content.`
+        },
+        {
+            id: "41", file: "41-smart-home.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Smart Home Control",
+            prompt: `Build a smart home control panel as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Futuristic dark clean style
+- Colors: Slate #1E293B background, Green #22C55E for active devices, Blue #3B82F6 accent
+- Use Inter font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Room selector tabs (Living Room, Bedroom, Kitchen, Office)
+- Device cards with toggle switches (smart lights with dimmer slider, thermostat with temperature display and up/down, smart lock, security camera, speakers)
+- Scene presets (Movie Night, Good Morning, Away Mode) with one-tap activation
+- Energy usage summary with breakdown bars
+- Device status grid overview (all devices across rooms)
+- Automation rules list (e.g., "Lights off at 11 PM", "AC on when temp > 75°F")
+
+Make it feel like a real smart home hub. Show realistic temperature (72°F), light brightness (80%), etc.`
+        },
+        {
+            id: "42", file: "42-construction-tracker.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Construction Tracker",
+            prompt: `Build a construction project tracker as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Industrial utility rugged style
+- Colors: Gray #64748B, Orange #EA580C, Concrete #E2E8F0 background
+- Use Barlow font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Project overview (site name, address, completion %, budget used %)
+- Phase timeline (Foundation ✓, Framing ✓, Electrical → current, Plumbing, Finishing)
+- Daily log entries (weather, workers on site count, activities completed, issues reported)
+- Material delivery schedule table
+- Inspection checklist with pass/fail status
+- Safety incidents counter
+- Subcontractor directory cards
+
+Use a realistic construction project ("Riverside Commons - Phase 2") with real trades and materials.`
+        },
+        {
+            id: "43", file: "43-fleet-tracking.html", type: "web", badge: "Dashboard", badgeClass: "bg-blue-900/50 text-blue-300",
+            name: "Fleet & Delivery Tracking",
+            prompt: `Build a fleet and delivery tracking dashboard as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Map-focused operational style
+- Colors: Blue #2563EB, Orange #EA580C, Map tones bg #F1F5F9
+- Use Roboto font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Large map placeholder area with SVG route lines and vehicle markers
+- Vehicle list sidebar (10+ trucks with status: en route/delivered/idle, driver name, current location)
+- Delivery stats cards (on-time %, completed today, currently in transit)
+- Alert feed (delays, maintenance due)
+- Route optimization panel
+- Fuel consumption widget
+
+Use truck IDs like "TRK-001" and driver names. Show realistic delivery routes and timing.`
+        },
+        {
+            id: "48", file: "48-wedding-planner.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Wedding Planner",
+            prompt: `Build a wedding planning checklist as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Romantic elegant refined style
+- Colors: Pink #DB2777, Gold #A16207, Blush #FFF1F2 background
+- Use Cormorant Garamond for headings + Nunito for body from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Countdown display ("128 days to go!")
+- Checklist categories (Venue, Catering, Photography, Flowers, Music, Attire) with completion %
+- Budget tracker table (allocated vs spent per category)
+- Guest list summary (156 invited, RSVP breakdown: Yes/No/Pending)
+- Vendor contacts list (5 vendors with name, role, phone, status)
+- Seating chart placeholder area
+- Wedding day timeline (8 AM makeup through 8 PM first dance)
+
+Make it feel romantic and organized. Use realistic wedding budget amounts ($2,000-$15,000 per category).`
+        },
+        {
+            id: "49", file: "49-photography-portfolio.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Photography Gallery",
+            prompt: `Build a photography client gallery as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Gallery minimal photo-first monochrome style
+- Colors: Black #18181B, White #FAFAFA, NO accent color — pure monochrome
+- Use DM Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Gallery header (client name "Sarah & James", event "Wedding", date, photo count "248 photos")
+- Filter bar (All, Getting Ready, Ceremony, Portraits, Reception, Details)
+- Masonry-style photo grid using colored rectangles as photo placeholders (use warm grays and muted tones, varied aspect ratios)
+- Hover overlay on photos with expand and download buttons, selection checkboxes
+- Gallery sharing controls with copy link
+- Client comment section with threaded replies
+- "Download All" and "Download Selected" buttons
+
+Make it feel like a professional photographer's delivery platform. Keep everything strictly black and white.`
+        },
+        {
+            id: "50", file: "50-coworking-booking.html", type: "web", badge: "Web App", badgeClass: "bg-emerald-900/50 text-emerald-300",
+            name: "Coworking Space Booking",
+            prompt: `Build a coworking space booking system as a single self-contained HTML file using Tailwind CSS CDN.
+
+Design specs:
+- Energetic modern community style
+- Colors: Amber #F59E0B, Blue #2563EB, Warm White #FFFBEB background
+- Use Plus Jakarta Sans font from Google Fonts
+- Inline SVG icons only
+
+Content to include:
+- Floor plan placeholder with colored zones (open workspace, meeting rooms, private offices, phone booths, kitchen)
+- Space type cards (Hot Desk $15/day, Private Office $50/day, Meeting Room $25/hr, Phone Booth $10/hr)
+- Availability calendar for the current month
+- Booking form (date, time, space type, amenities selection)
+- My bookings list (3+ upcoming bookings with status)
+- Community events sidebar (3 upcoming events)
+- Amenities checklist (WiFi, Coffee, Printer, Parking, Locker)
+
+Make it feel like a WeWork or Regus booking interface. Use realistic coworking space pricing.`
+        }
+    ];
+
+    // ========== RENDERING ==========
+    const mobileGrid = document.getElementById('mobile-grid');
+    const webGrid = document.getElementById('web-grid');
+    let currentPrompt = '';
+    let currentTitle = '';
+    let currentFile = '';
+
+    products.forEach(p => {
+        if (p.type === 'mobile') {
+            mobileGrid.innerHTML += mobileCard(p);
+        } else {
+            webGrid.innerHTML += webCard(p);
+        }
+    });
+
+    function mobileCard(p) {
+        return `<div class="card-hover rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden">
+            <a href="${p.file}" class="block">
+                <div class="relative overflow-hidden" style="aspect-ratio:9/19">
+                    <img src="thumbnails/${p.id}.jpeg" alt="${p.name}" class="w-full h-full object-cover object-top" loading="lazy">
+                    <div class="thumb-overlay absolute inset-0 bg-black/40 flex items-center justify-center">
+                        <span class="bg-white text-black px-3 py-1.5 rounded-lg text-xs font-semibold">View Demo</span>
+                    </div>
+                </div>
+            </a>
+            <div class="p-3">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-xs text-gray-500">#${p.id}</span>
+                    <button onclick="openModal('${p.id}')" class="text-xs text-green-400 hover:text-green-300 font-medium flex items-center gap-1 cursor-pointer" title="Copy prompt">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Prompt
+                    </button>
+                </div>
+                <h3 class="font-semibold text-sm">${p.name}</h3>
+                <p class="text-gray-500 text-xs mt-0.5">${p.desc}</p>
+            </div>
+        </div>`;
+    }
+
+    function webCard(p) {
+        const badge = p.badge || 'Web App';
+        const badgeClass = p.badgeClass || 'bg-emerald-900/50 text-emerald-300';
+        return `<div class="card-hover rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden">
+            <a href="${p.file}" class="block">
+                <div class="relative overflow-hidden" style="aspect-ratio:16/10">
+                    <img src="thumbnails/${p.id}.jpeg" alt="${p.name}" class="w-full h-full object-cover object-top" loading="lazy">
+                    <div class="thumb-overlay absolute inset-0 bg-black/40 flex items-center justify-center">
+                        <span class="bg-white text-black px-4 py-2 rounded-lg text-sm font-semibold">View Demo</span>
+                    </div>
+                </div>
+            </a>
+            <div class="p-4">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-xs font-medium px-2 py-0.5 rounded-full ${badgeClass}">${badge}</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-gray-500">#${p.id}</span>
+                        <button onclick="openModal('${p.id}')" class="text-xs text-green-400 hover:text-green-300 font-medium flex items-center gap-1 cursor-pointer" title="Copy prompt">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                            Prompt
+                        </button>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-sm">${p.name}</h3>
+            </div>
+        </div>`;
+    }
+
+    // ========== MODAL & COPY ==========
+    function openModal(id) {
+        const p = products.find(x => x.id === id);
+        if (!p) return;
+        currentPrompt = p.prompt;
+        currentTitle = p.name;
+        currentFile = p.file;
+        document.getElementById('modalTitle').textContent = `#${p.id} — ${p.name}`;
+        document.getElementById('modalPrompt').textContent = p.prompt;
+        document.getElementById('modalViewLink').href = p.file;
+        document.getElementById('promptModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('promptModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function copyCurrentPrompt() {
+        navigator.clipboard.writeText(currentPrompt).then(() => {
+            showToast();
+            closeModal();
+        });
+    }
+
+    function showToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 2200);
+    }
+
+    // Close modal on Escape
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeModal();
+    });
+    </script>
+</body>
+</html>

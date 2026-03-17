@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learncraft - Course Creator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Manrope', 'sans-serif'] },
+          colors: {
+            lc: { teal: '#0D9488', orange: '#EA580C', warm: '#F5F5F4', bg: '#FAFAF9', dark: '#1C1917', text: '#44403C', muted: '#78716C', border: '#E7E5E4', surface: '#FFFFFF' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-lc-bg font-sans min-h-screen flex flex-col">
+
+  <!-- Top Nav -->
+  <header class="bg-white border-b border-lc-border px-6 py-3 flex items-center justify-between shrink-0">
+    <div class="flex items-center gap-3">
+      <svg class="w-7 h-7 text-lc-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      <span class="font-extrabold text-lc-dark text-lg">Learncraft</span>
+      <span class="text-xs text-lc-muted font-medium">/</span>
+      <span class="text-sm font-semibold text-lc-dark">Course Builder</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <!-- Preview/Publish Toggle -->
+      <div class="flex items-center bg-lc-warm rounded-lg p-0.5">
+        <button class="px-3 py-1.5 text-sm font-semibold rounded-md bg-white shadow-sm text-lc-dark">Edit</button>
+        <button class="px-3 py-1.5 text-sm font-medium rounded-md text-lc-muted hover:text-lc-dark transition">Preview</button>
+      </div>
+      <button class="flex items-center gap-1.5 text-sm border border-lc-border rounded-lg px-3 py-1.5 text-lc-muted hover:text-lc-dark hover:border-lc-dark transition">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        Settings
+      </button>
+      <button class="flex items-center gap-1.5 text-sm bg-lc-teal text-white rounded-lg px-4 py-1.5 font-semibold hover:bg-teal-700 transition">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        Publish Course
+      </button>
+    </div>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden">
+
+    <!-- Module/Lesson Tree Sidebar -->
+    <aside class="w-80 bg-white border-r border-lc-border flex flex-col shrink-0 overflow-y-auto">
+      <div class="p-4 border-b border-lc-border">
+        <h2 class="font-bold text-lc-dark text-sm mb-1">React for Beginners</h2>
+        <p class="text-xs text-lc-muted">8 modules &middot; 32 lessons &middot; 12h 30m</p>
+      </div>
+      <div class="flex-1 p-3 space-y-1 text-sm overflow-y-auto">
+
+        <!-- Module 1 -->
+        <div class="mb-2">
+          <button class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-lc-warm transition text-left">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-lc-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              <span class="font-semibold text-lc-dark">1. Getting Started</span>
+            </div>
+            <span class="text-xs text-lc-muted">4 lessons</span>
+          </button>
+          <div class="ml-6 mt-1 space-y-0.5">
+            <a href="#" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-lc-muted hover:bg-lc-warm transition">
+              <svg class="w-3.5 h-3.5 text-lc-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              What is React?
+            </a>
+            <a href="#" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-lc-muted hover:bg-lc-warm transition">
+              <svg class="w-3.5 h-3.5 text-lc-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Environment Setup
+            </a>
+            <a href="#" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-lc-muted hover:bg-lc-warm transition">
+              <svg class="w-3.5 h-3.5 text-lc-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              First React App
+            </a>
+            <a href="#" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-lc-muted hover:bg-lc-warm transition">
+              <svg class="w-3.5 h-3.5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+              Module Quiz
+            </a>
+          </div>
+        </div>
+
+        <!-- Module 2 - Active -->
+        <div class="mb-2">
+          <button class="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-teal-50 border border-teal-100 text-left">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-lc-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              <span class="font-bold text-lc-teal">2. Components</span>
+            </div>
+            <span class="text-xs text-lc-teal font-semibold">5 lessons</span>
+          </button>
+          <div class="ml-6 mt-1 space-y-0.5">
+            <a href="#" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-lc-muted hover:bg-lc-warm transition">
+              <svg class="w-3.5 h-3.5 text-lc-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Functional Components
+            </a>
+            <a href="#" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-lc-teal/10 text-lc-teal font-semibold border border-lc-teal/20">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Props & Data Flow
+            </a>
+            <a href="#" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-lc-muted hover:bg-lc-warm transition">
+              <svg class="w-3.5 h-3.5 text-lc-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Children & Composition
+            </a>
+            <a href="#" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-lc-muted hover:bg-lc-warm transition">
+              <svg class="w-3.5 h-3.5 text-lc-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Styling Components
+            </a>
+            <a href="#" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-lc-muted hover:bg-lc-warm transition">
+              <svg class="w-3.5 h-3.5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+              Module Quiz
+            </a>
+          </div>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="mb-2">
+          <button class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-lc-warm transition text-left">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-lc-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <span class="font-semibold text-lc-dark">3. State & Hooks</span>
+            </div>
+            <span class="text-xs text-lc-muted">5 lessons</span>
+          </button>
+        </div>
+        <div class="mb-2">
+          <button class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-lc-warm transition text-left">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-lc-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <span class="font-semibold text-lc-dark">4. Effects & APIs</span>
+            </div>
+            <span class="text-xs text-lc-muted">4 lessons</span>
+          </button>
+        </div>
+        <div class="mb-2">
+          <button class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-lc-warm transition text-left">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-lc-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <span class="font-semibold text-lc-dark">5. Routing</span>
+            </div>
+            <span class="text-xs text-lc-muted">3 lessons</span>
+          </button>
+        </div>
+        <div class="mb-2">
+          <button class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-lc-warm transition text-left">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-lc-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <span class="font-semibold text-lc-dark">6. Forms</span>
+            </div>
+            <span class="text-xs text-lc-muted">4 lessons</span>
+          </button>
+        </div>
+        <div class="mb-2">
+          <button class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-lc-warm transition text-left">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-lc-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <span class="font-semibold text-lc-dark">7. State Management</span>
+            </div>
+            <span class="text-xs text-lc-muted">4 lessons</span>
+          </button>
+        </div>
+        <div class="mb-2">
+          <button class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-lc-warm transition text-left">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-lc-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <span class="font-semibold text-lc-dark">8. Final Project</span>
+            </div>
+            <span class="text-xs text-lc-muted">3 lessons</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-3 border-t border-lc-border">
+        <button class="w-full flex items-center justify-center gap-1.5 text-sm text-lc-teal font-semibold border-2 border-dashed border-teal-200 rounded-xl py-2.5 hover:bg-teal-50 transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          Add Module
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Editor -->
+    <main class="flex-1 overflow-y-auto p-8">
+      <div class="max-w-3xl mx-auto">
+
+        <!-- Lesson Header -->
+        <div class="flex items-center gap-2 mb-2 text-sm text-lc-muted">
+          <span>Module 2: Components</span>
+          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <span class="text-lc-dark font-semibold">Lesson 2</span>
+        </div>
+        <h1 class="text-2xl font-extrabold text-lc-dark mb-1">Props & Data Flow</h1>
+        <div class="flex items-center gap-3 mb-6 text-sm text-lc-muted">
+          <span class="flex items-center gap-1">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            ~20 min
+          </span>
+          <span class="flex items-center gap-1">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Text + Code
+          </span>
+          <span class="bg-teal-100 text-lc-teal text-xs font-semibold px-2 py-0.5 rounded-full">Free Preview</span>
+        </div>
+
+        <!-- Rich Text Editor Area -->
+        <div class="bg-white rounded-xl border border-lc-border overflow-hidden mb-6">
+          <!-- Toolbar -->
+          <div class="flex items-center gap-1 px-4 py-2 border-b border-lc-border bg-lc-warm flex-wrap">
+            <button class="p-1.5 rounded hover:bg-white transition text-lc-muted hover:text-lc-dark" title="Bold">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+            </button>
+            <button class="p-1.5 rounded hover:bg-white transition text-lc-muted hover:text-lc-dark" title="Italic">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
+            </button>
+            <div class="w-px h-5 bg-lc-border mx-1"></div>
+            <button class="p-1.5 rounded hover:bg-white transition text-lc-muted hover:text-lc-dark" title="Heading">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/><path d="M6 4v16"/><path d="M18 4v16"/></svg>
+            </button>
+            <button class="p-1.5 rounded hover:bg-white transition text-lc-muted hover:text-lc-dark" title="Bullet List">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
+            </button>
+            <div class="w-px h-5 bg-lc-border mx-1"></div>
+            <button class="p-1.5 rounded hover:bg-white transition text-lc-muted hover:text-lc-dark" title="Code Block">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </button>
+            <button class="p-1.5 rounded hover:bg-white transition text-lc-muted hover:text-lc-dark" title="Image">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+            </button>
+            <button class="p-1.5 rounded hover:bg-white transition text-lc-muted hover:text-lc-dark" title="Link">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
+          <!-- Content -->
+          <div class="p-6 min-h-[300px] text-lc-text leading-relaxed">
+            <h2 class="text-xl font-bold text-lc-dark mb-3">Understanding Props</h2>
+            <p class="mb-4">Props (short for "properties") are the primary mechanism for passing data from a parent component to a child component in React. They are <strong>read-only</strong> and help you create reusable, composable components.</p>
+            <p class="mb-4">Think of props like function arguments -- they let you customize how a component behaves and what it renders.</p>
+            <div class="bg-gray-900 rounded-lg p-4 mb-4 font-mono text-sm text-green-400 overflow-x-auto">
+              <div><span class="text-blue-400">function</span> <span class="text-yellow-300">Welcome</span>(props) {</div>
+              <div class="ml-4"><span class="text-blue-400">return</span> &lt;<span class="text-red-400">h1</span>&gt;Hello, {props.name}&lt;/<span class="text-red-400">h1</span>&gt;;</div>
+              <div>}</div>
+              <div class="mt-2 text-gray-500">// Usage:</div>
+              <div>&lt;<span class="text-yellow-300">Welcome</span> <span class="text-cyan-300">name</span>=<span class="text-green-400">"Sara"</span> /&gt;</div>
+            </div>
+            <h3 class="text-lg font-bold text-lc-dark mb-2">Key Rules of Props</h3>
+            <ul class="list-disc ml-6 space-y-1.5 mb-4">
+              <li>Props are passed from parent to child (one-way data flow)</li>
+              <li>Props are read-only -- never modify props directly</li>
+              <li>Any JavaScript value can be passed as a prop</li>
+              <li>Use destructuring for cleaner syntax</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Video Upload Placeholder -->
+        <div class="bg-white rounded-xl border-2 border-dashed border-lc-border p-8 mb-6 text-center hover:border-lc-teal hover:bg-teal-50/30 transition cursor-pointer">
+          <svg class="w-12 h-12 text-lc-muted mx-auto mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="4" rx="2"/><path d="m10 9 5 3-5 3V9z"/></svg>
+          <p class="font-semibold text-lc-dark mb-1">Add a video to this lesson</p>
+          <p class="text-sm text-lc-muted">Drag & drop or click to upload (MP4, max 2GB)</p>
+        </div>
+
+        <!-- Quiz Attachment -->
+        <div class="bg-white rounded-xl border border-lc-border p-4 mb-6 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-lc-dark text-sm">Knowledge Check Quiz</p>
+              <p class="text-xs text-lc-muted">5 questions &middot; Auto-graded &middot; Pass: 80%</p>
+            </div>
+          </div>
+          <button class="text-sm text-lc-teal font-semibold hover:underline">Edit Quiz</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Sidebar: Settings + Analytics -->
+    <aside class="w-80 bg-white border-l border-lc-border flex flex-col shrink-0 overflow-y-auto hidden xl:flex">
+
+      <!-- Course Settings -->
+      <div class="p-5 border-b border-lc-border">
+        <h3 class="font-bold text-lc-dark text-sm mb-4 flex items-center gap-2">
+          <svg class="w-4 h-4 text-lc-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          Course Settings
+        </h3>
+        <div class="space-y-4">
+          <div>
+            <label class="text-xs font-semibold text-lc-muted mb-1 block">Pricing</label>
+            <div class="flex items-center gap-2">
+              <span class="text-lc-muted text-sm">$</span>
+              <input type="text" value="79.00" class="flex-1 bg-lc-warm border border-lc-border rounded-lg px-3 py-2 text-sm text-lc-dark font-semibold focus:outline-none focus:border-lc-teal">
+              <span class="text-xs text-lc-muted">USD</span>
+            </div>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-lc-muted mb-1 block">Enrollment</label>
+            <select class="w-full bg-lc-warm border border-lc-border rounded-lg px-3 py-2 text-sm text-lc-dark font-medium focus:outline-none focus:border-lc-teal">
+              <option selected>Open Enrollment</option>
+              <option>Invite Only</option>
+              <option>Waitlist</option>
+              <option>Closed</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-lc-muted mb-1 block">Drip Schedule</label>
+            <select class="w-full bg-lc-warm border border-lc-border rounded-lg px-3 py-2 text-sm text-lc-dark font-medium focus:outline-none focus:border-lc-teal">
+              <option>All at once</option>
+              <option selected>Weekly (1 module/week)</option>
+              <option>Bi-weekly</option>
+              <option>Custom schedule</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enrollment Stats -->
+      <div class="p-5 border-b border-lc-border">
+        <h3 class="font-bold text-lc-dark text-sm mb-4 flex items-center gap-2">
+          <svg class="w-4 h-4 text-lc-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Enrollment
+        </h3>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-teal-50 rounded-xl p-3 text-center">
+            <p class="text-2xl font-extrabold text-lc-teal">247</p>
+            <p class="text-xs text-lc-muted font-semibold">Total Students</p>
+          </div>
+          <div class="bg-green-50 rounded-xl p-3 text-center">
+            <p class="text-2xl font-extrabold text-green-600">68%</p>
+            <p class="text-xs text-lc-muted font-semibold">Completion</p>
+          </div>
+          <div class="bg-orange-50 rounded-xl p-3 text-center">
+            <p class="text-2xl font-extrabold text-lc-orange">12</p>
+            <p class="text-xs text-lc-muted font-semibold">This Week</p>
+          </div>
+          <div class="bg-blue-50 rounded-xl p-3 text-center">
+            <p class="text-2xl font-extrabold text-blue-600">4.7</p>
+            <p class="text-xs text-lc-muted font-semibold">Avg Rating</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue Analytics Widget -->
+      <div class="p-5">
+        <h3 class="font-bold text-lc-dark text-sm mb-4 flex items-center gap-2">
+          <svg class="w-4 h-4 text-lc-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Revenue
+        </h3>
+        <div class="bg-lc-warm rounded-xl p-4 mb-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs text-lc-muted font-semibold">Total Revenue</span>
+            <span class="text-xs text-lc-teal font-semibold">+18% vs last month</span>
+          </div>
+          <p class="text-2xl font-extrabold text-lc-dark">$19,513</p>
+        </div>
+        <!-- Mini bar chart -->
+        <div class="flex items-end gap-1.5 h-24 mb-2">
+          <div class="flex-1 bg-teal-100 rounded-t" style="height:40%"></div>
+          <div class="flex-1 bg-teal-100 rounded-t" style="height:55%"></div>
+          <div class="flex-1 bg-teal-100 rounded-t" style="height:45%"></div>
+          <div class="flex-1 bg-teal-100 rounded-t" style="height:70%"></div>
+          <div class="flex-1 bg-teal-100 rounded-t" style="height:60%"></div>
+          <div class="flex-1 bg-teal-200 rounded-t" style="height:85%"></div>
+          <div class="flex-1 bg-lc-teal rounded-t" style="height:100%"></div>
+        </div>
+        <div class="flex justify-between text-[10px] text-lc-muted font-medium">
+          <span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span>
+        </div>
+        <div class="mt-4 pt-4 border-t border-lc-border space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-lc-muted">This month</span>
+            <span class="font-bold text-lc-dark">$3,318</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-lc-muted">Refunds</span>
+            <span class="font-bold text-red-500">-$158</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-lc-muted">Net</span>
+            <span class="font-bold text-lc-teal">$3,160</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Walker App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Quicksand', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes walk-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .walk-pulse { animation: walk-pulse 2s ease-in-out infinite; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        orange: { primary: '#EA580C' },
+                        teal: { primary: '#0D9488' },
+                        cream: '#FFF7ED',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-orange-100 min-h-screen flex items-center justify-center p-4">
+    <div class="w-[375px] h-[812px] bg-[#FFF7ED] rounded-[2.5rem] shadow-2xl overflow-hidden relative border-[3px] border-gray-800 flex flex-col">
+        <!-- Status Bar -->
+        <div class="flex items-center justify-between px-6 pt-3 pb-1 bg-[#FFF7ED] z-10">
+            <span class="text-sm font-bold text-gray-800">9:41</span>
+            <div class="w-28 h-6 bg-gray-900 rounded-full mx-auto"></div>
+            <div class="flex items-center gap-1">
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="8" width="3" height="4" rx="0.5" fill="#1f2937"/><rect x="4" y="5" width="3" height="7" rx="0.5" fill="#1f2937"/><rect x="8" y="2" width="3" height="10" rx="0.5" fill="#1f2937"/><rect x="12" y="0" width="3" height="12" rx="0.5" fill="#1f2937"/></svg>
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z" fill="#1f2937"/><path d="M4.5 8.5a5 5 0 017 0" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round"/><path d="M2 5.5a9 9 0 0112 0" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="2" stroke="#1f2937"/><rect x="2" y="2" width="16" height="8" rx="1" fill="#16A34A"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#1f2937"/></svg>
+            </div>
+        </div>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto hide-scrollbar px-4 pb-24">
+            <!-- Header -->
+            <div class="mt-3 flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-gray-500 font-medium">Good morning!</p>
+                    <h1 class="text-xl font-bold text-gray-800">Hey, Sarah</h1>
+                </div>
+                <div class="w-10 h-10 bg-orange-primary/10 rounded-full flex items-center justify-center">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+                    <div class="absolute w-2.5 h-2.5 bg-red-500 rounded-full -mt-5 ml-3 border border-white"></div>
+                </div>
+            </div>
+
+            <!-- Active Walk Card -->
+            <div class="mt-4 bg-gradient-to-br from-teal-primary to-teal-600 rounded-2xl p-4 text-white relative overflow-hidden">
+                <div class="absolute top-2 right-2 flex items-center gap-1 bg-white/20 rounded-full px-2 py-0.5">
+                    <div class="w-2 h-2 bg-green-300 rounded-full walk-pulse"></div>
+                    <span class="text-[10px] font-semibold">LIVE</span>
+                </div>
+                <p class="text-white/80 text-xs font-semibold mb-1">Active Walk</p>
+                <!-- Map placeholder -->
+                <div class="bg-white/10 rounded-xl h-28 mb-3 relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg width="100%" height="100%" viewBox="0 0 300 110" fill="none">
+                            <rect width="300" height="110" fill="#0D9488" opacity="0.3"/>
+                            <path d="M20 80 Q60 30 100 50 T180 40 T260 70" stroke="white" stroke-width="3" stroke-dasharray="8 4" fill="none"/>
+                            <circle cx="20" cy="80" r="5" fill="#16A34A"/>
+                            <circle cx="260" cy="70" r="5" fill="white" stroke="#EA580C" stroke-width="2"/>
+                            <circle cx="260" cy="70" r="9" fill="none" stroke="#EA580C" stroke-width="1" opacity="0.5"/>
+                            <rect x="80" y="15" width="25" height="20" rx="3" fill="white" opacity="0.2"/>
+                            <rect x="160" y="60" width="30" height="15" rx="3" fill="white" opacity="0.2"/>
+                            <rect x="200" y="20" width="20" height="25" rx="3" fill="white" opacity="0.15"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="5" r="3"/><path d="M12 8c-4 0-5 3-5 5l2 7h6l2-7c0-2-1-5-5-5z"/></svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-bold text-sm">Buddy</p>
+                        <p class="text-white/70 text-[11px]">Golden Retriever &middot; 3 yrs</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-3 text-center">
+                    <div class="bg-white/15 rounded-xl py-2">
+                        <p class="text-lg font-bold">00:23:14</p>
+                        <p class="text-[10px] text-white/70">Duration</p>
+                    </div>
+                    <div class="bg-white/15 rounded-xl py-2">
+                        <p class="text-lg font-bold">1.2 km</p>
+                        <p class="text-[10px] text-white/70">Distance</p>
+                    </div>
+                    <div class="bg-white/15 rounded-xl py-2">
+                        <p class="text-lg font-bold">$8.50</p>
+                        <p class="text-[10px] text-white/70">Earning</p>
+                    </div>
+                </div>
+                <button class="w-full mt-3 bg-white text-teal-primary font-bold text-sm rounded-xl py-2.5">End Walk</button>
+            </div>
+
+            <!-- Earnings Summary -->
+            <div class="mt-4 bg-white rounded-xl p-3 border border-orange-100 shadow-sm">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-9 h-9 bg-orange-primary/10 rounded-lg flex items-center justify-center">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 font-medium">This week</p>
+                            <p class="text-xl font-bold text-gray-800">$127.00</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[10px] bg-green-50 text-green-600 font-bold px-2 py-0.5 rounded-full">+18%</span>
+                        <p class="text-[10px] text-gray-400 mt-0.5">vs last week</p>
+                    </div>
+                </div>
+                <div class="flex gap-1 mt-3">
+                    <div class="flex-1 h-1.5 bg-teal-primary rounded-full"></div>
+                    <div class="flex-1 h-1.5 bg-teal-primary rounded-full"></div>
+                    <div class="flex-1 h-1.5 bg-teal-primary rounded-full"></div>
+                    <div class="flex-1 h-1.5 bg-teal-primary/40 rounded-full"></div>
+                    <div class="flex-1 h-1.5 bg-gray-200 rounded-full"></div>
+                    <div class="flex-1 h-1.5 bg-gray-200 rounded-full"></div>
+                    <div class="flex-1 h-1.5 bg-gray-200 rounded-full"></div>
+                </div>
+                <div class="flex justify-between mt-1">
+                    <span class="text-[9px] text-gray-400">Mon</span>
+                    <span class="text-[9px] text-gray-400">Tue</span>
+                    <span class="text-[9px] text-gray-400">Wed</span>
+                    <span class="text-[9px] text-teal-primary font-bold">Thu</span>
+                    <span class="text-[9px] text-gray-400">Fri</span>
+                    <span class="text-[9px] text-gray-400">Sat</span>
+                    <span class="text-[9px] text-gray-400">Sun</span>
+                </div>
+            </div>
+
+            <!-- Upcoming Walks -->
+            <div class="mt-5">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="font-bold text-gray-800">Upcoming Today</h2>
+                    <span class="text-xs text-orange-primary font-semibold">See All</span>
+                </div>
+
+                <!-- Walk 1 -->
+                <div class="bg-white rounded-xl p-3 mb-2.5 border border-gray-100 shadow-sm flex items-center gap-3">
+                    <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="1.5"><circle cx="12" cy="5" r="3"/><path d="M12 8c-4 0-5 3-5 5l2 7h6l2-7c0-2-1-5-5-5z"/><path d="M8 15l-2 3"/><path d="M16 15l2 3"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2">
+                            <p class="text-sm font-bold text-gray-800">Luna</p>
+                            <span class="text-[10px] bg-orange-50 text-orange-primary font-semibold px-1.5 py-0.5 rounded">2:00 PM</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500">Husky &middot; Owner: Mike Chen</p>
+                        <p class="text-[10px] text-gray-400">142 Oak Street, Apt 3B</p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <p class="text-sm font-bold text-teal-primary">$18</p>
+                        <p class="text-[10px] text-gray-400">45 min</p>
+                    </div>
+                </div>
+
+                <!-- Walk 2 -->
+                <div class="bg-white rounded-xl p-3 mb-2.5 border border-gray-100 shadow-sm flex items-center gap-3">
+                    <div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="1.5"><circle cx="12" cy="5" r="3"/><path d="M12 8c-4 0-5 3-5 5l2 7h6l2-7c0-2-1-5-5-5z"/><path d="M8 15l-2 3"/><path d="M16 15l2 3"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2">
+                            <p class="text-sm font-bold text-gray-800">Max & Daisy</p>
+                            <span class="text-[10px] bg-orange-50 text-orange-primary font-semibold px-1.5 py-0.5 rounded">4:30 PM</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500">Poodle & Beagle &middot; Owner: Jess Park</p>
+                        <p class="text-[10px] text-gray-400">87 Elm Drive</p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <p class="text-sm font-bold text-teal-primary">$28</p>
+                        <p class="text-[10px] text-gray-400">60 min</p>
+                    </div>
+                </div>
+
+                <!-- Walk 3 -->
+                <div class="bg-white rounded-xl p-3 mb-2.5 border border-gray-100 shadow-sm flex items-center gap-3">
+                    <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="1.5"><circle cx="12" cy="5" r="3"/><path d="M12 8c-4 0-5 3-5 5l2 7h6l2-7c0-2-1-5-5-5z"/><path d="M8 15l-2 3"/><path d="M16 15l2 3"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2">
+                            <p class="text-sm font-bold text-gray-800">Rocky</p>
+                            <span class="text-[10px] bg-orange-50 text-orange-primary font-semibold px-1.5 py-0.5 rounded">6:15 PM</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500">German Shepherd &middot; Owner: Tom Reed</p>
+                        <p class="text-[10px] text-gray-400">305 Pine Avenue</p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <p class="text-sm font-bold text-teal-primary">$22</p>
+                        <p class="text-[10px] text-gray-400">45 min</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dog Profiles -->
+            <div class="mt-4">
+                <h2 class="font-bold text-gray-800 mb-3">My Regular Dogs</h2>
+                <div class="flex gap-3 overflow-x-auto hide-scrollbar">
+                    <!-- Dog 1 -->
+                    <div class="bg-white rounded-xl p-3 border border-gray-100 shadow-sm min-w-[160px] flex-shrink-0">
+                        <div class="w-full h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-lg mb-2 flex items-center justify-center">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="1.5"><circle cx="12" cy="9" r="4"/><path d="M4 19c0-4 3.5-7 8-7s8 3 8 7"/><path d="M7 4L5 2"/><path d="M17 4l2-2"/></svg>
+                        </div>
+                        <p class="font-bold text-sm text-gray-800">Buddy</p>
+                        <p class="text-[10px] text-gray-500">Golden Retriever &middot; 3 yrs</p>
+                        <div class="mt-2 flex flex-wrap gap-1">
+                            <span class="text-[9px] bg-green-50 text-green-600 px-1.5 py-0.5 rounded-full font-medium">Friendly</span>
+                            <span class="text-[9px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full font-medium">Trained</span>
+                        </div>
+                    </div>
+                    <!-- Dog 2 -->
+                    <div class="bg-white rounded-xl p-3 border border-gray-100 shadow-sm min-w-[160px] flex-shrink-0">
+                        <div class="w-full h-20 bg-gradient-to-br from-blue-100 to-teal-100 rounded-lg mb-2 flex items-center justify-center">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="1.5"><circle cx="12" cy="9" r="4"/><path d="M4 19c0-4 3.5-7 8-7s8 3 8 7"/><path d="M7 4L5 2"/><path d="M17 4l2-2"/></svg>
+                        </div>
+                        <p class="font-bold text-sm text-gray-800">Luna</p>
+                        <p class="text-[10px] text-gray-500">Husky &middot; 2 yrs</p>
+                        <div class="mt-2 flex flex-wrap gap-1">
+                            <span class="text-[9px] bg-amber-50 text-amber-600 px-1.5 py-0.5 rounded-full font-medium">Pulls on leash</span>
+                            <span class="text-[9px] bg-green-50 text-green-600 px-1.5 py-0.5 rounded-full font-medium">Energetic</span>
+                        </div>
+                    </div>
+                    <!-- Dog 3 -->
+                    <div class="bg-white rounded-xl p-3 border border-gray-100 shadow-sm min-w-[160px] flex-shrink-0">
+                        <div class="w-full h-20 bg-gradient-to-br from-rose-100 to-pink-100 rounded-lg mb-2 flex items-center justify-center">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E11D48" stroke-width="1.5"><circle cx="12" cy="9" r="4"/><path d="M4 19c0-4 3.5-7 8-7s8 3 8 7"/><path d="M7 4L5 2"/><path d="M17 4l2-2"/></svg>
+                        </div>
+                        <p class="font-bold text-sm text-gray-800">Max</p>
+                        <p class="text-[10px] text-gray-500">Poodle &middot; 5 yrs</p>
+                        <div class="mt-2 flex flex-wrap gap-1">
+                            <span class="text-[9px] bg-green-50 text-green-600 px-1.5 py-0.5 rounded-full font-medium">Friendly w/ dogs</span>
+                            <span class="text-[9px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full font-medium">Calm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Walk Stats -->
+            <div class="mt-5">
+                <h2 class="font-bold text-gray-800 mb-3">This Week's Stats</h2>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="bg-white rounded-xl p-3 border border-gray-100 text-center shadow-sm">
+                        <div class="w-8 h-8 bg-teal-50 rounded-lg flex items-center justify-center mx-auto mb-1">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                        </div>
+                        <p class="text-lg font-bold text-gray-800">12</p>
+                        <p class="text-[10px] text-gray-500">Walks</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-3 border border-gray-100 text-center shadow-sm">
+                        <div class="w-8 h-8 bg-orange-50 rounded-lg flex items-center justify-center mx-auto mb-1">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        </div>
+                        <p class="text-lg font-bold text-gray-800">18.4</p>
+                        <p class="text-[10px] text-gray-500">km Total</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-3 border border-gray-100 text-center shadow-sm">
+                        <div class="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center mx-auto mb-1">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                        </div>
+                        <p class="text-lg font-bold text-gray-800">$127</p>
+                        <p class="text-[10px] text-gray-500">Earned</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Walk History -->
+            <div class="mt-5">
+                <h2 class="font-bold text-gray-800 mb-3">Recent History</h2>
+                <div class="bg-white rounded-xl border border-gray-100 shadow-sm divide-y divide-gray-50">
+                    <div class="p-3 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 bg-teal-primary rounded-full"></div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-800">Buddy &middot; 45 min</p>
+                                <p class="text-[10px] text-gray-400">Today, 9:00 AM &middot; 1.8 km</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-teal-primary">$15</span>
+                    </div>
+                    <div class="p-3 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 bg-teal-primary rounded-full"></div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-800">Max & Daisy &middot; 60 min</p>
+                                <p class="text-[10px] text-gray-400">Yesterday, 4:30 PM &middot; 2.3 km</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-teal-primary">$28</span>
+                    </div>
+                    <div class="p-3 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 bg-teal-primary rounded-full"></div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-800">Luna &middot; 30 min</p>
+                                <p class="text-[10px] text-gray-400">Yesterday, 10:00 AM &middot; 1.5 km</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-teal-primary">$12</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-6"></div>
+        </div>
+
+        <!-- Bottom Tab Navigation -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 pb-6 pt-2">
+            <div class="flex items-center justify-around">
+                <button class="flex flex-col items-center gap-0.5">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span class="text-[10px] font-bold text-orange-primary">Home</span>
+                </button>
+                <button class="flex flex-col items-center gap-0.5">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span class="text-[10px] font-medium text-gray-400">Schedule</span>
+                </button>
+                <button class="flex flex-col items-center gap-0.5">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="text-[10px] font-medium text-gray-400">Map</span>
+                </button>
+                <button class="flex flex-col items-center gap-0.5">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    <span class="text-[10px] font-medium text-gray-400">Earnings</span>
+                </button>
+                <button class="flex flex-col items-center gap-0.5">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <span class="text-[10px] font-medium text-gray-400">Profile</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

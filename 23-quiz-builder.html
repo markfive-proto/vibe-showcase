@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quizzy - Quiz Builder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Space Grotesk', 'sans-serif'] },
+          colors: {
+            qz: { rose: '#E11D48', amber: '#F59E0B', cream: '#FFFBEB', bg: '#FFF8F0', dark: '#1C1917', text: '#44403C', muted: '#78716C', light: '#FEF2F2' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-qz-cream font-sans min-h-screen flex flex-col">
+
+  <!-- Top Nav -->
+  <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between shrink-0">
+    <div class="flex items-center gap-3">
+      <svg class="w-7 h-7 text-qz-rose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+      <span class="font-bold text-qz-dark text-lg">Quizzy</span>
+    </div>
+    <div class="flex items-center gap-2 text-sm">
+      <span class="text-qz-muted">Editing:</span>
+      <span class="font-semibold text-qz-dark">World Geography Quiz</span>
+      <span class="ml-2 bg-qz-amber/20 text-amber-700 text-xs font-semibold px-2 py-0.5 rounded-full">Draft</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="flex items-center gap-1.5 text-sm text-qz-muted hover:text-qz-dark transition px-3 py-1.5 border border-gray-200 rounded-lg">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        Preview
+      </button>
+      <button class="flex items-center gap-1.5 text-sm text-white bg-qz-rose hover:bg-rose-700 transition px-4 py-1.5 rounded-lg font-semibold">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        Publish
+      </button>
+    </div>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden">
+
+    <!-- Question List Sidebar -->
+    <aside class="w-72 bg-white border-r border-gray-200 flex flex-col shrink-0 overflow-y-auto">
+      <div class="p-4 border-b border-gray-100">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-bold text-qz-dark text-sm">Questions</h2>
+          <span class="text-xs text-qz-muted font-medium">5 total</span>
+        </div>
+        <button class="w-full flex items-center justify-center gap-1.5 text-sm text-qz-rose font-semibold border-2 border-dashed border-rose-200 rounded-xl py-2 hover:bg-qz-light transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          Add Question
+        </button>
+      </div>
+      <div class="flex-1 p-3 space-y-2">
+        <div class="p-3 rounded-xl border border-gray-100 hover:border-gray-200 cursor-pointer transition">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-lg bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold">1</span>
+            <span class="text-xs text-qz-muted font-medium">Multiple Choice</span>
+          </div>
+          <p class="text-sm text-qz-dark font-medium truncate">What is the capital of France?</p>
+        </div>
+        <div class="p-3 rounded-xl border border-gray-100 hover:border-gray-200 cursor-pointer transition">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">2</span>
+            <span class="text-xs text-qz-muted font-medium">True/False</span>
+          </div>
+          <p class="text-sm text-qz-dark font-medium truncate">The Nile is the longest river in the world.</p>
+        </div>
+        <div class="p-3 rounded-xl border-2 border-qz-rose bg-qz-light cursor-pointer">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-lg bg-rose-100 text-qz-rose flex items-center justify-center text-xs font-bold">3</span>
+            <span class="text-xs text-qz-rose font-semibold">Multiple Choice</span>
+          </div>
+          <p class="text-sm text-qz-dark font-semibold truncate">Which continent has the most countries?</p>
+        </div>
+        <div class="p-3 rounded-xl border border-gray-100 hover:border-gray-200 cursor-pointer transition">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center text-xs font-bold">4</span>
+            <span class="text-xs text-qz-muted font-medium">Short Answer</span>
+          </div>
+          <p class="text-sm text-qz-dark font-medium truncate">Name the largest ocean on Earth.</p>
+        </div>
+        <div class="p-3 rounded-xl border border-gray-100 hover:border-gray-200 cursor-pointer transition">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-lg bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold">5</span>
+            <span class="text-xs text-qz-muted font-medium">Multiple Choice</span>
+          </div>
+          <p class="text-sm text-qz-dark font-medium truncate">What is the smallest country by area?</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Editor -->
+    <main class="flex-1 flex overflow-hidden">
+
+      <!-- Question Editor -->
+      <div class="flex-1 overflow-y-auto p-8">
+        <div class="max-w-2xl mx-auto">
+
+          <!-- Question Type Selector -->
+          <div class="flex items-center gap-2 mb-6">
+            <span class="text-sm text-qz-muted font-medium">Type:</span>
+            <button class="px-3 py-1.5 text-sm font-semibold rounded-lg bg-qz-rose text-white">Multiple Choice</button>
+            <button class="px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 text-qz-muted hover:border-qz-dark hover:text-qz-dark transition">True/False</button>
+            <button class="px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 text-qz-muted hover:border-qz-dark hover:text-qz-dark transition">Short Answer</button>
+          </div>
+
+          <!-- Question Text -->
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-qz-dark mb-2">Question</label>
+            <div class="bg-white border-2 border-gray-200 rounded-xl p-4 focus-within:border-qz-rose transition">
+              <textarea class="w-full text-lg font-semibold text-qz-dark resize-none focus:outline-none bg-transparent" rows="2" placeholder="Type your question...">Which continent has the most countries?</textarea>
+            </div>
+          </div>
+
+          <!-- Answer Options -->
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-qz-dark mb-2">Answer Options</label>
+            <div class="space-y-3">
+              <!-- Option A -->
+              <div class="flex items-center gap-3 bg-white border-2 border-gray-200 rounded-xl p-3 hover:border-gray-300 transition">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-qz-muted flex items-center justify-center font-bold text-sm shrink-0">A</span>
+                <input type="text" value="Asia (49 countries)" class="flex-1 text-sm text-qz-dark font-medium focus:outline-none bg-transparent">
+                <button class="w-8 h-8 rounded-lg border-2 border-gray-200 flex items-center justify-center text-qz-muted hover:border-green-400 hover:text-green-500 transition" title="Mark as correct">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </button>
+              </div>
+              <!-- Option B - Correct -->
+              <div class="flex items-center gap-3 bg-green-50 border-2 border-green-400 rounded-xl p-3">
+                <span class="w-8 h-8 rounded-lg bg-green-100 text-green-600 flex items-center justify-center font-bold text-sm shrink-0">B</span>
+                <input type="text" value="Africa (54 countries)" class="flex-1 text-sm text-qz-dark font-medium focus:outline-none bg-transparent">
+                <button class="w-8 h-8 rounded-lg bg-green-500 border-2 border-green-500 flex items-center justify-center text-white" title="Correct answer">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </button>
+              </div>
+              <!-- Option C -->
+              <div class="flex items-center gap-3 bg-white border-2 border-gray-200 rounded-xl p-3 hover:border-gray-300 transition">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-qz-muted flex items-center justify-center font-bold text-sm shrink-0">C</span>
+                <input type="text" value="Europe (44 countries)" class="flex-1 text-sm text-qz-dark font-medium focus:outline-none bg-transparent">
+                <button class="w-8 h-8 rounded-lg border-2 border-gray-200 flex items-center justify-center text-qz-muted hover:border-green-400 hover:text-green-500 transition" title="Mark as correct">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </button>
+              </div>
+              <!-- Option D -->
+              <div class="flex items-center gap-3 bg-white border-2 border-gray-200 rounded-xl p-3 hover:border-gray-300 transition">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-qz-muted flex items-center justify-center font-bold text-sm shrink-0">D</span>
+                <input type="text" value="South America (12 countries)" class="flex-1 text-sm text-qz-dark font-medium focus:outline-none bg-transparent">
+                <button class="w-8 h-8 rounded-lg border-2 border-gray-200 flex items-center justify-center text-qz-muted hover:border-green-400 hover:text-green-500 transition" title="Mark as correct">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </button>
+              </div>
+            </div>
+            <button class="mt-3 flex items-center gap-1.5 text-sm text-qz-rose font-semibold hover:underline">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+              Add Option
+            </button>
+          </div>
+
+          <!-- Point Value -->
+          <div class="flex items-center gap-4 mb-6">
+            <div>
+              <label class="block text-sm font-semibold text-qz-dark mb-1">Points</label>
+              <div class="flex items-center bg-white border-2 border-gray-200 rounded-xl overflow-hidden">
+                <button class="px-3 py-2 text-qz-muted hover:bg-gray-50 transition">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                </button>
+                <span class="px-4 py-2 font-bold text-qz-dark border-x border-gray-200">10</span>
+                <button class="px-3 py-2 text-qz-muted hover:bg-gray-50 transition">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                </button>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-qz-dark mb-1">Time Limit</label>
+              <select class="bg-white border-2 border-gray-200 rounded-xl px-4 py-2 text-sm text-qz-dark font-medium focus:outline-none focus:border-qz-rose">
+                <option>15 seconds</option>
+                <option selected>30 seconds</option>
+                <option>60 seconds</option>
+                <option>No limit</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Explanation -->
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-qz-dark mb-2">Explanation (shown after answer)</label>
+            <textarea class="w-full bg-white border-2 border-gray-200 rounded-xl p-4 text-sm text-qz-dark resize-none focus:outline-none focus:border-qz-rose transition" rows="3" placeholder="Explain the correct answer...">Africa has 54 internationally recognized countries, making it the continent with the highest number of sovereign nations. Asia comes second with 49 countries.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar: Preview + Settings -->
+      <aside class="w-80 border-l border-gray-200 bg-white flex flex-col shrink-0 overflow-y-auto hidden lg:flex">
+
+        <!-- Preview Pane -->
+        <div class="p-5 border-b border-gray-100">
+          <h3 class="font-bold text-qz-dark text-sm mb-3 flex items-center gap-2">
+            <svg class="w-4 h-4 text-qz-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            Quiz Taker View
+          </h3>
+          <div class="bg-qz-cream rounded-xl p-4 border border-amber-100">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-qz-amber">Question 3 of 5</span>
+              <span class="text-xs font-semibold text-qz-muted">10 pts</span>
+            </div>
+            <p class="text-sm font-semibold text-qz-dark mb-3">Which continent has the most countries?</p>
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-gray-200 text-xs text-qz-dark font-medium">
+                <span class="w-5 h-5 rounded bg-gray-100 text-qz-muted flex items-center justify-center text-[10px] font-bold">A</span>
+                Asia (49 countries)
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-gray-200 text-xs text-qz-dark font-medium">
+                <span class="w-5 h-5 rounded bg-gray-100 text-qz-muted flex items-center justify-center text-[10px] font-bold">B</span>
+                Africa (54 countries)
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-gray-200 text-xs text-qz-dark font-medium">
+                <span class="w-5 h-5 rounded bg-gray-100 text-qz-muted flex items-center justify-center text-[10px] font-bold">C</span>
+                Europe (44 countries)
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-gray-200 text-xs text-qz-dark font-medium">
+                <span class="w-5 h-5 rounded bg-gray-100 text-qz-muted flex items-center justify-center text-[10px] font-bold">D</span>
+                South America (12)
+              </div>
+            </div>
+            <div class="mt-3 w-full h-1.5 bg-amber-100 rounded-full overflow-hidden">
+              <div class="h-full bg-qz-amber rounded-full animate-pulse" style="width:60%"></div>
+            </div>
+            <p class="text-[10px] text-qz-muted mt-1 text-center font-medium">18 seconds remaining</p>
+          </div>
+        </div>
+
+        <!-- Quiz Settings -->
+        <div class="p-5 flex-1">
+          <h3 class="font-bold text-qz-dark text-sm mb-4 flex items-center gap-2">
+            <svg class="w-4 h-4 text-qz-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            Quiz Settings
+          </h3>
+          <div class="space-y-4">
+            <div>
+              <label class="text-xs font-semibold text-qz-muted mb-1 block">Quiz Title</label>
+              <input type="text" value="World Geography Quiz" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-qz-dark font-medium focus:outline-none focus:border-qz-rose">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-qz-muted mb-1 block">Time Limit (total)</label>
+              <select class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-qz-dark font-medium focus:outline-none focus:border-qz-rose">
+                <option>5 minutes</option>
+                <option selected>10 minutes</option>
+                <option>15 minutes</option>
+                <option>No limit</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-qz-muted mb-1 block">Passing Score</label>
+              <div class="flex items-center gap-2">
+                <input type="range" min="0" max="100" value="70" class="flex-1 accent-qz-rose">
+                <span class="text-sm font-bold text-qz-dark w-10 text-right">70%</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-qz-dark font-medium">Randomize Questions</span>
+              <div class="w-10 h-6 bg-qz-rose rounded-full relative cursor-pointer">
+                <div class="w-4 h-4 bg-white rounded-full absolute top-1 right-1 shadow-sm"></div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-qz-dark font-medium">Show Explanations</span>
+              <div class="w-10 h-6 bg-qz-rose rounded-full relative cursor-pointer">
+                <div class="w-4 h-4 bg-white rounded-full absolute top-1 right-1 shadow-sm"></div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-qz-dark font-medium">Allow Retakes</span>
+              <div class="w-10 h-6 bg-gray-200 rounded-full relative cursor-pointer">
+                <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 shadow-sm"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="mt-6 pt-4 border-t border-gray-100">
+            <h4 class="text-xs font-bold text-qz-muted mb-3">QUIZ STATS</h4>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-qz-cream rounded-xl p-3 text-center">
+                <p class="text-xl font-bold text-qz-dark">5</p>
+                <p class="text-[10px] text-qz-muted font-semibold">Questions</p>
+              </div>
+              <div class="bg-qz-cream rounded-xl p-3 text-center">
+                <p class="text-xl font-bold text-qz-dark">50</p>
+                <p class="text-[10px] text-qz-muted font-semibold">Total Points</p>
+              </div>
+              <div class="bg-qz-cream rounded-xl p-3 text-center">
+                <p class="text-xl font-bold text-qz-dark">10m</p>
+                <p class="text-[10px] text-qz-muted font-semibold">Time Limit</p>
+              </div>
+              <div class="bg-qz-cream rounded-xl p-3 text-center">
+                <p class="text-xl font-bold text-qz-dark">3</p>
+                <p class="text-[10px] text-qz-muted font-semibold">Question Types</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

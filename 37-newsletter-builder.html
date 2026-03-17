@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pressroom — Newsletter Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Libre Franklin', 'sans-serif'] },
+                    colors: {
+                        press: { blue: '#0369A1', orange: '#EA580C', paper: '#FAF9F6', line: '#E5E2DB' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-press-paper font-sans text-gray-800 min-h-screen">
+    <!-- Top Bar -->
+    <header class="bg-white border-b border-press-line px-6 py-3 flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <svg class="w-7 h-7 text-press-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span class="text-lg font-bold text-press-blue">Pressroom</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="hidden md:flex items-center gap-2 bg-press-paper border border-press-line rounded-lg px-3 py-1.5 text-sm text-gray-500">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                <span class="font-medium text-gray-800">12,847</span> subscribers
+            </div>
+            <button class="bg-press-blue text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-sky-800 transition">Send Campaign</button>
+            <div class="w-8 h-8 rounded-full bg-press-orange text-white flex items-center justify-center text-sm font-semibold">P</div>
+        </div>
+    </header>
+
+    <div class="flex min-h-[calc(100vh-57px)]">
+        <!-- Left: Block Editor -->
+        <div class="w-80 border-r border-press-line bg-white p-5 hidden lg:block overflow-auto">
+            <h2 class="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-4">Content Blocks</h2>
+            <p class="text-xs text-gray-400 mb-4">Drag blocks to build your newsletter</p>
+
+            <div class="space-y-2">
+                <div class="border border-press-line rounded-lg p-3 flex items-center gap-3 cursor-grab hover:border-press-blue hover:bg-sky-50 transition group">
+                    <div class="w-10 h-10 rounded bg-sky-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-press-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">Header</p>
+                        <p class="text-xs text-gray-400">Title and subtitle text</p>
+                    </div>
+                </div>
+                <div class="border border-press-line rounded-lg p-3 flex items-center gap-3 cursor-grab hover:border-press-blue hover:bg-sky-50 transition">
+                    <div class="w-10 h-10 rounded bg-sky-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-press-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">Text Block</p>
+                        <p class="text-xs text-gray-400">Rich text paragraph</p>
+                    </div>
+                </div>
+                <div class="border border-press-line rounded-lg p-3 flex items-center gap-3 cursor-grab hover:border-press-blue hover:bg-sky-50 transition">
+                    <div class="w-10 h-10 rounded bg-sky-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-press-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">Image</p>
+                        <p class="text-xs text-gray-400">Upload or paste URL</p>
+                    </div>
+                </div>
+                <div class="border border-press-line rounded-lg p-3 flex items-center gap-3 cursor-grab hover:border-press-blue hover:bg-sky-50 transition">
+                    <div class="w-10 h-10 rounded bg-orange-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-press-orange" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="8" rx="2"/><path d="M12 8v8"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">Button</p>
+                        <p class="text-xs text-gray-400">Call-to-action button</p>
+                    </div>
+                </div>
+                <div class="border border-press-line rounded-lg p-3 flex items-center gap-3 cursor-grab hover:border-press-blue hover:bg-sky-50 transition">
+                    <div class="w-10 h-10 rounded bg-gray-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">Divider</p>
+                        <p class="text-xs text-gray-400">Horizontal separator</p>
+                    </div>
+                </div>
+                <div class="border border-press-line rounded-lg p-3 flex items-center gap-3 cursor-grab hover:border-press-blue hover:bg-sky-50 transition">
+                    <div class="w-10 h-10 rounded bg-sky-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-press-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">Two Columns</p>
+                        <p class="text-xs text-gray-400">Side-by-side layout</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Send Schedule -->
+            <div class="mt-8">
+                <h2 class="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-3">Send Schedule</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                        <input type="radio" name="schedule" class="accent-press-blue" checked>
+                        <span>Send immediately</span>
+                    </label>
+                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                        <input type="radio" name="schedule" class="accent-press-blue">
+                        <span>Schedule for later</span>
+                    </label>
+                    <div class="flex gap-2">
+                        <input type="date" value="2026-03-20" class="border border-press-line rounded-lg px-3 py-1.5 text-sm flex-1">
+                        <input type="time" value="09:00" class="border border-press-line rounded-lg px-3 py-1.5 text-sm w-24">
+                    </div>
+                </div>
+            </div>
+
+            <!-- A/B Test -->
+            <div class="mt-8">
+                <h2 class="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-3">A/B Test</h2>
+                <div class="bg-press-paper rounded-lg p-4 border border-press-line">
+                    <label class="flex items-center justify-between text-sm mb-3">
+                        <span>Enable A/B testing</span>
+                        <div class="w-10 h-5 bg-press-blue rounded-full relative cursor-pointer">
+                            <div class="w-4 h-4 bg-white rounded-full absolute right-0.5 top-0.5 shadow"></div>
+                        </div>
+                    </label>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="text-xs text-gray-500 block mb-1">Subject Line A</label>
+                            <input type="text" value="This week's top stories" class="w-full border border-press-line rounded px-2 py-1.5 text-sm">
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 block mb-1">Subject Line B</label>
+                            <input type="text" value="You won't believe what happened" class="w-full border border-press-line rounded px-2 py-1.5 text-sm">
+                        </div>
+                        <div class="text-xs text-gray-400">Test sample: 20% of list &middot; Winner auto-sends to rest</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center: Email Preview -->
+        <div class="flex-1 p-6 overflow-auto">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex gap-2">
+                    <button class="text-sm font-medium px-3 py-1.5 rounded-lg bg-press-blue text-white">Edit</button>
+                    <button class="text-sm font-medium px-3 py-1.5 rounded-lg border border-press-line text-gray-600 hover:bg-gray-50">Preview</button>
+                    <button class="text-sm font-medium px-3 py-1.5 rounded-lg border border-press-line text-gray-600 hover:bg-gray-50">Mobile</button>
+                </div>
+                <div class="text-sm text-gray-400">Subject: <span class="text-gray-700 font-medium">This week's top stories</span></div>
+            </div>
+
+            <!-- Email Canvas -->
+            <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg border border-press-line overflow-hidden">
+                <!-- Header Block -->
+                <div class="bg-press-blue p-8 text-center relative group">
+                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition flex gap-1">
+                        <button class="w-6 h-6 bg-white/20 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button>
+                        <button class="w-6 h-6 bg-white/20 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+                        <button class="w-6 h-6 bg-red-400/50 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                    </div>
+                    <h1 class="text-2xl font-bold text-white mb-1">The Weekly Brief</h1>
+                    <p class="text-sky-200 text-sm">Your curated roundup of what matters &middot; March 17, 2026</p>
+                </div>
+
+                <!-- Text Block -->
+                <div class="p-8 border-b border-press-line group relative">
+                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition flex gap-1">
+                        <button class="w-6 h-6 bg-gray-100 rounded flex items-center justify-center"><svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed">Good morning! This week we're diving into the latest product launches, a deep analysis of emerging market trends, and an exclusive interview with the founder reshaping how teams collaborate remotely.</p>
+                </div>
+
+                <!-- Image Block -->
+                <div class="p-8 border-b border-press-line group relative">
+                    <div class="bg-gray-100 rounded-lg h-48 flex items-center justify-center">
+                        <div class="text-center">
+                            <svg class="w-10 h-10 text-gray-300 mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            <p class="text-sm text-gray-400">Featured image — 600x300px</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Block 2 -->
+                <div class="p-8 border-b border-press-line">
+                    <h2 class="text-xl font-bold text-gray-900 mb-3">The Rise of Async-First Teams</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">A growing number of high-performing startups are adopting async-first communication policies. We spoke to 15 founders who made the switch and found that productivity increased by an average of 23%, while meeting time dropped by nearly half.</p>
+                    <p class="text-gray-700 leading-relaxed">"The best ideas don't come from meetings — they come from deep, uninterrupted work," says Priya Sharma, CEO of FlowState. "Once we eliminated the expectation of instant replies, everything changed."</p>
+                </div>
+
+                <!-- Button Block -->
+                <div class="p-8 text-center border-b border-press-line">
+                    <a href="#" class="inline-block bg-press-orange text-white font-semibold px-8 py-3 rounded-lg hover:bg-orange-700 transition">Read the Full Story</a>
+                </div>
+
+                <!-- Divider -->
+                <div class="px-8 py-2">
+                    <hr class="border-press-line">
+                </div>
+
+                <!-- Second Article -->
+                <div class="p-8 border-b border-press-line">
+                    <h2 class="text-xl font-bold text-gray-900 mb-3">Product Launches We're Watching</h2>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-press-orange mt-1 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                            <span><strong>Luma AI Video 2.0</strong> — Real-time video generation with unprecedented quality</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-press-orange mt-1 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                            <span><strong>Notion Calendar 3.0</strong> — Integrated scheduling across all workspaces</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-press-orange mt-1 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                            <span><strong>Arc Browser 2.0</strong> — Completely reimagined mobile browsing</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Footer -->
+                <div class="p-6 bg-gray-50 text-center text-xs text-gray-400">
+                    <p>You're receiving this because you subscribed at theweeklybrief.com</p>
+                    <p class="mt-1"><a href="#" class="underline">Unsubscribe</a> &middot; <a href="#" class="underline">Manage preferences</a></p>
+                </div>
+            </div>
+
+            <!-- Template Gallery -->
+            <div class="max-w-2xl mx-auto mt-8">
+                <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-3">Template Gallery</h3>
+                <div class="grid grid-cols-3 md:grid-cols-5 gap-3">
+                    <div class="border-2 border-press-blue rounded-lg overflow-hidden cursor-pointer">
+                        <div class="h-20 bg-press-blue"></div>
+                        <div class="p-2 bg-white"><div class="h-2 bg-gray-200 rounded mb-1"></div><div class="h-2 bg-gray-100 rounded w-2/3"></div></div>
+                        <p class="text-[10px] text-center py-1 text-press-blue font-medium">Editorial</p>
+                    </div>
+                    <div class="border border-press-line rounded-lg overflow-hidden cursor-pointer hover:border-press-blue transition">
+                        <div class="h-20 bg-gray-800"></div>
+                        <div class="p-2 bg-white"><div class="h-2 bg-gray-200 rounded mb-1"></div><div class="h-2 bg-gray-100 rounded w-2/3"></div></div>
+                        <p class="text-[10px] text-center py-1 text-gray-500">Minimal</p>
+                    </div>
+                    <div class="border border-press-line rounded-lg overflow-hidden cursor-pointer hover:border-press-blue transition">
+                        <div class="h-20 bg-amber-500"></div>
+                        <div class="p-2 bg-white"><div class="h-2 bg-gray-200 rounded mb-1"></div><div class="h-2 bg-gray-100 rounded w-2/3"></div></div>
+                        <p class="text-[10px] text-center py-1 text-gray-500">Bold</p>
+                    </div>
+                    <div class="border border-press-line rounded-lg overflow-hidden cursor-pointer hover:border-press-blue transition">
+                        <div class="h-20 bg-emerald-600"></div>
+                        <div class="p-2 bg-white"><div class="h-2 bg-gray-200 rounded mb-1"></div><div class="h-2 bg-gray-100 rounded w-2/3"></div></div>
+                        <p class="text-[10px] text-center py-1 text-gray-500">Fresh</p>
+                    </div>
+                    <div class="border border-press-line rounded-lg overflow-hidden cursor-pointer hover:border-press-blue transition">
+                        <div class="h-20 bg-rose-600"></div>
+                        <div class="p-2 bg-white"><div class="h-2 bg-gray-200 rounded mb-1"></div><div class="h-2 bg-gray-100 rounded w-2/3"></div></div>
+                        <p class="text-[10px] text-center py-1 text-gray-500">Vibrant</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Past Campaigns -->
+        <div class="w-80 border-l border-press-line bg-white p-5 hidden xl:block overflow-auto">
+            <h2 class="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-4">Past Campaigns</h2>
+            <div class="space-y-3">
+                <div class="border border-press-line rounded-lg p-3">
+                    <p class="text-sm font-medium text-gray-800 truncate">The Weekly Brief — Issue #47</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Sent Mar 10, 2026</p>
+                    <div class="flex items-center gap-4 mt-2">
+                        <div>
+                            <p class="text-lg font-bold text-press-blue">42.3%</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Open Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-bold text-press-orange">8.7%</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Click Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-bold text-gray-600">12,412</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Delivered</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border border-press-line rounded-lg p-3">
+                    <p class="text-sm font-medium text-gray-800 truncate">The Weekly Brief — Issue #46</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Sent Mar 3, 2026</p>
+                    <div class="flex items-center gap-4 mt-2">
+                        <div>
+                            <p class="text-lg font-bold text-press-blue">38.1%</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Open Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-bold text-press-orange">6.2%</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Click Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-bold text-gray-600">12,310</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Delivered</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border border-press-line rounded-lg p-3">
+                    <p class="text-sm font-medium text-gray-800 truncate">Special: Year-End Roundup</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Sent Feb 24, 2026</p>
+                    <div class="flex items-center gap-4 mt-2">
+                        <div>
+                            <p class="text-lg font-bold text-press-blue">51.6%</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Open Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-bold text-press-orange">12.4%</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Click Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-bold text-gray-600">12,198</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Delivered</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border border-press-line rounded-lg p-3">
+                    <p class="text-sm font-medium text-gray-800 truncate">The Weekly Brief — Issue #45</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Sent Feb 17, 2026</p>
+                    <div class="flex items-center gap-4 mt-2">
+                        <div>
+                            <p class="text-lg font-bold text-press-blue">39.8%</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Open Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-bold text-press-orange">7.1%</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Click Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-bold text-gray-600">12,054</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Delivered</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border border-press-line rounded-lg p-3">
+                    <p class="text-sm font-medium text-gray-800 truncate">The Weekly Brief — Issue #44</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Sent Feb 10, 2026</p>
+                    <div class="flex items-center gap-4 mt-2">
+                        <div>
+                            <p class="text-lg font-bold text-press-blue">41.2%</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Open Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-bold text-press-orange">9.3%</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Click Rate</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-bold text-gray-600">11,921</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Delivered</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

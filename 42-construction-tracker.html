@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Project Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { barlow: ['Barlow', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Barlow', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#E2E8F0] min-h-screen text-slate-800">
+    <!-- Header -->
+    <header class="bg-white border-b-4 border-[#EA580C] px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-[#EA580C] rounded flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 20h20M5 20V8l7-5 7 5v12"/><rect x="9" y="12" width="6" height="8"/></svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900">BuildTrack Pro</h1>
+                    <p class="text-xs text-[#64748B]">Construction Management</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="flex items-center gap-2 text-sm text-[#64748B] hover:text-slate-900">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="hidden sm:inline">Alerts</span>
+                    <span class="w-5 h-5 bg-[#EA580C] text-white text-xs rounded-full flex items-center justify-center">3</span>
+                </button>
+                <div class="w-8 h-8 rounded bg-[#64748B] flex items-center justify-center text-white text-sm font-semibold">JD</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+        <!-- Project Overview -->
+        <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mb-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">Riverside Commons Phase II</h2>
+                    <p class="text-sm text-[#64748B] flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        4821 Riverside Dr, Portland, OR 97201
+                    </p>
+                </div>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 bg-[#EA580C]/10 text-[#EA580C] text-sm font-semibold rounded">In Progress</span>
+                    <span class="px-3 py-1 bg-slate-100 text-[#64748B] text-sm font-medium rounded">Permit #BLD-2025-4492</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                    <p class="text-xs text-[#64748B] uppercase font-semibold mb-1">Completion</p>
+                    <p class="text-2xl font-bold text-slate-900">63%</p>
+                    <div class="w-full h-2 bg-slate-200 rounded-full mt-1 overflow-hidden">
+                        <div class="h-full bg-[#EA580C] rounded-full" style="width:63%"></div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-xs text-[#64748B] uppercase font-semibold mb-1">Budget Used</p>
+                    <p class="text-2xl font-bold text-slate-900">58%</p>
+                    <p class="text-xs text-[#64748B]">$1.74M of $3.0M</p>
+                </div>
+                <div>
+                    <p class="text-xs text-[#64748B] uppercase font-semibold mb-1">Days Elapsed</p>
+                    <p class="text-2xl font-bold text-slate-900">142</p>
+                    <p class="text-xs text-[#64748B]">of 240 planned</p>
+                </div>
+                <div>
+                    <p class="text-xs text-[#64748B] uppercase font-semibold mb-1">Workers Today</p>
+                    <p class="text-2xl font-bold text-slate-900">34</p>
+                    <p class="text-xs text-[#22C55E] font-medium">+6 vs yesterday</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Safety & Weather Bar -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4 flex items-center gap-4">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div>
+                    <p class="text-xs text-[#64748B] uppercase font-semibold">Safety Record</p>
+                    <p class="text-lg font-bold text-slate-900">87 Days</p>
+                    <p class="text-xs text-green-600">Without incident</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4 flex items-center gap-4">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/><circle cx="12" cy="12" r="4"/></svg>
+                </div>
+                <div>
+                    <p class="text-xs text-[#64748B] uppercase font-semibold">Weather Today</p>
+                    <p class="text-lg font-bold text-slate-900">54&deg;F, Partly Cloudy</p>
+                    <p class="text-xs text-[#64748B]">Wind: 8 mph NW</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-4 flex items-center gap-4">
+                <div class="w-12 h-12 bg-[#EA580C]/10 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-[#EA580C]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <div>
+                    <p class="text-xs text-[#64748B] uppercase font-semibold">Open Issues</p>
+                    <p class="text-lg font-bold text-slate-900">5 Active</p>
+                    <p class="text-xs text-[#EA580C]">2 high priority</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <!-- Phase Timeline -->
+            <div class="lg:col-span-2 bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+                <h3 class="text-sm font-bold text-[#64748B] uppercase tracking-wider mb-4">Phase Timeline</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <div class="w-0.5 h-10 bg-green-300"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <p class="font-semibold text-slate-900">Foundation</p>
+                                <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded">Complete</span>
+                            </div>
+                            <p class="text-sm text-[#64748B]">Sep 15 - Oct 28, 2025</p>
+                            <div class="w-full h-2 bg-slate-200 rounded-full mt-1 overflow-hidden">
+                                <div class="h-full bg-green-500 rounded-full" style="width:100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <div class="w-0.5 h-10 bg-green-300"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <p class="font-semibold text-slate-900">Framing</p>
+                                <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded">Complete</span>
+                            </div>
+                            <p class="text-sm text-[#64748B]">Oct 29 - Dec 15, 2025</p>
+                            <div class="w-full h-2 bg-slate-200 rounded-full mt-1 overflow-hidden">
+                                <div class="h-full bg-green-500 rounded-full" style="width:100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full bg-[#EA580C] flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            </div>
+                            <div class="w-0.5 h-10 bg-[#EA580C]/30"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <p class="font-semibold text-slate-900">Electrical</p>
+                                <span class="text-xs font-semibold text-[#EA580C] bg-orange-50 px-2 py-0.5 rounded">In Progress - 78%</span>
+                            </div>
+                            <p class="text-sm text-[#64748B]">Dec 16, 2025 - Feb 10, 2026</p>
+                            <div class="w-full h-2 bg-slate-200 rounded-full mt-1 overflow-hidden">
+                                <div class="h-full bg-[#EA580C] rounded-full" style="width:78%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full bg-[#EA580C] flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            </div>
+                            <div class="w-0.5 h-10 bg-slate-200"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <p class="font-semibold text-slate-900">Plumbing</p>
+                                <span class="text-xs font-semibold text-[#EA580C] bg-orange-50 px-2 py-0.5 rounded">In Progress - 45%</span>
+                            </div>
+                            <p class="text-sm text-[#64748B]">Jan 5 - Mar 20, 2026</p>
+                            <div class="w-full h-2 bg-slate-200 rounded-full mt-1 overflow-hidden">
+                                <div class="h-full bg-[#EA580C] rounded-full" style="width:45%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full bg-slate-300 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <p class="font-semibold text-slate-400">Finishing</p>
+                                <span class="text-xs font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">Upcoming</span>
+                            </div>
+                            <p class="text-sm text-slate-400">Mar 21 - May 15, 2026</p>
+                            <div class="w-full h-2 bg-slate-200 rounded-full mt-1 overflow-hidden">
+                                <div class="h-full bg-slate-300 rounded-full" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inspection Checklist -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+                <h3 class="text-sm font-bold text-[#64748B] uppercase tracking-wider mb-4">Inspection Checklist</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-green-600 focus:ring-green-500" disabled>
+                        <span class="text-sm text-slate-900 line-through">Foundation inspection</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-green-600 focus:ring-green-500" disabled>
+                        <span class="text-sm text-slate-900 line-through">Framing inspection</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-green-600 focus:ring-green-500" disabled>
+                        <span class="text-sm text-slate-900 line-through">Rough electrical</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-[#EA580C] focus:ring-orange-500">
+                        <div>
+                            <span class="text-sm text-slate-900">Rough plumbing</span>
+                            <p class="text-xs text-[#EA580C]">Scheduled: Mar 22</p>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300">
+                        <span class="text-sm text-slate-400">Insulation inspection</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300">
+                        <span class="text-sm text-slate-400">Drywall inspection</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300">
+                        <span class="text-sm text-slate-400">Final building inspection</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300">
+                        <span class="text-sm text-slate-400">Fire safety inspection</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Log & Material Delivery -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <!-- Daily Log -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-[#64748B] uppercase tracking-wider">Daily Log</h3>
+                    <button class="text-xs font-semibold text-[#EA580C] hover:text-orange-700">+ New Entry</button>
+                </div>
+                <div class="space-y-4">
+                    <div class="border-l-4 border-[#EA580C] pl-4 py-2">
+                        <div class="flex items-center justify-between mb-1">
+                            <p class="text-sm font-semibold text-slate-900">March 17, 2026</p>
+                            <span class="text-xs text-[#64748B]">Today</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-[#64748B] mb-2">
+                            <div class="flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/><circle cx="12" cy="12" r="4"/></svg>
+                                54&deg;F, Partly Cloudy
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                34 workers on site
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-700 mb-1"><strong>Activities:</strong> Continued 2nd floor electrical wiring. Plumbing rough-in started for units 204-208. Drywall delivery received for Phase 1 interiors.</p>
+                        <p class="text-sm text-[#EA580C]"><strong>Issue:</strong> Minor delay on copper pipe delivery; expected tomorrow AM.</p>
+                    </div>
+                    <div class="border-l-4 border-slate-300 pl-4 py-2">
+                        <div class="flex items-center justify-between mb-1">
+                            <p class="text-sm font-semibold text-slate-900">March 16, 2026</p>
+                            <span class="text-xs text-[#64748B]">Yesterday</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-[#64748B] mb-2">
+                            <div class="flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 16.2A4.5 4.5 0 0 0 17.5 8h-1.8A7 7 0 1 0 4 14.9"/><path d="M16 14v6m-4-4v4m-4-2v2"/></svg>
+                                48&deg;F, Light Rain
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                28 workers on site
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-700"><strong>Activities:</strong> Electrical panel installation for units 201-203. Interior framing corrections completed. Fire suppression system planning meeting.</p>
+                    </div>
+                    <div class="border-l-4 border-slate-300 pl-4 py-2">
+                        <div class="flex items-center justify-between mb-1">
+                            <p class="text-sm font-semibold text-slate-900">March 15, 2026</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-[#64748B] mb-2">
+                            <div>52&deg;F, Overcast</div>
+                            <div>31 workers on site</div>
+                        </div>
+                        <p class="text-sm text-slate-700"><strong>Activities:</strong> Completed rough electrical for units 101-108. Started HVAC ductwork on 2nd floor.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Material Delivery Schedule -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+                <h3 class="text-sm font-bold text-[#64748B] uppercase tracking-wider mb-4">Material Delivery Schedule</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-200">
+                                <th class="text-left py-2 text-xs font-semibold text-[#64748B] uppercase">Material</th>
+                                <th class="text-left py-2 text-xs font-semibold text-[#64748B] uppercase">Date</th>
+                                <th class="text-left py-2 text-xs font-semibold text-[#64748B] uppercase">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="py-2.5 font-medium text-slate-900">Copper Piping (Lot 7)</td>
+                                <td class="py-2.5 text-[#64748B]">Mar 18</td>
+                                <td class="py-2.5"><span class="text-xs font-semibold text-[#EA580C] bg-orange-50 px-2 py-0.5 rounded">Delayed</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2.5 font-medium text-slate-900">Drywall Sheets (240)</td>
+                                <td class="py-2.5 text-[#64748B]">Mar 17</td>
+                                <td class="py-2.5"><span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded">Delivered</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2.5 font-medium text-slate-900">HVAC Units (8x)</td>
+                                <td class="py-2.5 text-[#64748B]">Mar 20</td>
+                                <td class="py-2.5"><span class="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">In Transit</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2.5 font-medium text-slate-900">Window Frames (Unit 2)</td>
+                                <td class="py-2.5 text-[#64748B]">Mar 22</td>
+                                <td class="py-2.5"><span class="text-xs font-semibold text-[#64748B] bg-slate-100 px-2 py-0.5 rounded">Scheduled</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2.5 font-medium text-slate-900">Insulation Rolls (R-30)</td>
+                                <td class="py-2.5 text-[#64748B]">Mar 25</td>
+                                <td class="py-2.5"><span class="text-xs font-semibold text-[#64748B] bg-slate-100 px-2 py-0.5 rounded">Scheduled</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2.5 font-medium text-slate-900">Concrete Mix (40 yd&sup3;)</td>
+                                <td class="py-2.5 text-[#64748B]">Mar 28</td>
+                                <td class="py-2.5"><span class="text-xs font-semibold text-[#64748B] bg-slate-100 px-2 py-0.5 rounded">Scheduled</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subcontractor Directory -->
+        <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <h3 class="text-sm font-bold text-[#64748B] uppercase tracking-wider mb-4">Subcontractor Directory</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div class="border border-slate-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="font-semibold text-slate-900">Volt Electric Co.</p>
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    </div>
+                    <p class="text-xs text-[#64748B] mb-1">Electrical &middot; License #EL-44821</p>
+                    <p class="text-xs text-[#64748B]">Contact: Dan Morales &middot; (503) 555-0142</p>
+                    <p class="text-xs text-[#64748B]">12 workers assigned</p>
+                </div>
+                <div class="border border-slate-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="font-semibold text-slate-900">Pacific Plumbing</p>
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    </div>
+                    <p class="text-xs text-[#64748B] mb-1">Plumbing &middot; License #PL-33107</p>
+                    <p class="text-xs text-[#64748B]">Contact: Sarah Kim &middot; (503) 555-0198</p>
+                    <p class="text-xs text-[#64748B]">8 workers assigned</p>
+                </div>
+                <div class="border border-slate-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="font-semibold text-slate-900">NW Steel Framing</p>
+                        <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                    </div>
+                    <p class="text-xs text-[#64748B] mb-1">Structural &middot; License #ST-28954</p>
+                    <p class="text-xs text-[#64748B]">Contact: Mike Torres &middot; (503) 555-0256</p>
+                    <p class="text-xs text-slate-400">Phase complete</p>
+                </div>
+                <div class="border border-slate-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="font-semibold text-slate-900">Summit HVAC</p>
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    </div>
+                    <p class="text-xs text-[#64748B] mb-1">HVAC &middot; License #HV-19483</p>
+                    <p class="text-xs text-[#64748B]">Contact: James Park &middot; (503) 555-0311</p>
+                    <p class="text-xs text-amber-600">Starting Mar 20</p>
+                </div>
+                <div class="border border-slate-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="font-semibold text-slate-900">Cascade Concrete</p>
+                        <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                    </div>
+                    <p class="text-xs text-[#64748B] mb-1">Foundation &middot; License #CN-42190</p>
+                    <p class="text-xs text-[#64748B]">Contact: Tom Brady &middot; (503) 555-0177</p>
+                    <p class="text-xs text-slate-400">Phase complete</p>
+                </div>
+                <div class="border border-slate-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="font-semibold text-slate-900">ProFinish Interiors</p>
+                        <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+                    </div>
+                    <p class="text-xs text-[#64748B] mb-1">Drywall & Paint &middot; License #FI-51002</p>
+                    <p class="text-xs text-[#64748B]">Contact: Lisa Chen &middot; (503) 555-0423</p>
+                    <p class="text-xs text-slate-400">Pending start</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

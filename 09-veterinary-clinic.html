@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinary Clinic Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sora: ['Sora', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <style>body { font-family: 'Sora', sans-serif; }</style>
+</head>
+<body class="bg-[#F0FDF4] text-gray-800 min-h-screen">
+    <!-- Sidebar + Content -->
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-60 bg-white border-r border-gray-200 flex-shrink-0 hidden lg:flex flex-col">
+            <div class="p-5 border-b border-gray-100">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-8 h-8 text-[#0D9488]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/></svg>
+                    <span class="font-bold text-gray-900">PawClinic</span>
+                </div>
+            </div>
+            <nav class="flex-1 p-3 space-y-1">
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#0D9488]/10 text-[#0D9488] font-medium text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    Appointments
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+                    Records
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                    Boarding
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
+                    Inventory
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Billing
+                </a>
+            </nav>
+            <div class="p-4 border-t border-gray-100">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-[#0D9488] text-white flex items-center justify-center text-sm font-bold">DK</div>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-900">Dr. Kim</p>
+                        <p class="text-xs text-gray-400">Veterinarian</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-20">
+                <div>
+                    <h1 class="text-xl font-bold text-gray-900">Dashboard</h1>
+                    <p class="text-sm text-gray-400">Tuesday, March 17, 2026</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        <input type="text" placeholder="Search patients..." class="pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm w-64 focus:outline-none focus:ring-2 focus:ring-[#0D9488]/30 focus:border-[#0D9488]">
+                    </div>
+                    <button class="relative p-2 rounded-lg hover:bg-gray-100">
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-[#EA580C] rounded-full"></span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="p-6">
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white rounded-xl p-4 border border-gray-200">
+                        <p class="text-xs text-gray-500 font-medium uppercase mb-1">Today's Appointments</p>
+                        <p class="text-2xl font-bold text-gray-900">8</p>
+                        <p class="text-xs text-[#0D9488] font-medium mt-1">2 remaining</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200">
+                        <p class="text-xs text-gray-500 font-medium uppercase mb-1">Boarding Guests</p>
+                        <p class="text-2xl font-bold text-gray-900">5</p>
+                        <p class="text-xs text-gray-400 mt-1">1 checkout today</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200">
+                        <p class="text-xs text-gray-500 font-medium uppercase mb-1">Vaccines Due</p>
+                        <p class="text-2xl font-bold text-[#EA580C]">12</p>
+                        <p class="text-xs text-[#EA580C] font-medium mt-1">This week</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200">
+                        <p class="text-xs text-gray-500 font-medium uppercase mb-1">Today's Revenue</p>
+                        <p class="text-2xl font-bold text-gray-900">$2,340</p>
+                        <p class="text-xs text-[#0D9488] font-medium mt-1">+18% vs avg</p>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Left: Appointments -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="bg-white rounded-xl border border-gray-200">
+                            <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+                                <h2 class="font-bold text-gray-900">Today's Appointments</h2>
+                                <button class="text-sm text-[#0D9488] font-semibold hover:underline">+ New</button>
+                            </div>
+                            <div class="divide-y divide-gray-100">
+                                <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                                    <span class="text-xs text-gray-400 w-14 text-right">8:00 AM</span>
+                                    <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75z"/></svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm text-gray-900">Bella <span class="text-gray-400 font-normal">- Golden Retriever</span></p>
+                                        <p class="text-xs text-gray-500">Owner: Sarah Mitchell &middot; Annual Checkup</p>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Completed</span>
+                                </div>
+                                <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                                    <span class="text-xs text-gray-400 w-14 text-right">9:30 AM</span>
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75z"/></svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm text-gray-900">Whiskers <span class="text-gray-400 font-normal">- Siamese Cat</span></p>
+                                        <p class="text-xs text-gray-500">Owner: Tom Garcia &middot; Dental Cleaning</p>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Completed</span>
+                                </div>
+                                <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                                    <span class="text-xs text-gray-400 w-14 text-right">10:30 AM</span>
+                                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75z"/></svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm text-gray-900">Rex <span class="text-gray-400 font-normal">- German Shepherd</span></p>
+                                        <p class="text-xs text-gray-500">Owner: David Kim &middot; Skin Allergy Follow-up</p>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Completed</span>
+                                </div>
+                                <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                                    <span class="text-xs text-gray-400 w-14 text-right">11:00 AM</span>
+                                    <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75z"/></svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm text-gray-900">Coco <span class="text-gray-400 font-normal">- Rabbit</span></p>
+                                        <p class="text-xs text-gray-500">Owner: Emma Wilson &middot; Nail Trim + Wellness</p>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Completed</span>
+                                </div>
+                                <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                                    <span class="text-xs text-gray-400 w-14 text-right">1:00 PM</span>
+                                    <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75z"/></svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm text-gray-900">Max <span class="text-gray-400 font-normal">- Labrador</span></p>
+                                        <p class="text-xs text-gray-500">Owner: Julia Reyes &middot; Limping / X-ray</p>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Completed</span>
+                                </div>
+                                <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                                    <span class="text-xs text-gray-400 w-14 text-right">2:30 PM</span>
+                                    <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75z"/></svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm text-gray-900">Luna <span class="text-gray-400 font-normal">- Persian Cat</span></p>
+                                        <p class="text-xs text-gray-500">Owner: Priya Sharma &middot; Vaccination (FVRCP)</p>
+                                    </div>
+                                    <span class="text-xs bg-[#0D9488]/10 text-[#0D9488] px-2 py-1 rounded-full font-medium">In Progress</span>
+                                </div>
+                                <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                                    <span class="text-xs text-gray-400 w-14 text-right">3:30 PM</span>
+                                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75z"/></svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm text-gray-900">Buddy <span class="text-gray-400 font-normal">- Beagle</span></p>
+                                        <p class="text-xs text-gray-500">Owner: Mike Chen &middot; Ear Infection</p>
+                                    </div>
+                                    <span class="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full font-medium">Scheduled</span>
+                                </div>
+                                <div class="p-4 flex items-center gap-4 hover:bg-gray-50">
+                                    <span class="text-xs text-gray-400 w-14 text-right">4:30 PM</span>
+                                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75z"/></svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm text-gray-900">Nemo <span class="text-gray-400 font-normal">- Goldfish</span></p>
+                                        <p class="text-xs text-gray-500">Owner: Lisa Park &middot; Water Quality Consult</p>
+                                    </div>
+                                    <span class="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full font-medium">Scheduled</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Revenue Summary -->
+                        <div class="bg-white rounded-xl border border-gray-200">
+                            <div class="p-5 border-b border-gray-100">
+                                <h2 class="font-bold text-gray-900">Revenue This Week</h2>
+                            </div>
+                            <div class="p-5">
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                    <div class="text-center">
+                                        <p class="text-2xl font-bold text-gray-900">$12,850</p>
+                                        <p class="text-xs text-gray-400 mt-1">Total Revenue</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-2xl font-bold text-[#0D9488]">$8,200</p>
+                                        <p class="text-xs text-gray-400 mt-1">Services</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-2xl font-bold text-[#EA580C]">$3,100</p>
+                                        <p class="text-xs text-gray-400 mt-1">Medications</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-2xl font-bold text-gray-600">$1,550</p>
+                                        <p class="text-xs text-gray-400 mt-1">Boarding</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        <!-- Vaccination Schedule -->
+                        <div class="bg-white rounded-xl border border-gray-200">
+                            <div class="p-5 border-b border-gray-100">
+                                <h2 class="font-bold text-gray-900">Vaccines Due This Week</h2>
+                            </div>
+                            <div class="divide-y divide-gray-100">
+                                <div class="p-3.5 flex items-center gap-3">
+                                    <div class="w-2 h-2 rounded-full bg-[#EA580C]"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Bella - DHPP Booster</p>
+                                        <p class="text-xs text-gray-400">Due: Mar 18</p>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 flex items-center gap-3">
+                                    <div class="w-2 h-2 rounded-full bg-[#EA580C]"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Whiskers - Rabies</p>
+                                        <p class="text-xs text-gray-400">Due: Mar 18</p>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 flex items-center gap-3">
+                                    <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Max - Bordetella</p>
+                                        <p class="text-xs text-gray-400">Due: Mar 20</p>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 flex items-center gap-3">
+                                    <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Rocky - DHPP + Lepto</p>
+                                        <p class="text-xs text-gray-400">Due: Mar 21</p>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 flex items-center gap-3">
+                                    <div class="w-2 h-2 rounded-full bg-[#0D9488]"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Daisy - FVRCP</p>
+                                        <p class="text-xs text-gray-400">Due: Mar 22</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Boarding Reservations -->
+                        <div class="bg-white rounded-xl border border-gray-200">
+                            <div class="p-5 border-b border-gray-100">
+                                <h2 class="font-bold text-gray-900">Boarding Guests</h2>
+                            </div>
+                            <div class="divide-y divide-gray-100">
+                                <div class="p-3.5 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">Charlie (Poodle)</p>
+                                        <p class="text-xs text-gray-400">Mar 14 - 19 &middot; Suite A</p>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Active</span>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">Milo (Tabby Cat)</p>
+                                        <p class="text-xs text-gray-400">Mar 15 - 20 &middot; Cat Room</p>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Active</span>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">Duke (Husky)</p>
+                                        <p class="text-xs text-gray-400">Mar 16 - 17 &middot; Suite B</p>
+                                    </div>
+                                    <span class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-medium">Checkout Today</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inventory Alerts -->
+                        <div class="bg-white rounded-xl border border-gray-200">
+                            <div class="p-5 border-b border-gray-100 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-[#EA580C]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4m0 4h.01"/></svg>
+                                <h2 class="font-bold text-gray-900">Inventory Alerts</h2>
+                            </div>
+                            <div class="divide-y divide-gray-100">
+                                <div class="p-3.5 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-red-600">Amoxicillin 250mg</p>
+                                        <p class="text-xs text-gray-400">3 units left &middot; Reorder: 20</p>
+                                    </div>
+                                    <button class="text-xs text-[#0D9488] font-semibold hover:underline">Order</button>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-red-600">Rimadyl 75mg</p>
+                                        <p class="text-xs text-gray-400">5 units left &middot; Reorder: 25</p>
+                                    </div>
+                                    <button class="text-xs text-[#0D9488] font-semibold hover:underline">Order</button>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-amber-600">Frontline Plus (Dog)</p>
+                                        <p class="text-xs text-gray-400">8 units left &middot; Reorder: 15</p>
+                                    </div>
+                                    <button class="text-xs text-[#0D9488] font-semibold hover:underline">Order</button>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-amber-600">Surgical Gloves (M)</p>
+                                        <p class="text-xs text-gray-400">1 box left &middot; Reorder: 5</p>
+                                    </div>
+                                    <button class="text-xs text-[#0D9488] font-semibold hover:underline">Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

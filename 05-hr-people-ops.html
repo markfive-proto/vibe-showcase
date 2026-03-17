@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeopleFirst - HR Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        warm: '#78716C',
+                        warmDark: '#57534E',
+                        amber: '#F59E0B',
+                        amberLight: '#FCD34D',
+                        cream: '#FFFBEB',
+                        creamDark: '#FEF3C7',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+</head>
+<body class="bg-cream text-gray-800 min-h-screen">
+
+    <!-- Top Nav -->
+    <header class="bg-white border-b border-amber/20 px-6 py-3 flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-3">
+            <svg class="w-7 h-7 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span class="text-xl font-bold tracking-tight text-warmDark">PeopleFirst</span>
+        </div>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-warm">
+            <a href="#" class="text-amber font-semibold">Dashboard</a>
+            <a href="#" class="hover:text-warmDark transition">Directory</a>
+            <a href="#" class="hover:text-warmDark transition">Time Off</a>
+            <a href="#" class="hover:text-warmDark transition">Recruiting</a>
+            <a href="#" class="hover:text-warmDark transition">Payroll</a>
+            <a href="#" class="hover:text-warmDark transition">Settings</a>
+        </nav>
+        <div class="flex items-center gap-3">
+            <button class="relative">
+                <svg class="w-5 h-5 text-warm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span class="absolute -top-1 -right-1 w-4 h-4 bg-amber rounded-full text-[10px] text-white flex items-center justify-center font-bold">3</span>
+            </button>
+            <div class="w-8 h-8 rounded-full bg-amber/20 flex items-center justify-center text-sm font-semibold text-amber">HR</div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+        <!-- Top Stats -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div class="bg-white rounded-2xl p-5 border border-amber/10 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    <span class="text-xs text-warm font-medium">Total Employees</span>
+                </div>
+                <p class="text-2xl font-bold text-warmDark">247</p>
+                <p class="text-xs text-green-600 mt-1">+8 this month</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-amber/10 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    <span class="text-xs text-warm font-medium">Avg Tenure</span>
+                </div>
+                <p class="text-2xl font-bold text-warmDark">3.2 yrs</p>
+                <p class="text-xs text-warm mt-1">Median: 2.8 yrs</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-amber/10 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    <span class="text-xs text-warm font-medium">Attrition Rate</span>
+                </div>
+                <p class="text-2xl font-bold text-warmDark">4.2%</p>
+                <p class="text-xs text-green-600 mt-1">-1.1% vs last quarter</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-amber/10 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    <span class="text-xs text-warm font-medium">Open Positions</span>
+                </div>
+                <p class="text-2xl font-bold text-warmDark">12</p>
+                <p class="text-xs text-amber mt-1">5 urgent fills</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-amber/10 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+                    <span class="text-xs text-warm font-medium">eNPS Score</span>
+                </div>
+                <p class="text-2xl font-bold text-green-600">+42</p>
+                <p class="text-xs text-green-600 mt-1">Excellent</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Headcount by Department -->
+            <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-amber/10 shadow-sm">
+                <h2 class="text-base font-semibold text-warmDark mb-5">Headcount by Department</h2>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-warm">Engineering</span><span class="font-semibold text-warmDark">82</span></div>
+                        <div class="w-full h-3 bg-cream rounded-full"><div class="h-full bg-amber rounded-full" style="width:33%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-warm">Sales</span><span class="font-semibold text-warmDark">45</span></div>
+                        <div class="w-full h-3 bg-cream rounded-full"><div class="h-full bg-amber/80 rounded-full" style="width:18%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-warm">Marketing</span><span class="font-semibold text-warmDark">28</span></div>
+                        <div class="w-full h-3 bg-cream rounded-full"><div class="h-full bg-amber/60 rounded-full" style="width:11%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-warm">Product</span><span class="font-semibold text-warmDark">24</span></div>
+                        <div class="w-full h-3 bg-cream rounded-full"><div class="h-full bg-warmDark/40 rounded-full" style="width:10%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-warm">Customer Success</span><span class="font-semibold text-warmDark">22</span></div>
+                        <div class="w-full h-3 bg-cream rounded-full"><div class="h-full bg-warmDark/30 rounded-full" style="width:9%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-warm">Design</span><span class="font-semibold text-warmDark">18</span></div>
+                        <div class="w-full h-3 bg-cream rounded-full"><div class="h-full bg-amber/50 rounded-full" style="width:7%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-warm">Finance</span><span class="font-semibold text-warmDark">14</span></div>
+                        <div class="w-full h-3 bg-cream rounded-full"><div class="h-full bg-warm/30 rounded-full" style="width:6%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-warm">HR & Ops</span><span class="font-semibold text-warmDark">14</span></div>
+                        <div class="w-full h-3 bg-cream rounded-full"><div class="h-full bg-warm/30 rounded-full" style="width:6%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Birthdays & Anniversaries -->
+            <div class="bg-white rounded-2xl p-6 border border-amber/10 shadow-sm">
+                <h2 class="text-base font-semibold text-warmDark mb-5 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    Upcoming Celebrations
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-[10px] text-amber uppercase tracking-wider font-semibold mb-2">Birthdays</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-rose-100 flex items-center justify-center text-xs font-bold text-rose-600">SP</div>
+                                <div>
+                                    <p class="text-sm font-medium text-warmDark">Sarah Palmer</p>
+                                    <p class="text-xs text-warm">Mar 19 — Engineering</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-600">MR</div>
+                                <div>
+                                    <p class="text-sm font-medium text-warmDark">Michael Rodriguez</p>
+                                    <p class="text-xs text-warm">Mar 22 — Sales</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center text-xs font-bold text-green-600">JK</div>
+                                <div>
+                                    <p class="text-sm font-medium text-warmDark">Jennifer Kim</p>
+                                    <p class="text-xs text-warm">Mar 25 — Design</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-amber uppercase tracking-wider font-semibold mb-2">Work Anniversaries</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-amber/20 flex items-center justify-center text-xs font-bold text-amber">DL</div>
+                                <div>
+                                    <p class="text-sm font-medium text-warmDark">David Liu</p>
+                                    <p class="text-xs text-warm">Mar 20 — 5 years</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-full bg-amber/20 flex items-center justify-center text-xs font-bold text-amber">AN</div>
+                                <div>
+                                    <p class="text-sm font-medium text-warmDark">Amanda Nguyen</p>
+                                    <p class="text-xs text-warm">Mar 23 — 3 years</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- Employee Directory Mini Cards -->
+            <div class="bg-white rounded-2xl p-6 border border-amber/10 shadow-sm">
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="text-base font-semibold text-warmDark">Recent Hires</h2>
+                    <a href="#" class="text-sm text-amber font-medium hover:underline">View Directory</a>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-cream/80 hover:bg-creamDark transition">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-sm font-bold text-white">ES</div>
+                        <div>
+                            <p class="text-sm font-semibold text-warmDark">Emily Santos</p>
+                            <p class="text-xs text-warm">Sr. Engineer</p>
+                            <span class="text-[10px] text-green-600 bg-green-50 px-1.5 py-0.5 rounded">Active</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-cream/80 hover:bg-creamDark transition">
+                        <div class="w-10 h-10 rounded-full bg-teal-500 flex items-center justify-center text-sm font-bold text-white">RJ</div>
+                        <div>
+                            <p class="text-sm font-semibold text-warmDark">Ryan Johnson</p>
+                            <p class="text-xs text-warm">Product Manager</p>
+                            <span class="text-[10px] text-green-600 bg-green-50 px-1.5 py-0.5 rounded">Active</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-cream/80 hover:bg-creamDark transition">
+                        <div class="w-10 h-10 rounded-full bg-rose-500 flex items-center justify-center text-sm font-bold text-white">PG</div>
+                        <div>
+                            <p class="text-sm font-semibold text-warmDark">Priya Gupta</p>
+                            <p class="text-xs text-warm">UX Designer</p>
+                            <span class="text-[10px] text-amber bg-amber/10 px-1.5 py-0.5 rounded">Onboarding</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-cream/80 hover:bg-creamDark transition">
+                        <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-sm font-bold text-white">TW</div>
+                        <div>
+                            <p class="text-sm font-semibold text-warmDark">Tom Williams</p>
+                            <p class="text-xs text-warm">Sales Executive</p>
+                            <span class="text-[10px] text-green-600 bg-green-50 px-1.5 py-0.5 rounded">Active</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-cream/80 hover:bg-creamDark transition">
+                        <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-sm font-bold text-white">CL</div>
+                        <div>
+                            <p class="text-sm font-semibold text-warmDark">Claire Lee</p>
+                            <p class="text-xs text-warm">Data Analyst</p>
+                            <span class="text-[10px] text-amber bg-amber/10 px-1.5 py-0.5 rounded">Onboarding</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-cream/80 hover:bg-creamDark transition">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-sm font-bold text-white">NK</div>
+                        <div>
+                            <p class="text-sm font-semibold text-warmDark">Nathan Kim</p>
+                            <p class="text-xs text-warm">DevOps Engineer</p>
+                            <span class="text-[10px] text-green-600 bg-green-50 px-1.5 py-0.5 rounded">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leave Requests -->
+            <div class="bg-white rounded-2xl p-6 border border-amber/10 shadow-sm">
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="text-base font-semibold text-warmDark">Pending Leave Requests</h2>
+                    <span class="text-xs font-medium text-amber bg-amber/10 px-2 py-1 rounded-full">4 pending</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-amber/20 transition">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-600">JM</div>
+                            <div>
+                                <p class="text-sm font-medium text-warmDark">James Mitchell</p>
+                                <p class="text-xs text-warm">Vacation — Mar 24-28 (5 days)</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="text-xs font-medium text-green-600 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded-lg transition">Approve</button>
+                            <button class="text-xs font-medium text-red-500 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition">Deny</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-amber/20 transition">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-rose-100 flex items-center justify-center text-xs font-bold text-rose-600">AL</div>
+                            <div>
+                                <p class="text-sm font-medium text-warmDark">Ana Larsen</p>
+                                <p class="text-xs text-warm">Sick Leave — Mar 18 (1 day)</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="text-xs font-medium text-green-600 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded-lg transition">Approve</button>
+                            <button class="text-xs font-medium text-red-500 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition">Deny</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-amber/20 transition">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center text-xs font-bold text-green-600">WT</div>
+                            <div>
+                                <p class="text-sm font-medium text-warmDark">William Torres</p>
+                                <p class="text-xs text-warm">Personal — Mar 21 (1 day)</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="text-xs font-medium text-green-600 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded-lg transition">Approve</button>
+                            <button class="text-xs font-medium text-red-500 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition">Deny</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-amber/20 transition">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-bold text-indigo-600">KP</div>
+                            <div>
+                                <p class="text-sm font-medium text-warmDark">Karen Park</p>
+                                <p class="text-xs text-warm">Vacation — Apr 1-4 (4 days)</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="text-xs font-medium text-green-600 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded-lg transition">Approve</button>
+                            <button class="text-xs font-medium text-red-500 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition">Deny</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- Open Positions -->
+            <div class="bg-white rounded-2xl p-6 border border-amber/10 shadow-sm">
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="text-base font-semibold text-warmDark">Open Positions</h2>
+                    <button class="text-sm text-amber font-medium hover:underline">Post New Role</button>
+                </div>
+                <div class="space-y-3">
+                    <div class="p-4 rounded-xl border border-gray-100 hover:border-amber/20 transition">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-sm font-semibold text-warmDark">Senior Backend Engineer</span>
+                            <span class="text-xs text-red-500 bg-red-50 px-2 py-0.5 rounded-full font-medium">Urgent</span>
+                        </div>
+                        <p class="text-xs text-warm mb-2">Engineering — Remote — Full-time</p>
+                        <div class="flex items-center gap-4 text-xs text-warm">
+                            <span class="flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                42 applicants
+                            </span>
+                            <span>Posted 12 days ago</span>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl border border-gray-100 hover:border-amber/20 transition">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-sm font-semibold text-warmDark">Product Designer</span>
+                            <span class="text-xs text-amber bg-amber/10 px-2 py-0.5 rounded-full font-medium">Active</span>
+                        </div>
+                        <p class="text-xs text-warm mb-2">Design — New York — Full-time</p>
+                        <div class="flex items-center gap-4 text-xs text-warm">
+                            <span class="flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                28 applicants
+                            </span>
+                            <span>Posted 8 days ago</span>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl border border-gray-100 hover:border-amber/20 transition">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-sm font-semibold text-warmDark">Account Executive</span>
+                            <span class="text-xs text-red-500 bg-red-50 px-2 py-0.5 rounded-full font-medium">Urgent</span>
+                        </div>
+                        <p class="text-xs text-warm mb-2">Sales — San Francisco — Full-time</p>
+                        <div class="flex items-center gap-4 text-xs text-warm">
+                            <span class="flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                18 applicants
+                            </span>
+                            <span>Posted 5 days ago</span>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl border border-gray-100 hover:border-amber/20 transition">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-sm font-semibold text-warmDark">Data Scientist</span>
+                            <span class="text-xs text-amber bg-amber/10 px-2 py-0.5 rounded-full font-medium">Active</span>
+                        </div>
+                        <p class="text-xs text-warm mb-2">Engineering — Remote — Full-time</p>
+                        <div class="flex items-center gap-4 text-xs text-warm">
+                            <span class="flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                35 applicants
+                            </span>
+                            <span>Posted 3 days ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Satisfaction -->
+            <div class="bg-white rounded-2xl p-6 border border-amber/10 shadow-sm">
+                <h2 class="text-base font-semibold text-warmDark mb-5">Team Satisfaction — Q1 2026 Survey</h2>
+                <div class="space-y-5">
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-warm">Work-Life Balance</span>
+                            <span class="font-semibold text-warmDark">4.2 / 5.0</span>
+                        </div>
+                        <div class="w-full h-3 bg-cream rounded-full overflow-hidden">
+                            <div class="h-full bg-green-400 rounded-full" style="width:84%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-warm">Career Growth</span>
+                            <span class="font-semibold text-warmDark">3.8 / 5.0</span>
+                        </div>
+                        <div class="w-full h-3 bg-cream rounded-full overflow-hidden">
+                            <div class="h-full bg-amber rounded-full" style="width:76%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-warm">Management Quality</span>
+                            <span class="font-semibold text-warmDark">4.0 / 5.0</span>
+                        </div>
+                        <div class="w-full h-3 bg-cream rounded-full overflow-hidden">
+                            <div class="h-full bg-green-400 rounded-full" style="width:80%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-warm">Compensation</span>
+                            <span class="font-semibold text-warmDark">3.5 / 5.0</span>
+                        </div>
+                        <div class="w-full h-3 bg-cream rounded-full overflow-hidden">
+                            <div class="h-full bg-amber/70 rounded-full" style="width:70%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-warm">Company Culture</span>
+                            <span class="font-semibold text-warmDark">4.4 / 5.0</span>
+                        </div>
+                        <div class="w-full h-3 bg-cream rounded-full overflow-hidden">
+                            <div class="h-full bg-green-500 rounded-full" style="width:88%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-warm">Team Collaboration</span>
+                            <span class="font-semibold text-warmDark">4.3 / 5.0</span>
+                        </div>
+                        <div class="w-full h-3 bg-cream rounded-full overflow-hidden">
+                            <div class="h-full bg-green-400 rounded-full" style="width:86%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-warm">Tools & Resources</span>
+                            <span class="font-semibold text-warmDark">3.9 / 5.0</span>
+                        </div>
+                        <div class="w-full h-3 bg-cream rounded-full overflow-hidden">
+                            <div class="h-full bg-amber/80 rounded-full" style="width:78%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 p-4 bg-cream rounded-xl">
+                    <p class="text-xs text-warm">Response rate: <span class="font-semibold text-warmDark">89%</span> (220 of 247 employees). Survey closed Mar 10, 2026.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

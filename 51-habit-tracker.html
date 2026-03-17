@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Habit Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Nunito', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes pulse-ring { 0% { stroke-dashoffset: 220; } 100% { stroke-dashoffset: 55; } }
+        .progress-ring { animation: pulse-ring 1.5s ease-out forwards; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: { primary: '#4338CA' },
+                        success: '#16A34A',
+                        warm: '#FEFCE8',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-amber-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Phone Frame -->
+    <div class="w-[375px] h-[812px] bg-[#FEFCE8] rounded-[2.5rem] shadow-2xl overflow-hidden relative border-[3px] border-gray-800 flex flex-col">
+        <!-- Status Bar -->
+        <div class="flex items-center justify-between px-6 pt-3 pb-1 bg-[#FEFCE8] z-10">
+            <span class="text-sm font-bold text-gray-800">9:41</span>
+            <div class="w-28 h-6 bg-gray-900 rounded-full mx-auto"></div>
+            <div class="flex items-center gap-1">
+                <!-- Signal -->
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="8" width="3" height="4" rx="0.5" fill="#1f2937"/><rect x="4" y="5" width="3" height="7" rx="0.5" fill="#1f2937"/><rect x="8" y="2" width="3" height="10" rx="0.5" fill="#1f2937"/><rect x="12" y="0" width="3" height="12" rx="0.5" fill="#1f2937"/></svg>
+                <!-- WiFi -->
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z" fill="#1f2937"/><path d="M4.5 8.5a5 5 0 017 0" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round"/><path d="M2 5.5a9 9 0 0112 0" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <!-- Battery -->
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="2" stroke="#1f2937"/><rect x="2" y="2" width="16" height="8" rx="1" fill="#16A34A"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#1f2937"/></svg>
+            </div>
+        </div>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto hide-scrollbar px-4 pb-24">
+            <!-- Motivational Quote -->
+            <div class="mt-3 bg-indigo-primary/5 rounded-2xl p-3 border border-indigo-primary/10">
+                <p class="text-xs text-indigo-primary/70 italic text-center">"The secret of your future is hidden in your daily routine."</p>
+                <p class="text-[10px] text-indigo-primary/50 text-center mt-1">- Mike Murdock</p>
+            </div>
+
+            <!-- Current Streak Banner -->
+            <div class="mt-4 bg-gradient-to-r from-indigo-primary to-indigo-600 rounded-2xl p-4 text-white flex items-center gap-4">
+                <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/80 text-xs font-medium">Current Streak</p>
+                    <p class="text-3xl font-extrabold">18 Days</p>
+                    <p class="text-white/70 text-[11px]">Personal best: 24 days</p>
+                </div>
+                <div class="text-right">
+                    <div class="bg-white/20 rounded-lg px-2 py-1">
+                        <p class="text-[10px] text-white/80">Rank</p>
+                        <p class="text-sm font-bold">#3</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Progress Ring -->
+            <div class="mt-4 flex items-center gap-4">
+                <div class="relative w-20 h-20">
+                    <svg class="w-20 h-20 -rotate-90" viewBox="0 0 80 80">
+                        <circle cx="40" cy="40" r="35" stroke="#E0E7FF" stroke-width="6" fill="none"/>
+                        <circle cx="40" cy="40" r="35" stroke="#4338CA" stroke-width="6" fill="none" stroke-dasharray="220" stroke-dashoffset="55" stroke-linecap="round" class="progress-ring"/>
+                    </svg>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span class="text-lg font-extrabold text-indigo-primary">6/8</span>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <p class="font-bold text-gray-800">Today's Progress</p>
+                    <p class="text-xs text-gray-500">75% completed &middot; 2 habits remaining</p>
+                    <div class="mt-1.5 w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="h-full bg-success rounded-full" style="width:75%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Habit Categories -->
+            <div class="mt-4 flex gap-2 overflow-x-auto hide-scrollbar">
+                <button class="bg-indigo-primary text-white text-xs font-semibold px-4 py-1.5 rounded-full whitespace-nowrap">All (8)</button>
+                <button class="bg-white text-gray-600 text-xs font-medium px-4 py-1.5 rounded-full border whitespace-nowrap">Health (4)</button>
+                <button class="bg-white text-gray-600 text-xs font-medium px-4 py-1.5 rounded-full border whitespace-nowrap">Mind (2)</button>
+                <button class="bg-white text-gray-600 text-xs font-medium px-4 py-1.5 rounded-full border whitespace-nowrap">Lifestyle (2)</button>
+            </div>
+
+            <!-- Today's Habits Checklist -->
+            <div class="mt-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="font-bold text-gray-800">Today's Habits</h2>
+                    <span class="text-xs text-gray-500">Mar 17, 2026</span>
+                </div>
+
+                <!-- Habit 1 - Completed -->
+                <div class="bg-white rounded-xl p-3 mb-2 border border-green-100 flex items-center gap-3 shadow-sm">
+                    <button class="w-7 h-7 rounded-lg bg-success flex items-center justify-center flex-shrink-0">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </button>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-800 line-through opacity-60">Drink 8 glasses water</p>
+                        <p class="text-[10px] text-gray-400">Health &middot; 8/8 glasses</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span class="text-[10px] font-bold text-amber-600">12</span>
+                    </div>
+                </div>
+
+                <!-- Habit 2 - Completed -->
+                <div class="bg-white rounded-xl p-3 mb-2 border border-green-100 flex items-center gap-3 shadow-sm">
+                    <button class="w-7 h-7 rounded-lg bg-success flex items-center justify-center flex-shrink-0">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </button>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-800 line-through opacity-60">Read 30 minutes</p>
+                        <p class="text-[10px] text-gray-400">Mind &middot; Atomic Habits - Ch.7</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span class="text-[10px] font-bold text-amber-600">18</span>
+                    </div>
+                </div>
+
+                <!-- Habit 3 - Completed -->
+                <div class="bg-white rounded-xl p-3 mb-2 border border-green-100 flex items-center gap-3 shadow-sm">
+                    <button class="w-7 h-7 rounded-lg bg-success flex items-center justify-center flex-shrink-0">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </button>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-800 line-through opacity-60">Exercise 30 min</p>
+                        <p class="text-[10px] text-gray-400">Health &middot; Morning HIIT</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span class="text-[10px] font-bold text-amber-600">9</span>
+                    </div>
+                </div>
+
+                <!-- Habit 4 - Completed -->
+                <div class="bg-white rounded-xl p-3 mb-2 border border-green-100 flex items-center gap-3 shadow-sm">
+                    <button class="w-7 h-7 rounded-lg bg-success flex items-center justify-center flex-shrink-0">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </button>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-800 line-through opacity-60">Meditate 10 min</p>
+                        <p class="text-[10px] text-gray-400">Mind &middot; Calm - Body Scan</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span class="text-[10px] font-bold text-amber-600">18</span>
+                    </div>
+                </div>
+
+                <!-- Habit 5 - Completed -->
+                <div class="bg-white rounded-xl p-3 mb-2 border border-green-100 flex items-center gap-3 shadow-sm">
+                    <button class="w-7 h-7 rounded-lg bg-success flex items-center justify-center flex-shrink-0">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </button>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-800 line-through opacity-60">No social media before noon</p>
+                        <p class="text-[10px] text-gray-400">Lifestyle &middot; Completed at 12:01 PM</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span class="text-[10px] font-bold text-amber-600">5</span>
+                    </div>
+                </div>
+
+                <!-- Habit 6 - Completed -->
+                <div class="bg-white rounded-xl p-3 mb-2 border border-green-100 flex items-center gap-3 shadow-sm">
+                    <button class="w-7 h-7 rounded-lg bg-success flex items-center justify-center flex-shrink-0">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </button>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-800 line-through opacity-60">Journal entry</p>
+                        <p class="text-[10px] text-gray-400">Mind &middot; Gratitude journal</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span class="text-[10px] font-bold text-amber-600">14</span>
+                    </div>
+                </div>
+
+                <!-- Habit 7 - Incomplete -->
+                <div class="bg-white rounded-xl p-3 mb-2 border border-gray-100 flex items-center gap-3 shadow-sm">
+                    <button class="w-7 h-7 rounded-lg border-2 border-gray-300 flex items-center justify-center flex-shrink-0"></button>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-800">Walk 10,000 steps</p>
+                        <p class="text-[10px] text-gray-400">Health &middot; 6,342 / 10,000 steps</p>
+                        <div class="mt-1 w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-indigo-primary/40 rounded-full" style="width:63%"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1 bg-gray-50 px-2 py-0.5 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span class="text-[10px] font-bold text-gray-400">7</span>
+                    </div>
+                </div>
+
+                <!-- Habit 8 - Incomplete -->
+                <div class="bg-white rounded-xl p-3 mb-2 border border-gray-100 flex items-center gap-3 shadow-sm">
+                    <button class="w-7 h-7 rounded-lg border-2 border-gray-300 flex items-center justify-center flex-shrink-0"></button>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-800">Sleep by 11 PM</p>
+                        <p class="text-[10px] text-gray-400">Lifestyle &middot; Upcoming tonight</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-gray-50 px-2 py-0.5 rounded-full">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <span class="text-[10px] font-bold text-gray-400">11</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Completion Heat Grid -->
+            <div class="mt-5">
+                <h2 class="font-bold text-gray-800 mb-3">Weekly Overview</h2>
+                <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                    <div class="grid grid-cols-7 gap-2 text-center">
+                        <div class="text-[10px] font-semibold text-gray-500">Mon</div>
+                        <div class="text-[10px] font-semibold text-gray-500">Tue</div>
+                        <div class="text-[10px] font-semibold text-gray-500">Wed</div>
+                        <div class="text-[10px] font-semibold text-gray-500">Thu</div>
+                        <div class="text-[10px] font-semibold text-gray-500">Fri</div>
+                        <div class="text-[10px] font-semibold text-gray-500">Sat</div>
+                        <div class="text-[10px] font-semibold text-gray-500">Sun</div>
+                        <!-- Week 1 -->
+                        <div class="h-8 rounded-lg bg-green-500 flex items-center justify-center text-white text-[10px] font-bold">8/8</div>
+                        <div class="h-8 rounded-lg bg-green-400 flex items-center justify-center text-white text-[10px] font-bold">7/8</div>
+                        <div class="h-8 rounded-lg bg-green-500 flex items-center justify-center text-white text-[10px] font-bold">8/8</div>
+                        <div class="h-8 rounded-lg bg-green-300 flex items-center justify-center text-green-800 text-[10px] font-bold">6/8</div>
+                        <div class="h-8 rounded-lg bg-green-400 flex items-center justify-center text-white text-[10px] font-bold">7/8</div>
+                        <div class="h-8 rounded-lg bg-green-500 flex items-center justify-center text-white text-[10px] font-bold">8/8</div>
+                        <div class="h-8 rounded-lg bg-green-400 flex items-center justify-center text-white text-[10px] font-bold">7/8</div>
+                        <!-- Week 2 -->
+                        <div class="h-8 rounded-lg bg-green-500 flex items-center justify-center text-white text-[10px] font-bold">8/8</div>
+                        <div class="h-8 rounded-lg bg-green-300 flex items-center justify-center text-green-800 text-[10px] font-bold">5/8</div>
+                        <div class="h-8 rounded-lg bg-green-400 flex items-center justify-center text-white text-[10px] font-bold">7/8</div>
+                        <div class="h-8 rounded-lg bg-green-500 flex items-center justify-center text-white text-[10px] font-bold">8/8</div>
+                        <div class="h-8 rounded-lg bg-green-400 flex items-center justify-center text-white text-[10px] font-bold">7/8</div>
+                        <div class="h-8 rounded-lg bg-green-500 flex items-center justify-center text-white text-[10px] font-bold">8/8</div>
+                        <div class="h-8 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-primary text-[10px] font-bold border-2 border-indigo-primary">6/8</div>
+                    </div>
+                    <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+                        <div class="text-center">
+                            <p class="text-lg font-extrabold text-indigo-primary">93%</p>
+                            <p class="text-[10px] text-gray-400">Avg Rate</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-lg font-extrabold text-success">4</p>
+                            <p class="text-[10px] text-gray-400">Perfect Days</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-lg font-extrabold text-amber-500">102</p>
+                            <p class="text-[10px] text-gray-400">Total Done</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-6"></div>
+        </div>
+
+        <!-- Bottom Tab Navigation -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 pb-6 pt-2">
+            <div class="flex items-center justify-around">
+                <button class="flex flex-col items-center gap-0.5">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4338CA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span class="text-[10px] font-bold text-indigo-primary">Today</span>
+                </button>
+                <button class="flex flex-col items-center gap-0.5">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span class="text-[10px] font-medium text-gray-400">Calendar</span>
+                </button>
+                <button class="flex flex-col items-center gap-0.5">
+                    <div class="w-11 h-11 bg-indigo-primary rounded-full flex items-center justify-center -mt-5 shadow-lg">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </div>
+                    <span class="text-[10px] font-medium text-gray-400">Add</span>
+                </button>
+                <button class="flex flex-col items-center gap-0.5">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    <span class="text-[10px] font-medium text-gray-400">Stats</span>
+                </button>
+                <button class="flex flex-col items-center gap-0.5">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                    <span class="text-[10px] font-medium text-gray-400">Settings</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

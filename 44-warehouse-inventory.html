@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Inventory Scanner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'IBM Plex Mono', monospace; background: #111827; }
+        .scan-line {
+            animation: scanAnim 2s ease-in-out infinite;
+        }
+        @keyframes scanAnim {
+            0%, 100% { top: 15%; }
+            50% { top: 80%; }
+        }
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            border-radius: 2.5rem;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 0 12px #1f2937, 0 0 0 14px #374151;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="phone-frame bg-[#1E293B] flex flex-col relative">
+        <!-- Status Bar -->
+        <div class="flex items-center justify-between px-6 pt-3 pb-1 bg-[#1E293B] z-10">
+            <span class="text-white text-xs font-medium">9:41</span>
+            <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3a4.24 4.24 0 0 0-6 0zm-4-4l2 2a7.07 7.07 0 0 1 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><rect x="17" y="4" width="4" height="16" rx="1"/><rect x="11" y="8" width="4" height="12" rx="1"/><rect x="5" y="12" width="4" height="8" rx="1"/></svg>
+                <div class="flex items-center">
+                    <div class="w-6 h-3 border border-white rounded-sm relative">
+                        <div class="absolute inset-0.5 bg-[#22C55E] rounded-[1px]" style="width:70%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="px-4 pt-2 pb-3 bg-[#1E293B]">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-white text-lg font-bold">ScanStock</h1>
+                    <p class="text-slate-400 text-[10px]">Warehouse A &middot; Zone 3</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></div>
+                    <span class="text-[10px] text-[#22C55E] font-medium">CONNECTED</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto">
+            <!-- Scan Barcode Area -->
+            <div class="mx-4 mb-3 relative rounded-xl overflow-hidden" style="height:160px">
+                <div class="absolute inset-0 bg-slate-900 flex items-center justify-center">
+                    <!-- Camera viewfinder -->
+                    <div class="relative w-48 h-28">
+                        <!-- Corner brackets -->
+                        <div class="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#EAB308]"></div>
+                        <div class="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#EAB308]"></div>
+                        <div class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#EAB308]"></div>
+                        <div class="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#EAB308]"></div>
+                        <!-- Scan line -->
+                        <div class="scan-line absolute left-2 right-2 h-0.5 bg-[#EAB308] shadow-[0_0_8px_rgba(234,179,8,0.6)]"></div>
+                        <!-- Barcode icon -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-30">
+                            <svg class="w-16 h-12 text-slate-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="4" width="2" height="16"/><rect x="7" y="4" width="1" height="16"/><rect x="10" y="4" width="2" height="16"/><rect x="14" y="4" width="1" height="16"/><rect x="17" y="4" width="3" height="16"/><rect x="21" y="4" width="1" height="16"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute bottom-2 left-0 right-0 text-center">
+                    <span class="text-[10px] text-slate-400 bg-black/50 px-2 py-0.5 rounded">Point camera at barcode</span>
+                </div>
+            </div>
+
+            <!-- Last Scanned Item -->
+            <div class="mx-4 mb-3 bg-[#EAB308]/10 border border-[#EAB308]/30 rounded-xl p-3">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] font-bold text-[#EAB308] uppercase tracking-wider">Last Scanned</span>
+                    <span class="text-[10px] text-slate-400">12 sec ago</span>
+                </div>
+                <p class="text-white text-sm font-bold mb-1">Heavy-Duty Steel Shelf Bracket</p>
+                <div class="grid grid-cols-2 gap-2 text-[11px]">
+                    <div>
+                        <span class="text-slate-400">SKU</span>
+                        <p class="text-white font-medium">SB-4492-HD</p>
+                    </div>
+                    <div>
+                        <span class="text-slate-400">Location</span>
+                        <p class="text-white font-medium">A3-R12-B04</p>
+                    </div>
+                    <div>
+                        <span class="text-slate-400">Quantity</span>
+                        <p class="text-white font-medium">248 units</p>
+                    </div>
+                    <div>
+                        <span class="text-slate-400">Status</span>
+                        <p class="text-[#22C55E] font-medium">In Stock</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="mx-4 mb-3">
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Quick Actions</p>
+                <div class="grid grid-cols-4 gap-2">
+                    <button class="bg-[#22C55E]/20 rounded-xl p-3 flex flex-col items-center gap-1.5">
+                        <svg class="w-5 h-5 text-[#22C55E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span class="text-[10px] text-[#22C55E] font-medium">Receive</span>
+                    </button>
+                    <button class="bg-[#3B82F6]/20 rounded-xl p-3 flex flex-col items-center gap-1.5">
+                        <svg class="w-5 h-5 text-[#3B82F6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span class="text-[10px] text-[#3B82F6] font-medium">Pick</span>
+                    </button>
+                    <button class="bg-[#EAB308]/20 rounded-xl p-3 flex flex-col items-center gap-1.5">
+                        <svg class="w-5 h-5 text-[#EAB308]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+                        <span class="text-[10px] text-[#EAB308] font-medium">Move</span>
+                    </button>
+                    <button class="bg-[#EA580C]/20 rounded-xl p-3 flex flex-col items-center gap-1.5">
+                        <svg class="w-5 h-5 text-[#EA580C]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+                        <span class="text-[10px] text-[#EA580C] font-medium">Count</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Location Navigator -->
+            <div class="mx-4 mb-3 bg-slate-800 rounded-xl p-3">
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Location Navigator</p>
+                <div class="flex items-center gap-2">
+                    <div class="flex-1 bg-[#1E293B] rounded-lg p-2 text-center">
+                        <p class="text-[9px] text-slate-400">AISLE</p>
+                        <p class="text-white text-lg font-bold">A3</p>
+                    </div>
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                    <div class="flex-1 bg-[#1E293B] rounded-lg p-2 text-center">
+                        <p class="text-[9px] text-slate-400">SHELF</p>
+                        <p class="text-white text-lg font-bold">R12</p>
+                    </div>
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                    <div class="flex-1 bg-[#EAB308]/20 border border-[#EAB308]/30 rounded-lg p-2 text-center">
+                        <p class="text-[9px] text-[#EAB308]">BIN</p>
+                        <p class="text-[#EAB308] text-lg font-bold">B04</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Count Summary -->
+            <div class="mx-4 mb-3">
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Inventory Summary</p>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="bg-slate-800 rounded-lg p-2 text-center">
+                        <p class="text-white text-lg font-bold">4,892</p>
+                        <p class="text-[9px] text-slate-400">Total SKUs</p>
+                    </div>
+                    <div class="bg-slate-800 rounded-lg p-2 text-center">
+                        <p class="text-[#22C55E] text-lg font-bold">127</p>
+                        <p class="text-[9px] text-slate-400">Scanned Today</p>
+                    </div>
+                    <div class="bg-slate-800 rounded-lg p-2 text-center">
+                        <p class="text-[#EA580C] text-lg font-bold">14</p>
+                        <p class="text-[9px] text-slate-400">Discrepancies</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Misplaced Items Alert -->
+            <div class="mx-4 mb-3 bg-[#EA580C]/10 border border-[#EA580C]/30 rounded-xl p-3">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-4 h-4 text-[#EA580C]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    <span class="text-[11px] font-bold text-[#EA580C]">Misplaced Item Detected</span>
+                </div>
+                <p class="text-[11px] text-slate-300 mb-1">SKU: WH-1102-P &mdash; Pallet Jack Handle</p>
+                <p class="text-[10px] text-slate-400">Expected: <span class="text-white">B2-R05-B12</span> &middot; Found: <span class="text-[#EA580C]">A3-R12-B04</span></p>
+                <button class="mt-2 w-full py-1.5 bg-[#EA580C] text-white text-[11px] font-bold rounded-lg">Resolve</button>
+            </div>
+
+            <!-- Recent Scans -->
+            <div class="mx-4 mb-4">
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Recent Scans</p>
+                <div class="space-y-1.5">
+                    <div class="flex items-center justify-between bg-slate-800 rounded-lg p-2.5">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></div>
+                            <div>
+                                <p class="text-[11px] text-white font-medium">SB-4492-HD</p>
+                                <p class="text-[9px] text-slate-400">Steel Shelf Bracket</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-slate-400">A3-R12-B04</p>
+                            <p class="text-[9px] text-slate-500">12s ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-800 rounded-lg p-2.5">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></div>
+                            <div>
+                                <p class="text-[11px] text-white font-medium">CP-2210-M</p>
+                                <p class="text-[9px] text-slate-400">Copper Pipe Fitting</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-slate-400">A3-R11-B02</p>
+                            <p class="text-[9px] text-slate-500">2m ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-800 rounded-lg p-2.5">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#EAB308]"></div>
+                            <div>
+                                <p class="text-[11px] text-white font-medium">WH-1102-P</p>
+                                <p class="text-[9px] text-[#EAB308]">Misplaced</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-slate-400">A3-R12-B04</p>
+                            <p class="text-[9px] text-slate-500">4m ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-800 rounded-lg p-2.5">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></div>
+                            <div>
+                                <p class="text-[11px] text-white font-medium">BX-7701-L</p>
+                                <p class="text-[9px] text-slate-400">Bulk Storage Box</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-slate-400">A3-R10-B01</p>
+                            <p class="text-[9px] text-slate-500">6m ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-800 rounded-lg p-2.5">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></div>
+                            <div>
+                                <p class="text-[11px] text-white font-medium">VB-3305-S</p>
+                                <p class="text-[9px] text-slate-400">Valve Body Small</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-slate-400">A2-R08-B06</p>
+                            <p class="text-[9px] text-slate-500">9m ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-slate-800 rounded-lg p-2.5">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></div>
+                            <div>
+                                <p class="text-[11px] text-white font-medium">MT-0089-XL</p>
+                                <p class="text-[9px] text-slate-400">Metal Tray XL</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-slate-400">A2-R08-B03</p>
+                            <p class="text-[9px] text-slate-500">11m ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Nav -->
+        <div class="bg-[#0F172A] border-t border-slate-700 px-4 py-2 flex items-center justify-around pb-6">
+            <button class="flex flex-col items-center gap-0.5">
+                <svg class="w-5 h-5 text-[#EAB308]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                <span class="text-[9px] text-[#EAB308] font-medium">Scan</span>
+            </button>
+            <button class="flex flex-col items-center gap-0.5">
+                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <span class="text-[9px] text-slate-500">Search</span>
+            </button>
+            <button class="flex flex-col items-center gap-0.5">
+                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+                <span class="text-[9px] text-slate-500">Reports</span>
+            </button>
+            <button class="flex flex-col items-center gap-0.5">
+                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="text-[9px] text-slate-500">Settings</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorkHub - Coworking Space Booking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { jakarta: ['Plus Jakarta Sans', 'sans-serif'] },
+          colors: {
+            amber: '#F59E0B',
+            amberLight: '#FCD34D',
+            blue: '#2563EB',
+            blueLight: '#DBEAFE',
+            warm: '#FFFBEB',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-warm min-h-screen">
+
+  <!-- Top Nav -->
+  <nav class="bg-white border-b border-amber/20 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-amber flex items-center justify-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <span class="text-lg font-extrabold text-gray-900 tracking-tight">Work<span class="text-blue">Hub</span></span>
+      </div>
+      <div class="hidden md:flex items-center gap-6">
+        <button class="text-sm font-semibold text-blue">Spaces</button>
+        <button class="text-sm font-medium text-gray-500 hover:text-gray-900">My Bookings</button>
+        <button class="text-sm font-medium text-gray-500 hover:text-gray-900">Community</button>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="relative">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="absolute -top-1 -right-1 w-2 h-2 bg-amber rounded-full"></span>
+        </button>
+        <div class="w-8 h-8 rounded-full bg-blue flex items-center justify-center">
+          <span class="text-xs font-bold text-white">JD</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Main Content -->
+      <div class="lg:col-span-2 space-y-6">
+
+        <!-- Floor Plan -->
+        <div class="bg-white rounded-2xl p-6 border border-amber/10">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-gray-900">Floor Plan</h2>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-blue/20 border border-blue/40"></span> Available</span>
+              <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-amber/30 border border-amber/50"></span> Booked</span>
+              <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-gray-200 border border-gray-300"></span> Occupied</span>
+            </div>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-6 relative" style="min-height:240px">
+            <!-- Zones -->
+            <div class="grid grid-cols-4 gap-3 h-full">
+              <div class="col-span-2 row-span-2 bg-blue/10 border-2 border-blue/30 border-dashed rounded-xl p-3 flex flex-col justify-between">
+                <p class="text-xs font-bold text-blue">Open Workspace</p>
+                <div class="flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-blue"></span>
+                  <span class="text-[10px] text-blue font-medium">12 desks available</span>
+                </div>
+              </div>
+              <div class="bg-amber/10 border-2 border-amber/30 border-dashed rounded-xl p-3 flex flex-col justify-between">
+                <p class="text-xs font-bold text-amber">Meeting A</p>
+                <span class="text-[10px] text-amber font-medium">Booked</span>
+              </div>
+              <div class="bg-blue/10 border-2 border-blue/30 border-dashed rounded-xl p-3 flex flex-col justify-between">
+                <p class="text-xs font-bold text-blue">Meeting B</p>
+                <span class="text-[10px] text-blue font-medium">Open</span>
+              </div>
+              <div class="bg-gray-200 border-2 border-gray-300 border-dashed rounded-xl p-3 flex flex-col justify-between">
+                <p class="text-xs font-bold text-gray-500">Private 1</p>
+                <span class="text-[10px] text-gray-500 font-medium">Occupied</span>
+              </div>
+              <div class="bg-blue/10 border-2 border-blue/30 border-dashed rounded-xl p-3 flex flex-col justify-between">
+                <p class="text-xs font-bold text-blue">Private 2</p>
+                <span class="text-[10px] text-blue font-medium">Open</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-4 gap-3 mt-3">
+              <div class="bg-blue/10 border-2 border-blue/30 border-dashed rounded-xl p-3">
+                <p class="text-xs font-bold text-blue">Phone Booth 1</p>
+                <span class="text-[10px] text-blue font-medium">Open</span>
+              </div>
+              <div class="bg-amber/10 border-2 border-amber/30 border-dashed rounded-xl p-3">
+                <p class="text-xs font-bold text-amber">Phone Booth 2</p>
+                <span class="text-[10px] text-amber font-medium">Booked</span>
+              </div>
+              <div class="col-span-2 bg-warm border-2 border-amber/20 border-dashed rounded-xl p-3 flex items-center justify-center">
+                <div class="text-center">
+                  <svg class="mx-auto mb-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+                  <p class="text-xs font-bold text-amber">Kitchen & Lounge</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desk/Room Cards -->
+        <div>
+          <h2 class="text-lg font-bold text-gray-900 mb-4">Available Spaces</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Hot Desk -->
+            <div class="bg-white border border-amber/10 rounded-2xl p-5 hover:shadow-lg hover:shadow-amber/5 transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="w-11 h-11 rounded-xl bg-amber/10 flex items-center justify-center">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><rect x="2" y="7" width="20" height="4" rx="1"/><path d="M4 11v6"/><path d="M20 11v6"/><path d="M6 7V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v3"/></svg>
+                </div>
+                <span class="px-2 py-0.5 bg-blue/10 text-blue text-xs font-semibold rounded-full">Available</span>
+              </div>
+              <h3 class="font-bold text-gray-900 mb-1">Hot Desk</h3>
+              <p class="text-xs text-gray-500 mb-3">Open workspace with monitor, power outlet and ergonomic chair.</p>
+              <div class="flex items-center gap-3 mb-4 text-xs text-gray-400">
+                <span class="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12" y2="20"/></svg>
+                  WiFi
+                </span>
+                <span class="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                  Power
+                </span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-extrabold text-gray-900">$15</span>
+                  <span class="text-xs text-gray-400">/hour</span>
+                  <span class="text-xs text-gray-300 mx-1">|</span>
+                  <span class="text-sm font-bold text-gray-700">$75</span>
+                  <span class="text-xs text-gray-400">/day</span>
+                </div>
+                <button class="px-4 py-2 bg-blue text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition">Book</button>
+              </div>
+            </div>
+
+            <!-- Private Office -->
+            <div class="bg-white border border-amber/10 rounded-2xl p-5 hover:shadow-lg hover:shadow-amber/5 transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="w-11 h-11 rounded-xl bg-blue/10 flex items-center justify-center">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                </div>
+                <span class="px-2 py-0.5 bg-blue/10 text-blue text-xs font-semibold rounded-full">2 left</span>
+              </div>
+              <h3 class="font-bold text-gray-900 mb-1">Private Office</h3>
+              <p class="text-xs text-gray-500 mb-3">Enclosed office for 1-4 people with whiteboard and video conferencing setup.</p>
+              <div class="flex items-center gap-3 mb-4 text-xs text-gray-400">
+                <span class="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12" y2="20"/></svg>
+                  WiFi
+                </span>
+                <span class="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  4 seats
+                </span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-extrabold text-gray-900">$35</span>
+                  <span class="text-xs text-gray-400">/hour</span>
+                  <span class="text-xs text-gray-300 mx-1">|</span>
+                  <span class="text-sm font-bold text-gray-700">$180</span>
+                  <span class="text-xs text-gray-400">/day</span>
+                </div>
+                <button class="px-4 py-2 bg-blue text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition">Book</button>
+              </div>
+            </div>
+
+            <!-- Meeting Room -->
+            <div class="bg-white border border-amber/10 rounded-2xl p-5 hover:shadow-lg hover:shadow-amber/5 transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="w-11 h-11 rounded-xl bg-amber/10 flex items-center justify-center">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <span class="px-2 py-0.5 bg-amber/10 text-amber text-xs font-semibold rounded-full">1 left</span>
+              </div>
+              <h3 class="font-bold text-gray-900 mb-1">Meeting Room</h3>
+              <p class="text-xs text-gray-500 mb-3">Conference room for up to 10 people with projector and video call equipment.</p>
+              <div class="flex items-center gap-3 mb-4 text-xs text-gray-400">
+                <span class="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  Projector
+                </span>
+                <span class="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                  10 seats
+                </span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-extrabold text-gray-900">$50</span>
+                  <span class="text-xs text-gray-400">/hour</span>
+                  <span class="text-xs text-gray-300 mx-1">|</span>
+                  <span class="text-sm font-bold text-gray-700">$300</span>
+                  <span class="text-xs text-gray-400">/day</span>
+                </div>
+                <button class="px-4 py-2 bg-amber text-gray-900 text-sm font-semibold rounded-xl hover:bg-amber/90 transition">Book</button>
+              </div>
+            </div>
+
+            <!-- Phone Booth -->
+            <div class="bg-white border border-amber/10 rounded-2xl p-5 hover:shadow-lg hover:shadow-amber/5 transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="w-11 h-11 rounded-xl bg-blue/10 flex items-center justify-center">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.69 2.34"/></svg>
+                </div>
+                <span class="px-2 py-0.5 bg-blue/10 text-blue text-xs font-semibold rounded-full">Available</span>
+              </div>
+              <h3 class="font-bold text-gray-900 mb-1">Phone Booth</h3>
+              <p class="text-xs text-gray-500 mb-3">Soundproof booth for private calls and focused solo work.</p>
+              <div class="flex items-center gap-3 mb-4 text-xs text-gray-400">
+                <span class="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Private
+                </span>
+                <span class="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                  Soundproof
+                </span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-extrabold text-gray-900">$10</span>
+                  <span class="text-xs text-gray-400">/hour</span>
+                  <span class="text-xs text-gray-300 mx-1">|</span>
+                  <span class="text-sm font-bold text-gray-700">$50</span>
+                  <span class="text-xs text-gray-400">/day</span>
+                </div>
+                <button class="px-4 py-2 bg-blue text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition">Book</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Booking Form -->
+        <div class="bg-white rounded-2xl p-6 border border-amber/10">
+          <h2 class="text-lg font-bold text-gray-900 mb-4">New Booking</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Space Type</label>
+              <select class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue/30">
+                <option>Hot Desk</option>
+                <option>Private Office</option>
+                <option>Meeting Room</option>
+                <option>Phone Booth</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Date</label>
+              <input type="date" value="2026-03-18" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue/30">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-600 mb-1.5 block">Start Time</label>
+              <select class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue/30">
+                <option>8:00 AM</option>
+                <option selected>9:00 AM</option>
+                <option>10:00 AM</option>
+                <option>11:00 AM</option>
+                <option>12:00 PM</option>
+                <option>1:00 PM</option>
+                <option>2:00 PM</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-600 mb-1.5 block">End Time</label>
+              <select class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue/30">
+                <option>12:00 PM</option>
+                <option>1:00 PM</option>
+                <option selected>5:00 PM</option>
+                <option>6:00 PM</option>
+                <option>7:00 PM</option>
+                <option>8:00 PM</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-xs font-semibold text-gray-600 mb-2 block">Amenities</label>
+              <div class="flex flex-wrap gap-2">
+                <label class="flex items-center gap-2 px-3 py-2 bg-blue/5 border border-blue/20 rounded-xl cursor-pointer">
+                  <input type="checkbox" checked class="accent-blue">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12" y2="20"/></svg>
+                  <span class="text-xs font-medium text-blue">WiFi</span>
+                </label>
+                <label class="flex items-center gap-2 px-3 py-2 bg-amber/5 border border-amber/20 rounded-xl cursor-pointer">
+                  <input type="checkbox" checked class="accent-amber">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+                  <span class="text-xs font-medium text-amber">Coffee</span>
+                </label>
+                <label class="flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer">
+                  <input type="checkbox" class="accent-blue">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  <span class="text-xs font-medium text-gray-600">Printer</span>
+                </label>
+                <label class="flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer">
+                  <input type="checkbox" class="accent-blue">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 5 20 16 16 13 16 8"/></svg>
+                  <span class="text-xs font-medium text-gray-600">Parking</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
+            <div>
+              <p class="text-sm text-gray-500">Estimated cost</p>
+              <p class="text-xl font-extrabold text-gray-900">$120.00</p>
+            </div>
+            <button class="px-6 py-3 bg-blue text-white font-bold rounded-xl hover:bg-blue-700 transition text-sm">Confirm Booking</button>
+          </div>
+        </div>
+
+        <!-- My Bookings -->
+        <div class="bg-white rounded-2xl p-6 border border-amber/10">
+          <h2 class="text-lg font-bold text-gray-900 mb-4">My Bookings</h2>
+          <div class="space-y-3">
+            <div class="flex items-center gap-4 p-4 bg-blue/5 border border-blue/10 rounded-xl">
+              <div class="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><rect x="2" y="7" width="20" height="4" rx="1"/><path d="M4 11v6"/><path d="M20 11v6"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-gray-900">Hot Desk - Zone A</p>
+                <p class="text-xs text-gray-500">Tomorrow, Mar 18 | 9:00 AM - 5:00 PM</p>
+              </div>
+              <span class="px-2.5 py-1 bg-blue text-white text-xs font-semibold rounded-full whitespace-nowrap">Confirmed</span>
+            </div>
+            <div class="flex items-center gap-4 p-4 bg-amber/5 border border-amber/10 rounded-xl">
+              <div class="w-10 h-10 rounded-xl bg-amber/10 flex items-center justify-center shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-gray-900">Meeting Room - Room B</p>
+                <p class="text-xs text-gray-500">Mar 20 | 2:00 PM - 4:00 PM</p>
+              </div>
+              <span class="px-2.5 py-1 bg-amber text-gray-900 text-xs font-semibold rounded-full whitespace-nowrap">Pending</span>
+            </div>
+            <div class="flex items-center gap-4 p-4 bg-gray-50 border border-gray-100 rounded-xl">
+              <div class="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-gray-400">Private Office - Suite 2</p>
+                <p class="text-xs text-gray-400">Mar 14 | 10:00 AM - 6:00 PM</p>
+              </div>
+              <span class="px-2.5 py-1 bg-gray-200 text-gray-500 text-xs font-semibold rounded-full whitespace-nowrap">Completed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-6">
+
+        <!-- Availability Calendar -->
+        <div class="bg-white rounded-2xl p-5 border border-amber/10">
+          <h3 class="font-bold text-gray-900 mb-3">March 2026</h3>
+          <div class="grid grid-cols-7 gap-1 text-center mb-2">
+            <span class="text-[10px] text-gray-400 font-medium">Mo</span>
+            <span class="text-[10px] text-gray-400 font-medium">Tu</span>
+            <span class="text-[10px] text-gray-400 font-medium">We</span>
+            <span class="text-[10px] text-gray-400 font-medium">Th</span>
+            <span class="text-[10px] text-gray-400 font-medium">Fr</span>
+            <span class="text-[10px] text-gray-400 font-medium">Sa</span>
+            <span class="text-[10px] text-gray-400 font-medium">Su</span>
+          </div>
+          <div class="grid grid-cols-7 gap-1 text-center">
+            <span class="text-xs text-gray-300 py-1.5"></span>
+            <span class="text-xs text-gray-300 py-1.5"></span>
+            <span class="text-xs text-gray-300 py-1.5"></span>
+            <span class="text-xs text-gray-300 py-1.5"></span>
+            <span class="text-xs text-gray-300 py-1.5"></span>
+            <span class="text-xs text-gray-300 py-1.5"></span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">1</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">2</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">3</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">4</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">5</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">6</span>
+            <span class="text-xs text-gray-300 py-1.5 rounded-lg">7</span>
+            <span class="text-xs text-gray-300 py-1.5 rounded-lg">8</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">9</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">10</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">11</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">12</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">13</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg bg-blue/10 text-blue font-bold">14</span>
+            <span class="text-xs text-gray-300 py-1.5 rounded-lg">15</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">16</span>
+            <span class="text-xs font-bold py-1.5 rounded-lg bg-blue text-white">17</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg bg-amber/20 text-amber font-bold">18</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">19</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg bg-amber/20 text-amber font-bold">20</span>
+            <span class="text-xs text-gray-300 py-1.5 rounded-lg">21</span>
+            <span class="text-xs text-gray-300 py-1.5 rounded-lg">22</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">23</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">24</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">25</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">26</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">27</span>
+            <span class="text-xs text-gray-300 py-1.5 rounded-lg">28</span>
+            <span class="text-xs text-gray-300 py-1.5 rounded-lg">29</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">30</span>
+            <span class="text-xs text-gray-700 py-1.5 rounded-lg">31</span>
+          </div>
+          <div class="flex items-center gap-3 mt-3 text-[10px] text-gray-400">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-blue"></span> Today</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-amber/40"></span> Booked</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-gray-200"></span> Weekend</span>
+          </div>
+        </div>
+
+        <!-- Community Events -->
+        <div class="bg-white rounded-2xl p-5 border border-amber/10">
+          <h3 class="font-bold text-gray-900 mb-4">Community Events</h3>
+          <div class="space-y-3">
+            <div class="p-3 bg-amber/5 border border-amber/10 rounded-xl">
+              <div class="flex items-center gap-2 mb-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+                <span class="text-xs font-bold text-amber">Coffee & Connect</span>
+              </div>
+              <p class="text-xs text-gray-500">Wed, Mar 18 at 10:00 AM</p>
+              <p class="text-[11px] text-gray-400 mt-1">Weekly networking over coffee. Meet fellow members and share ideas.</p>
+            </div>
+            <div class="p-3 bg-blue/5 border border-blue/10 rounded-xl">
+              <div class="flex items-center gap-2 mb-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <span class="text-xs font-bold text-blue">Tech Talk: AI Tools</span>
+              </div>
+              <p class="text-xs text-gray-500">Thu, Mar 19 at 6:00 PM</p>
+              <p class="text-[11px] text-gray-400 mt-1">Learn about the latest AI productivity tools. Presented by Jake Chen.</p>
+            </div>
+            <div class="p-3 bg-amber/5 border border-amber/10 rounded-xl">
+              <div class="flex items-center gap-2 mb-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span class="text-xs font-bold text-amber">Founder Friday</span>
+              </div>
+              <p class="text-xs text-gray-500">Fri, Mar 20 at 5:00 PM</p>
+              <p class="text-[11px] text-gray-400 mt-1">Casual drinks and stories from startup founders in our community.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Amenities Checklist -->
+        <div class="bg-white rounded-2xl p-5 border border-amber/10">
+          <h3 class="font-bold text-gray-900 mb-4">Amenities</h3>
+          <div class="space-y-2.5">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-blue/10 flex items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12" y2="20"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-gray-800">High-Speed WiFi</p>
+                <p class="text-[10px] text-gray-400">1 Gbps fiber connection</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-gray-800">Premium Coffee</p>
+                <p class="text-[10px] text-gray-400">Locally roasted, unlimited</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-blue/10 flex items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-gray-800">Printer & Scanner</p>
+                <p class="text-[10px] text-gray-400">Color laser, 50 pages/day</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-amber/10 flex items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 5 20 16 16 13 16 8"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-gray-800">Parking</p>
+                <p class="text-[10px] text-gray-400">Underground, 2 spots available</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

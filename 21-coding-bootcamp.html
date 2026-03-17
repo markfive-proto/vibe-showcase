@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeForge Bootcamp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { mono: ['JetBrains Mono', 'monospace'], sans: ['Inter', 'sans-serif'] },
+          colors: { forge: { bg: '#020617', surface: '#0F172A', border: '#1E293B', muted: '#334155', green: '#22C55E', blue: '#3B82F6', text: '#CBD5E1' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { scrollbar-width: thin; scrollbar-color: #334155 #0F172A; }
+    .code-keyword { color: #C084FC; }
+    .code-tag { color: #F87171; }
+    .code-attr { color: #FBBF24; }
+    .code-string { color: #22C55E; }
+    .code-comment { color: #64748B; font-style: italic; }
+    .code-number { color: #FB923C; }
+    .code-prop { color: #38BDF8; }
+    .line-num { color: #475569; user-select: none; min-width: 2.5rem; text-align: right; padding-right: 1rem; }
+  </style>
+</head>
+<body class="bg-forge-bg text-forge-text font-sans min-h-screen flex flex-col">
+
+  <!-- Top Bar -->
+  <header class="bg-forge-surface border-b border-forge-border px-4 py-2 flex items-center justify-between shrink-0">
+    <div class="flex items-center gap-3">
+      <svg class="w-7 h-7 text-forge-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <span class="font-mono font-bold text-white text-lg">CodeForge</span>
+      <span class="text-xs bg-forge-green/20 text-forge-green px-2 py-0.5 rounded-full font-mono">PRO</span>
+    </div>
+    <div class="flex items-center gap-2 text-sm">
+      <span class="text-forge-muted font-mono">Module 3 of 8</span>
+      <div class="w-32 h-2 bg-forge-border rounded-full overflow-hidden">
+        <div class="h-full bg-forge-green rounded-full" style="width:37.5%"></div>
+      </div>
+      <span class="text-forge-green font-mono font-bold">37%</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="text-forge-muted hover:text-white transition">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <div class="w-8 h-8 rounded-full bg-forge-blue flex items-center justify-center text-white text-sm font-bold">M</div>
+    </div>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden">
+
+    <!-- Sidebar: Lesson Modules -->
+    <aside class="w-72 bg-forge-surface border-r border-forge-border flex flex-col shrink-0 overflow-y-auto hidden lg:flex">
+      <div class="p-4 border-b border-forge-border">
+        <h2 class="text-white font-semibold text-sm mb-1">Full-Stack Web Dev</h2>
+        <p class="text-xs text-forge-muted font-mono">12 weeks &middot; 64 lessons</p>
+      </div>
+      <nav class="flex-1 p-3 space-y-1 text-sm">
+        <!-- Module 1 - completed -->
+        <div class="mb-3">
+          <div class="flex items-center gap-2 text-forge-green font-mono text-xs mb-2 px-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Module 1: HTML Foundations
+          </div>
+          <div class="space-y-0.5 ml-4">
+            <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded text-forge-muted hover:text-white transition">
+              <svg class="w-3.5 h-3.5 text-forge-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M20 6 9 17l-5-5"/></svg>
+              Semantic HTML
+            </a>
+            <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded text-forge-muted hover:text-white transition">
+              <svg class="w-3.5 h-3.5 text-forge-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M20 6 9 17l-5-5"/></svg>
+              Forms & Inputs
+            </a>
+          </div>
+        </div>
+        <!-- Module 2 - completed -->
+        <div class="mb-3">
+          <div class="flex items-center gap-2 text-forge-green font-mono text-xs mb-2 px-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Module 2: CSS & Layout
+          </div>
+          <div class="space-y-0.5 ml-4">
+            <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded text-forge-muted">
+              <svg class="w-3.5 h-3.5 text-forge-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M20 6 9 17l-5-5"/></svg>
+              Box Model
+            </a>
+            <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded text-forge-muted">
+              <svg class="w-3.5 h-3.5 text-forge-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M20 6 9 17l-5-5"/></svg>
+              Flexbox & Grid
+            </a>
+            <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded text-forge-muted">
+              <svg class="w-3.5 h-3.5 text-forge-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M20 6 9 17l-5-5"/></svg>
+              Responsive Design
+            </a>
+          </div>
+        </div>
+        <!-- Module 3 - current -->
+        <div class="mb-3">
+          <div class="flex items-center gap-2 text-forge-blue font-mono text-xs mb-2 px-2 font-bold">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Module 3: JavaScript
+          </div>
+          <div class="space-y-0.5 ml-4">
+            <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded text-forge-muted">
+              <svg class="w-3.5 h-3.5 text-forge-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M20 6 9 17l-5-5"/></svg>
+              Variables & Types
+            </a>
+            <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded bg-forge-blue/10 text-forge-blue border border-forge-blue/20 font-medium">
+              <svg class="w-3.5 h-3.5 text-forge-blue" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="12" cy="12" r="5"/></svg>
+              DOM Manipulation
+            </a>
+            <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded text-forge-muted">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+              Event Handling
+            </a>
+            <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded text-forge-muted">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+              Async & Fetch
+            </a>
+          </div>
+        </div>
+        <!-- Module 4 - locked -->
+        <div class="mb-3 opacity-50">
+          <div class="flex items-center gap-2 text-forge-muted font-mono text-xs mb-2 px-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Module 4: React Basics
+          </div>
+        </div>
+        <div class="mb-3 opacity-50">
+          <div class="flex items-center gap-2 text-forge-muted font-mono text-xs mb-2 px-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Module 5: Node.js & Express
+          </div>
+        </div>
+        <div class="mb-3 opacity-50">
+          <div class="flex items-center gap-2 text-forge-muted font-mono text-xs mb-2 px-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Module 6: Databases
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+
+      <!-- Lesson Header -->
+      <div class="px-6 py-3 border-b border-forge-border flex items-center justify-between bg-forge-surface/50">
+        <div>
+          <h1 class="text-white font-semibold">DOM Manipulation</h1>
+          <p class="text-xs text-forge-muted font-mono mt-0.5">Module 3 &middot; Lesson 2 &middot; ~25 min</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs bg-forge-blue/15 text-forge-blue px-2 py-1 rounded font-mono">JavaScript</span>
+          <span class="text-xs bg-forge-green/15 text-forge-green px-2 py-1 rounded font-mono">Intermediate</span>
+        </div>
+      </div>
+
+      <!-- Instructions Banner -->
+      <div class="px-6 py-3 bg-forge-blue/5 border-b border-forge-border text-sm">
+        <p class="text-forge-text"><strong class="text-white">Challenge:</strong> Use <code class="font-mono bg-forge-border px-1.5 py-0.5 rounded text-forge-blue text-xs">document.querySelector</code> and <code class="font-mono bg-forge-border px-1.5 py-0.5 rounded text-forge-blue text-xs">.addEventListener</code> to change the heading text and background color when the button is clicked.</p>
+      </div>
+
+      <!-- Editor + Preview Split -->
+      <div class="flex-1 flex overflow-hidden">
+
+        <!-- Code Editor -->
+        <div class="flex-1 flex flex-col border-r border-forge-border min-w-0">
+          <!-- File Tabs -->
+          <div class="flex bg-forge-surface border-b border-forge-border text-xs font-mono">
+            <button class="px-4 py-2 bg-forge-bg text-white border-r border-forge-border border-t-2 border-t-forge-blue">index.html</button>
+            <button class="px-4 py-2 text-forge-muted hover:text-white border-r border-forge-border transition">style.css</button>
+            <button class="px-4 py-2 text-forge-muted hover:text-white border-r border-forge-border transition">script.js</button>
+          </div>
+          <!-- Code Content -->
+          <div class="flex-1 overflow-auto bg-forge-bg p-4 font-mono text-sm leading-relaxed">
+            <div class="flex"><span class="line-num">1</span><span class="code-tag">&lt;!DOCTYPE</span> <span class="code-attr">html</span><span class="code-tag">&gt;</span></div>
+            <div class="flex"><span class="line-num">2</span><span class="code-tag">&lt;html</span> <span class="code-attr">lang</span>=<span class="code-string">"en"</span><span class="code-tag">&gt;</span></div>
+            <div class="flex"><span class="line-num">3</span><span class="code-tag">&lt;head&gt;</span></div>
+            <div class="flex"><span class="line-num">4</span>  <span class="code-tag">&lt;title&gt;</span>DOM Challenge<span class="code-tag">&lt;/title&gt;</span></div>
+            <div class="flex"><span class="line-num">5</span>  <span class="code-tag">&lt;link</span> <span class="code-attr">rel</span>=<span class="code-string">"stylesheet"</span> <span class="code-attr">href</span>=<span class="code-string">"style.css"</span><span class="code-tag">&gt;</span></div>
+            <div class="flex"><span class="line-num">6</span><span class="code-tag">&lt;/head&gt;</span></div>
+            <div class="flex"><span class="line-num">7</span><span class="code-tag">&lt;body&gt;</span></div>
+            <div class="flex"><span class="line-num">8</span>  <span class="code-tag">&lt;div</span> <span class="code-attr">id</span>=<span class="code-string">"container"</span><span class="code-tag">&gt;</span></div>
+            <div class="flex"><span class="line-num">9</span>    <span class="code-tag">&lt;h1</span> <span class="code-attr">id</span>=<span class="code-string">"heading"</span><span class="code-tag">&gt;</span>Hello World<span class="code-tag">&lt;/h1&gt;</span></div>
+            <div class="flex"><span class="line-num">10</span>    <span class="code-tag">&lt;button</span> <span class="code-attr">id</span>=<span class="code-string">"changeBtn"</span><span class="code-tag">&gt;</span></div>
+            <div class="flex"><span class="line-num">11</span>      Click to Change</div>
+            <div class="flex"><span class="line-num">12</span>    <span class="code-tag">&lt;/button&gt;</span></div>
+            <div class="flex"><span class="line-num">13</span>  <span class="code-tag">&lt;/div&gt;</span></div>
+            <div class="flex"><span class="line-num">14</span></div>
+            <div class="flex"><span class="line-num">15</span>  <span class="code-tag">&lt;script</span> <span class="code-attr">src</span>=<span class="code-string">"script.js"</span><span class="code-tag">&gt;&lt;/script&gt;</span></div>
+            <div class="flex"><span class="line-num">16</span><span class="code-tag">&lt;/body&gt;</span></div>
+            <div class="flex"><span class="line-num">17</span><span class="code-tag">&lt;/html&gt;</span></div>
+            <div class="flex mt-4 border-t border-forge-border pt-4"><span class="line-num"></span><span class="code-comment">// --- script.js --- Write your code below:</span></div>
+            <div class="flex"><span class="line-num">1</span></div>
+            <div class="flex"><span class="line-num">2</span><span class="code-comment">// Step 1: Select the heading and button</span></div>
+            <div class="flex"><span class="line-num">3</span><span class="code-keyword">const</span> heading = <span class="code-prop">document</span>.<span class="code-prop">querySelector</span>(<span class="code-string">'#heading'</span>);</div>
+            <div class="flex"><span class="line-num">4</span><span class="code-keyword">const</span> btn = <span class="code-prop">document</span>.<span class="code-prop">querySelector</span>(<span class="code-string">'#changeBtn'</span>);</div>
+            <div class="flex"><span class="line-num">5</span></div>
+            <div class="flex"><span class="line-num">6</span><span class="code-comment">// Step 2: Add a click event listener</span></div>
+            <div class="flex"><span class="line-num">7</span>btn.<span class="code-prop">addEventListener</span>(<span class="code-string">'click'</span>, () => {</div>
+            <div class="flex bg-forge-blue/5 border-l-2 border-forge-blue"><span class="line-num">8</span>  heading.<span class="code-prop">textContent</span> = <span class="code-string">'DOM Updated!'</span>;</div>
+            <div class="flex bg-forge-blue/5 border-l-2 border-forge-blue"><span class="line-num">9</span>  <span class="code-prop">document</span>.<span class="code-prop">body</span>.<span class="code-prop">style</span>.<span class="code-prop">backgroundColor</span> = <span class="code-string">'#1a1a2e'</span>;</div>
+            <div class="flex"><span class="line-num">10</span>});</div>
+            <div class="flex"><span class="line-num">11</span><span class="text-forge-muted">|</span></div>
+          </div>
+        </div>
+
+        <!-- Preview + Output -->
+        <div class="w-96 flex flex-col shrink-0 hidden md:flex">
+          <!-- Preview -->
+          <div class="flex-1 flex flex-col border-b border-forge-border">
+            <div class="px-4 py-2 bg-forge-surface border-b border-forge-border flex items-center justify-between">
+              <span class="text-xs font-mono text-forge-muted">Preview</span>
+              <button class="text-forge-muted hover:text-white transition">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+              </button>
+            </div>
+            <div class="flex-1 bg-white p-6">
+              <div class="border-2 border-gray-200 rounded-lg p-6 text-center">
+                <h1 class="text-2xl font-bold text-gray-800 mb-4">Hello World</h1>
+                <button class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition">Click to Change</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Console Output -->
+          <div class="h-40 flex flex-col">
+            <div class="px-4 py-2 bg-forge-surface border-b border-forge-border flex items-center gap-2">
+              <span class="text-xs font-mono text-forge-muted">Console</span>
+              <span class="w-2 h-2 rounded-full bg-forge-green animate-pulse"></span>
+            </div>
+            <div class="flex-1 bg-forge-bg p-3 font-mono text-xs overflow-auto">
+              <div class="text-forge-muted">&gt; Script loaded successfully</div>
+              <div class="text-forge-green">&gt; Event listener attached to #changeBtn</div>
+              <div class="text-forge-blue">&gt; Waiting for user interaction...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Actions -->
+      <div class="px-6 py-3 bg-forge-surface border-t border-forge-border flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <!-- Hint System -->
+          <button class="flex items-center gap-2 text-sm text-forge-muted hover:text-yellow-400 transition font-mono bg-forge-border/50 px-3 py-1.5 rounded">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+            Hint (2 remaining)
+          </button>
+          <button class="flex items-center gap-2 text-sm text-forge-muted hover:text-white transition font-mono bg-forge-border/50 px-3 py-1.5 rounded">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Reset Code
+          </button>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="px-4 py-2 text-sm font-mono text-forge-muted border border-forge-border rounded hover:border-forge-blue hover:text-forge-blue transition">Run Tests</button>
+          <button class="px-5 py-2 text-sm font-mono text-white bg-forge-green rounded hover:bg-green-600 transition font-medium flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            Submit Solution
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Peer Chat Widget -->
+    <aside class="w-72 bg-forge-surface border-l border-forge-border flex flex-col shrink-0 hidden xl:flex">
+      <div class="p-4 border-b border-forge-border flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-forge-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span class="text-white text-sm font-semibold">Peer Chat</span>
+        </div>
+        <span class="text-xs text-forge-green font-mono flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-forge-green"></span>
+          4 online
+        </span>
+      </div>
+      <div class="flex-1 overflow-y-auto p-3 space-y-3 text-sm">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-5 h-5 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-xs font-bold">S</span>
+            <span class="text-white text-xs font-medium">Sarah K.</span>
+            <span class="text-forge-muted text-xs">2m ago</span>
+          </div>
+          <p class="text-forge-text text-xs ml-7 bg-forge-bg rounded-lg px-3 py-2">Anyone else stuck on the querySelector part? I keep getting null.</p>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-5 h-5 rounded-full bg-forge-blue/20 text-forge-blue flex items-center justify-center text-xs font-bold">J</span>
+            <span class="text-white text-xs font-medium">James R.</span>
+            <span class="text-forge-muted text-xs">1m ago</span>
+          </div>
+          <p class="text-forge-text text-xs ml-7 bg-forge-bg rounded-lg px-3 py-2">Make sure your script tag is at the bottom of the body, not in the head!</p>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-5 h-5 rounded-full bg-forge-green/20 text-forge-green flex items-center justify-center text-xs font-bold">A</span>
+            <span class="text-white text-xs font-medium">Anika P.</span>
+            <span class="text-forge-muted text-xs">30s ago</span>
+          </div>
+          <p class="text-forge-text text-xs ml-7 bg-forge-bg rounded-lg px-3 py-2">Just submitted mine. The trick is using textContent instead of innerHTML for this one.</p>
+        </div>
+      </div>
+      <div class="p-3 border-t border-forge-border">
+        <div class="flex items-center gap-2">
+          <input type="text" placeholder="Type a message..." class="flex-1 bg-forge-bg border border-forge-border rounded px-3 py-2 text-xs text-white placeholder-forge-muted focus:outline-none focus:border-forge-blue">
+          <button class="text-forge-blue hover:text-blue-400 transition">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>

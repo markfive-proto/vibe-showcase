@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlexWork - Freelancer Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            indigo: '#6366F1',
+            'indigo-dark': '#4F46E5',
+            'indigo-light': '#EEF2FF',
+            success: '#16A34A',
+            'success-light': '#DCFCE7',
+            light: '#F8FAFC',
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Space Grotesk', sans-serif; }
+  </style>
+</head>
+<body class="bg-light text-slate-800 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-14">
+        <div class="flex items-center gap-6">
+          <h1 class="text-xl font-bold text-indigo">FlexWork</h1>
+          <nav class="hidden md:flex items-center gap-5 text-sm font-medium">
+            <a href="#" class="text-indigo">Find Work</a>
+            <a href="#" class="text-slate-500 hover:text-slate-800">My Jobs</a>
+            <a href="#" class="text-slate-500 hover:text-slate-800">Messages</a>
+            <a href="#" class="text-slate-500 hover:text-slate-800">Reports</a>
+          </nav>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="relative">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+          <div class="w-8 h-8 rounded-full bg-indigo text-white flex items-center justify-center text-sm font-bold">A</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex flex-col lg:flex-row gap-6">
+
+      <!-- Filter Sidebar -->
+      <aside class="w-full lg:w-64 shrink-0 space-y-5">
+
+        <!-- Earnings Overview -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+          <h3 class="font-semibold text-sm text-slate-500 uppercase tracking-wider mb-3">Earnings Overview</h3>
+          <div class="text-3xl font-bold text-slate-900">$12,480</div>
+          <p class="text-xs text-success font-semibold flex items-center gap-1 mt-1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            +18% this month
+          </p>
+          <div class="grid grid-cols-2 gap-3 mt-4">
+            <div class="bg-light rounded-lg p-3 text-center">
+              <p class="text-lg font-bold text-slate-900">7</p>
+              <p class="text-[11px] text-slate-400">Active Jobs</p>
+            </div>
+            <div class="bg-light rounded-lg p-3 text-center">
+              <p class="text-lg font-bold text-slate-900">23</p>
+              <p class="text-[11px] text-slate-400">Proposals</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+          <h3 class="font-semibold text-sm mb-4 flex items-center justify-between">
+            Filters
+            <a href="#" class="text-xs text-indigo font-medium">Clear all</a>
+          </h3>
+
+          <!-- Category -->
+          <div class="mb-5">
+            <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-2">Category</label>
+            <select class="w-full bg-light border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-indigo">
+              <option>All Categories</option>
+              <option>Web Development</option>
+              <option>Mobile Development</option>
+              <option>UI/UX Design</option>
+              <option>Data Science</option>
+              <option>DevOps</option>
+            </select>
+          </div>
+
+          <!-- Budget Range -->
+          <div class="mb-5">
+            <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-2">Budget Range</label>
+            <div class="space-y-2 text-sm">
+              <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-indigo"> Under $500</label>
+              <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-indigo" checked> $500 - $2,000</label>
+              <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-indigo" checked> $2,000 - $10,000</label>
+              <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-indigo"> $10,000+</label>
+            </div>
+          </div>
+
+          <!-- Experience Level -->
+          <div class="mb-5">
+            <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-2">Experience Level</label>
+            <div class="space-y-2 text-sm">
+              <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-indigo"> Entry Level</label>
+              <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-indigo" checked> Intermediate</label>
+              <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-indigo" checked> Expert</label>
+            </div>
+          </div>
+
+          <!-- Job Type -->
+          <div>
+            <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-2">Job Type</label>
+            <div class="space-y-2 text-sm">
+              <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="type" class="accent-indigo" checked> All</label>
+              <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="type" class="accent-indigo"> Fixed Price</label>
+              <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="type" class="accent-indigo"> Hourly</label>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="flex-1 space-y-6">
+
+        <!-- Search Bar -->
+        <div class="flex items-center gap-3">
+          <div class="flex-1 flex items-center bg-white border border-slate-200 rounded-xl px-4 py-2.5 gap-2 focus-within:border-indigo transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search for jobs..." class="flex-1 outline-none text-sm bg-transparent" value="React developer">
+          </div>
+          <button class="bg-indigo text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-indigo-dark transition-colors">Search</button>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <p class="text-sm text-slate-500">Showing <span class="font-semibold text-slate-800">142</span> results</p>
+          <select class="text-sm bg-transparent outline-none text-slate-500">
+            <option>Most Recent</option>
+            <option>Highest Budget</option>
+            <option>Most Proposals</option>
+          </select>
+        </div>
+
+        <!-- Job Cards -->
+        <div class="space-y-4">
+
+          <!-- Job 1 -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 hover:border-indigo/30 hover:shadow-sm transition-all">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-semibold text-lg">Senior React Developer for SaaS Dashboard</h3>
+                <div class="flex items-center gap-3 mt-1 text-xs text-slate-400">
+                  <span>Posted 2 hours ago</span>
+                  <span class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Remote
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
+                    12 proposals
+                  </span>
+                </div>
+              </div>
+              <span class="text-indigo font-bold text-lg">$5,000 - $8,000</span>
+            </div>
+            <p class="text-sm text-slate-500 leading-relaxed mb-3">Looking for an experienced React developer to build a comprehensive analytics dashboard. Must have experience with TypeScript, Recharts, and REST API integration. 3-month contract with possibility of extension.</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">React</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">TypeScript</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">Tailwind CSS</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">REST API</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="bg-success-light text-success text-xs font-semibold px-2 py-0.5 rounded">Verified Client</span>
+                <span class="text-xs text-slate-400">$50K+ spent</span>
+              </div>
+              <button class="text-indigo text-sm font-semibold hover:underline">Apply Now</button>
+            </div>
+          </div>
+
+          <!-- Job 2 -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 hover:border-indigo/30 hover:shadow-sm transition-all">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-semibold text-lg">Full-Stack Developer for E-commerce Platform</h3>
+                <div class="flex items-center gap-3 mt-1 text-xs text-slate-400">
+                  <span>Posted 5 hours ago</span>
+                  <span class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Remote
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
+                    8 proposals
+                  </span>
+                </div>
+              </div>
+              <span class="text-indigo font-bold text-lg">$75/hr</span>
+            </div>
+            <p class="text-sm text-slate-500 leading-relaxed mb-3">We need a full-stack developer to build and maintain our e-commerce platform built on Next.js and Node.js. Database experience with PostgreSQL required. Long-term engagement, 30+ hrs/week.</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">Next.js</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">Node.js</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">PostgreSQL</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">Stripe</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="bg-success-light text-success text-xs font-semibold px-2 py-0.5 rounded">Verified Client</span>
+                <span class="text-xs text-slate-400">$120K+ spent</span>
+              </div>
+              <button class="text-indigo text-sm font-semibold hover:underline">Apply Now</button>
+            </div>
+          </div>
+
+          <!-- Job 3 -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 hover:border-indigo/30 hover:shadow-sm transition-all">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-semibold text-lg">Mobile App UI/UX Redesign</h3>
+                <div class="flex items-center gap-3 mt-1 text-xs text-slate-400">
+                  <span>Posted 1 day ago</span>
+                  <span class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Remote
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
+                    24 proposals
+                  </span>
+                </div>
+              </div>
+              <span class="text-indigo font-bold text-lg">$3,000 - $5,000</span>
+            </div>
+            <p class="text-sm text-slate-500 leading-relaxed mb-3">Seeking a talented UI/UX designer to redesign our fitness tracking mobile app. Need wireframes, high-fidelity mockups, and a design system. Figma proficiency required.</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">Figma</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">UI Design</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">Mobile Design</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">Prototyping</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-slate-400">New client</span>
+              </div>
+              <button class="text-indigo text-sm font-semibold hover:underline">Apply Now</button>
+            </div>
+          </div>
+
+          <!-- Job 4 -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 hover:border-indigo/30 hover:shadow-sm transition-all">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-semibold text-lg">DevOps Engineer - CI/CD Pipeline Setup</h3>
+                <div class="flex items-center gap-3 mt-1 text-xs text-slate-400">
+                  <span>Posted 3 days ago</span>
+                  <span class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Remote
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
+                    6 proposals
+                  </span>
+                </div>
+              </div>
+              <span class="text-indigo font-bold text-lg">$95/hr</span>
+            </div>
+            <p class="text-sm text-slate-500 leading-relaxed mb-3">Looking for a DevOps engineer to set up automated CI/CD pipelines using GitHub Actions, Docker, and AWS ECS. Must have strong experience with infrastructure as code (Terraform).</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">AWS</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">Docker</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">Terraform</span>
+              <span class="bg-indigo-light text-indigo text-xs font-medium px-2.5 py-1 rounded-full">GitHub Actions</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="bg-success-light text-success text-xs font-semibold px-2 py-0.5 rounded">Verified Client</span>
+                <span class="text-xs text-slate-400">$85K+ spent</span>
+              </div>
+              <button class="text-indigo text-sm font-semibold hover:underline">Apply Now</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Contracts -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+          <h3 class="font-semibold mb-4 flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Active Contracts
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between p-3 bg-light rounded-lg">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-indigo/10 flex items-center justify-center text-indigo text-xs font-bold">TC</div>
+                <div>
+                  <p class="text-sm font-semibold">TechCorp Dashboard</p>
+                  <p class="text-xs text-slate-400">Due: Mar 28, 2026</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-bold text-success">$4,200</p>
+                <div class="w-16 h-1.5 bg-slate-200 rounded-full mt-1">
+                  <div class="w-3/4 h-full bg-indigo rounded-full"></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-light rounded-lg">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-success/10 flex items-center justify-center text-success text-xs font-bold">GS</div>
+                <div>
+                  <p class="text-sm font-semibold">GreenStart API</p>
+                  <p class="text-xs text-slate-400">Due: Apr 5, 2026</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-bold text-success">$6,800</p>
+                <div class="w-16 h-1.5 bg-slate-200 rounded-full mt-1">
+                  <div class="w-2/5 h-full bg-success rounded-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Freelancer Mini Cards -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+          <h3 class="font-semibold mb-4">Top Freelancers in Your Field</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="text-center p-4 bg-light rounded-xl">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-indigo/20 to-indigo/40 mx-auto mb-3 flex items-center justify-center text-indigo font-bold">SL</div>
+              <p class="font-semibold text-sm">Sarah Lin</p>
+              <p class="text-xs text-slate-400">React Developer</p>
+              <div class="flex items-center justify-center gap-1 mt-2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#6366F1" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span class="text-xs font-semibold">4.9</span>
+                <span class="text-xs text-slate-400">(127)</span>
+              </div>
+              <p class="text-xs font-semibold text-indigo mt-1">$85/hr</p>
+            </div>
+            <div class="text-center p-4 bg-light rounded-xl">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-success/20 to-success/40 mx-auto mb-3 flex items-center justify-center text-success font-bold">MJ</div>
+              <p class="font-semibold text-sm">Marco Jensen</p>
+              <p class="text-xs text-slate-400">Full-Stack Dev</p>
+              <div class="flex items-center justify-center gap-1 mt-2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#6366F1" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span class="text-xs font-semibold">4.8</span>
+                <span class="text-xs text-slate-400">(89)</span>
+              </div>
+              <p class="text-xs font-semibold text-indigo mt-1">$95/hr</p>
+            </div>
+            <div class="text-center p-4 bg-light rounded-xl">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-200 to-amber-300 mx-auto mb-3 flex items-center justify-center text-amber-700 font-bold">AK</div>
+              <p class="font-semibold text-sm">Anika Kumar</p>
+              <p class="text-xs text-slate-400">UI/UX Designer</p>
+              <div class="flex items-center justify-center gap-1 mt-2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#6366F1" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span class="text-xs font-semibold">5.0</span>
+                <span class="text-xs text-slate-400">(64)</span>
+              </div>
+              <p class="text-xs font-semibold text-indigo mt-1">$70/hr</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

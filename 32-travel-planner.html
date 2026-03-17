@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trip Planner & Itinerary Builder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sky: { DEFAULT: '#0EA5E9', dark: '#0284C7', light: '#38BDF8' },
+            orange: { DEFAULT: '#EA580C', light: '#F97316' },
+          },
+          fontFamily: {
+            sora: ['Sora', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Sora', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center py-8 px-4">
+
+  <!-- Phone Frame -->
+  <div class="w-[375px] h-[812px] bg-white rounded-[3rem] shadow-2xl overflow-hidden border-[8px] border-gray-800 relative flex flex-col">
+
+    <!-- Status Bar -->
+    <div class="bg-white px-6 pt-3 pb-1 flex items-center justify-between text-xs font-semibold text-gray-800 shrink-0">
+      <span>9:41</span>
+      <div class="w-32 h-6 bg-gray-800 rounded-full absolute left-1/2 -translate-x-1/2 top-2"></div>
+      <div class="flex items-center gap-1.5">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3a4.24 4.24 0 00-6 0zm-4-4l2 2a7.07 7.07 0 0110 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><rect x="17" y="4" width="4" height="16" rx="1"/><rect x="11" y="8" width="4" height="12" rx="1"/><rect x="5" y="12" width="4" height="8" rx="1"/></svg>
+        <svg class="w-6 h-4" fill="currentColor" viewBox="0 0 28 14"><rect x="0" y="1" width="24" height="12" rx="2" stroke="currentColor" stroke-width="1" fill="none"/><rect x="25" y="4" width="2" height="5" rx="1"/><rect x="2" y="3" width="18" height="8" rx="1" fill="currentColor"/></svg>
+      </div>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="flex-1 overflow-y-auto">
+
+      <!-- Trip Header -->
+      <div class="bg-sky p-5 pt-3 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+          <svg class="w-full h-full" viewBox="0 0 400 200"><circle cx="350" cy="30" r="80" fill="white"/><circle cx="50" cy="150" r="60" fill="white"/></svg>
+        </div>
+        <div class="relative z-10">
+          <div class="flex items-center justify-between mb-3">
+            <button class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </button>
+          </div>
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-5 h-5 text-white/80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <h1 class="text-xl font-bold text-white">Tokyo, Japan</h1>
+          </div>
+          <div class="flex items-center gap-4 text-sm text-white/80 mt-2">
+            <span class="flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              Apr 12 - Apr 18
+            </span>
+            <span class="flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              2 Travelers
+            </span>
+          </div>
+          <div class="flex gap-2 mt-3">
+            <span class="px-2.5 py-1 bg-white/20 rounded-full text-xs text-white font-medium">7 Days</span>
+            <span class="px-2.5 py-1 bg-white/20 rounded-full text-xs text-white font-medium">Culture</span>
+            <span class="px-2.5 py-1 bg-white/20 rounded-full text-xs text-white font-medium">Food</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="flex border-b border-gray-200 bg-white sticky top-0 z-10">
+        <button class="flex-1 py-3 text-xs font-semibold text-sky border-b-2 border-sky">Itinerary</button>
+        <button class="flex-1 py-3 text-xs font-semibold text-gray-400">Budget</button>
+        <button class="flex-1 py-3 text-xs font-semibold text-gray-400">Packing</button>
+        <button class="flex-1 py-3 text-xs font-semibold text-gray-400">Notes</button>
+      </div>
+
+      <!-- Day 1 -->
+      <div class="p-4">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-full bg-sky text-white flex items-center justify-center text-xs font-bold">1</div>
+          <div>
+            <h3 class="font-semibold text-gray-800 text-sm">Day 1 - Arrival & Shinjuku</h3>
+            <p class="text-xs text-gray-400">Saturday, Apr 12</p>
+          </div>
+        </div>
+        <div class="ml-4 border-l-2 border-sky/20 pl-5 space-y-3">
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">10:00 AM</span>
+              <svg class="w-3.5 h-3.5 text-orange" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Arrive at Narita Airport</p>
+            <p class="text-xs text-gray-400 mt-0.5">Pick up JR Pass, take Narita Express to Shinjuku</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">1:00 PM</span>
+              <svg class="w-3.5 h-3.5 text-orange" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Check in - Park Hyatt Tokyo</p>
+            <p class="text-xs text-gray-400 mt-0.5">Shinjuku, Room 4215</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">3:00 PM</span>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Explore Shinjuku Gyoen Garden</p>
+            <p class="text-xs text-gray-400 mt-0.5">National garden, cherry blossom season</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">7:00 PM</span>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Dinner at Omoide Yokocho</p>
+            <p class="text-xs text-gray-400 mt-0.5">Street food alley near Shinjuku Station</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 2 -->
+      <div class="p-4 pt-0">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-full bg-sky text-white flex items-center justify-center text-xs font-bold">2</div>
+          <div>
+            <h3 class="font-semibold text-gray-800 text-sm">Day 2 - Asakusa & Akihabara</h3>
+            <p class="text-xs text-gray-400">Sunday, Apr 13</p>
+          </div>
+        </div>
+        <div class="ml-4 border-l-2 border-sky/20 pl-5 space-y-3">
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">8:00 AM</span>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Tsukiji Outer Market</p>
+            <p class="text-xs text-gray-400 mt-0.5">Fresh sushi breakfast, tamagoyaki stand</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">10:30 AM</span>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Senso-ji Temple</p>
+            <p class="text-xs text-gray-400 mt-0.5">Tokyo's oldest temple, Nakamise shopping street</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">2:00 PM</span>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Akihabara Electric Town</p>
+            <p class="text-xs text-gray-400 mt-0.5">Electronics, anime shops, maid cafes</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">7:00 PM</span>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Ramen at Ichiran Shibuya</p>
+            <p class="text-xs text-gray-400 mt-0.5">Famous solo-booth tonkotsu ramen</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 3 -->
+      <div class="p-4 pt-0">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-full bg-sky text-white flex items-center justify-center text-xs font-bold">3</div>
+          <div>
+            <h3 class="font-semibold text-gray-800 text-sm">Day 3 - Shibuya & Harajuku</h3>
+            <p class="text-xs text-gray-400">Monday, Apr 14</p>
+          </div>
+        </div>
+        <div class="ml-4 border-l-2 border-sky/20 pl-5 space-y-3">
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">9:00 AM</span>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Meiji Jingu Shrine</p>
+            <p class="text-xs text-gray-400 mt-0.5">Forest walk to the Shinto shrine</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">11:30 AM</span>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Takeshita Street, Harajuku</p>
+            <p class="text-xs text-gray-400 mt-0.5">Fashion, crepes, kawaii culture</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-medium text-sky bg-sky/10 px-2 py-0.5 rounded-full">3:00 PM</span>
+            </div>
+            <p class="text-sm font-medium text-gray-800">Shibuya Crossing & Sky</p>
+            <p class="text-xs text-gray-400 mt-0.5">Iconic crossing, then Shibuya Sky observation deck</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Budget Tracker -->
+      <div class="p-4 pt-0">
+        <div class="bg-gray-50 rounded-2xl p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold text-gray-800 text-sm">Budget Tracker</h3>
+            <span class="text-xs font-medium text-orange">$3,420 / $4,500</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+            <div class="bg-sky rounded-full h-2" style="width: 76%"></div>
+          </div>
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-sky/10 flex items-center justify-center">
+                  <svg class="w-3.5 h-3.5 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                </div>
+                <span class="text-sm text-gray-700">Flights</span>
+              </div>
+              <span class="text-sm font-semibold text-gray-800">$1,240</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-orange/10 flex items-center justify-center">
+                  <svg class="w-3.5 h-3.5 text-orange" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                </div>
+                <span class="text-sm text-gray-700">Hotels</span>
+              </div>
+              <span class="text-sm font-semibold text-gray-800">$1,400</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-green-100 flex items-center justify-center">
+                  <svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>
+                </div>
+                <span class="text-sm text-gray-700">Food</span>
+              </div>
+              <span class="text-sm font-semibold text-gray-800">$480</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-amber-100 flex items-center justify-center">
+                  <svg class="w-3.5 h-3.5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5zM20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM8.5 10C7.67 10 7 9.33 7 8.5v-5C7 2.67 7.67 2 8.5 2S10 2.67 10 3.5v5c0 .83-.67 1.5-1.5 1.5zM3.5 10C2.67 10 2 9.33 2 8.5S2.67 7 3.5 7 5 7.67 5 8.5 4.33 10 3.5 10zM21 13v2a4 4 0 01-4 4H7a4 4 0 01-4-4v-2"/></svg>
+                </div>
+                <span class="text-sm text-gray-700">Activities</span>
+              </div>
+              <span class="text-sm font-semibold text-gray-800">$300</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Packing Checklist -->
+      <div class="p-4 pt-0">
+        <div class="bg-gray-50 rounded-2xl p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold text-gray-800 text-sm">Packing Checklist</h3>
+            <span class="text-xs font-medium text-gray-400">8/12 packed</span>
+          </div>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" checked class="accent-sky rounded"> <span class="line-through text-gray-400">Passport & visa docs</span></label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" checked class="accent-sky rounded"> <span class="line-through text-gray-400">JR Pass confirmation</span></label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" checked class="accent-sky rounded"> <span class="line-through text-gray-400">Travel adapter (Type A)</span></label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" checked class="accent-sky rounded"> <span class="line-through text-gray-400">Comfortable walking shoes</span></label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" checked class="accent-sky rounded"> <span class="line-through text-gray-400">Rain jacket</span></label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" checked class="accent-sky rounded"> <span class="line-through text-gray-400">Portable charger</span></label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" checked class="accent-sky rounded"> <span class="line-through text-gray-400">Camera + lens</span></label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" checked class="accent-sky rounded"> <span class="line-through text-gray-400">Travel insurance card</span></label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" class="accent-sky rounded"> Pocket WiFi pickup info</label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" class="accent-sky rounded"> Japanese phrasebook</label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" class="accent-sky rounded"> Daypack / backpack</label>
+            <label class="flex items-center gap-2.5 text-sm text-gray-700"><input type="checkbox" class="accent-sky rounded"> Snacks for flight</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Saved Places -->
+      <div class="p-4 pt-0">
+        <div class="bg-gray-50 rounded-2xl p-4">
+          <h3 class="font-semibold text-gray-800 text-sm mb-3">Saved Places</h3>
+          <div class="space-y-2.5">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-sky/10 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-800 truncate">TeamLab Borderless</p>
+                <p class="text-xs text-gray-400">Odaiba - Digital art museum</p>
+              </div>
+              <svg class="w-4 h-4 text-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-sky/10 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-800 truncate">Tsukiji Outer Market</p>
+                <p class="text-xs text-gray-400">Chuo City - Fresh seafood</p>
+              </div>
+              <svg class="w-4 h-4 text-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-sky/10 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-800 truncate">Golden Gai</p>
+                <p class="text-xs text-gray-400">Shinjuku - Tiny bar alley</p>
+              </div>
+              <svg class="w-4 h-4 text-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-sky/10 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-800 truncate">Shibuya Sky</p>
+                <p class="text-xs text-gray-400">Shibuya - Observation deck</p>
+              </div>
+              <svg class="w-4 h-4 text-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trip Notes -->
+      <div class="p-4 pt-0 pb-6">
+        <div class="bg-gray-50 rounded-2xl p-4">
+          <h3 class="font-semibold text-gray-800 text-sm mb-3">Trip Notes</h3>
+          <div class="space-y-2.5">
+            <div class="bg-white rounded-lg p-3 border border-gray-100">
+              <p class="text-xs text-gray-400 mb-1">Mar 10</p>
+              <p class="text-sm text-gray-700">Remember to get yen at the airport ATM. 7-Eleven ATMs accept foreign cards. Budget ~50,000 yen cash for the week.</p>
+            </div>
+            <div class="bg-white rounded-lg p-3 border border-gray-100">
+              <p class="text-xs text-gray-400 mb-1">Mar 8</p>
+              <p class="text-sm text-gray-700">Book Sumo tournament tickets for Day 4. Check official site for availability at Ryogoku Kokugikan.</p>
+            </div>
+            <div class="bg-white rounded-lg p-3 border border-gray-100">
+              <p class="text-xs text-gray-400 mb-1">Mar 5</p>
+              <p class="text-sm text-gray-700">Hotel confirmed: Park Hyatt Tokyo, confirmation #PHT-2026-8842. Late check-out requested.</p>
+            </div>
+          </div>
+          <button class="w-full mt-3 py-2.5 border-2 border-dashed border-gray-200 rounded-xl text-sm text-gray-400 font-medium hover:border-sky hover:text-sky transition">
+            + Add Note
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bg-white border-t border-gray-200 flex items-center justify-around py-2 pb-6 shrink-0">
+      <button class="flex flex-col items-center gap-0.5">
+        <svg class="w-5 h-5 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        <span class="text-[10px] font-medium text-sky">Trip</span>
+      </button>
+      <button class="flex flex-col items-center gap-0.5">
+        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span class="text-[10px] font-medium text-gray-400">Explore</span>
+      </button>
+      <button class="flex flex-col items-center gap-0.5">
+        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+        <span class="text-[10px] font-medium text-gray-400">Saved</span>
+      </button>
+      <button class="flex flex-col items-center gap-0.5">
+        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="text-[10px] font-medium text-gray-400">Profile</span>
+      </button>
+    </div>
+  </div>
+
+</body>
+</html>

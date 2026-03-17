@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventflow — Event Management Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
+                    colors: {
+                        ev: { coral: '#F43F5E', teal: '#0D9488', light: '#F0FDFA', coralLight: '#FFF1F2' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-700 min-h-screen">
+    <!-- Top Nav -->
+    <nav class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2">
+                <svg class="w-7 h-7 text-ev-coral" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span class="text-lg font-bold text-gray-900">Eventflow</span>
+            </div>
+            <div class="hidden md:flex items-center gap-1">
+                <a href="#" class="text-sm font-semibold text-ev-coral px-3 py-1.5 rounded-lg bg-ev-coralLight">Dashboard</a>
+                <a href="#" class="text-sm font-medium text-gray-500 px-3 py-1.5 rounded-lg hover:bg-gray-50">Events</a>
+                <a href="#" class="text-sm font-medium text-gray-500 px-3 py-1.5 rounded-lg hover:bg-gray-50">Attendees</a>
+                <a href="#" class="text-sm font-medium text-gray-500 px-3 py-1.5 rounded-lg hover:bg-gray-50">Reports</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <button class="bg-ev-coral text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-rose-600 transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                New Event
+            </button>
+            <div class="w-8 h-8 rounded-full bg-ev-teal text-white flex items-center justify-center text-sm font-bold">E</div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+        <!-- Revenue Summary -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl p-5 border border-gray-200">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-medium">Total Revenue</span>
+                    <svg class="w-4 h-4 text-ev-teal" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="text-3xl font-bold text-gray-900">$247,580</div>
+                <div class="text-xs text-green-600 mt-1 font-medium">+18.3% vs last quarter</div>
+            </div>
+            <div class="bg-white rounded-xl p-5 border border-gray-200">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-medium">Tickets Sold</span>
+                    <svg class="w-4 h-4 text-ev-coral" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 0 0-2 2v3a2 2 0 1 1 0 4v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3a2 2 0 1 1 0-4V7a2 2 0 0 0-2-2H5z"/></svg>
+                </div>
+                <div class="text-3xl font-bold text-gray-900">3,847</div>
+                <div class="text-xs text-gray-400 mt-1">Across 6 events</div>
+            </div>
+            <div class="bg-white rounded-xl p-5 border border-gray-200">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-medium">Active Events</span>
+                    <svg class="w-4 h-4 text-ev-teal" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <div class="text-3xl font-bold text-gray-900">4</div>
+                <div class="text-xs text-gray-400 mt-1">2 upcoming, 1 today, 1 draft</div>
+            </div>
+            <div class="bg-white rounded-xl p-5 border border-gray-200">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-medium">Check-in Rate</span>
+                    <svg class="w-4 h-4 text-ev-coral" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <div class="text-3xl font-bold text-gray-900">89.2%</div>
+                <div class="text-xs text-green-600 mt-1 font-medium">+4.1% improvement</div>
+            </div>
+        </div>
+
+        <!-- Upcoming Events -->
+        <div>
+            <h2 class="text-lg font-bold text-gray-900 mb-4">Upcoming Events</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Event Card 1 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition">
+                    <div class="h-3 bg-ev-coral"></div>
+                    <div class="p-5">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h3 class="font-bold text-gray-900">Design Systems Summit</h3>
+                                <p class="text-sm text-gray-500 mt-0.5">March 22, 2026 &middot; 9:00 AM</p>
+                            </div>
+                            <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">On Sale</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>Moscone Center, San Francisco</span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-gray-500">Ticket Sales</span>
+                                <span class="font-semibold text-gray-900">847 / 1,200</span>
+                            </div>
+                            <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-ev-teal rounded-full" style="width:71%"></div>
+                            </div>
+                            <p class="text-[10px] text-ev-teal mt-1 font-medium">71% capacity</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="flex-1 text-sm font-medium bg-ev-coral text-white py-2 rounded-lg hover:bg-rose-600 transition">Manage</button>
+                            <button class="w-9 h-9 border border-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-50">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Card 2 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition">
+                    <div class="h-3 bg-ev-teal"></div>
+                    <div class="p-5">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h3 class="font-bold text-gray-900">Startup Pitch Night</h3>
+                                <p class="text-sm text-gray-500 mt-0.5">March 28, 2026 &middot; 6:30 PM</p>
+                            </div>
+                            <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">On Sale</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>The Loft, Austin TX</span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-gray-500">Ticket Sales</span>
+                                <span class="font-semibold text-gray-900">189 / 250</span>
+                            </div>
+                            <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-ev-coral rounded-full" style="width:76%"></div>
+                            </div>
+                            <p class="text-[10px] text-ev-coral mt-1 font-medium">76% capacity</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="flex-1 text-sm font-medium bg-ev-teal text-white py-2 rounded-lg hover:bg-teal-700 transition">Manage</button>
+                            <button class="w-9 h-9 border border-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-50">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Card 3 -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition">
+                    <div class="h-3 bg-amber-500"></div>
+                    <div class="p-5">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h3 class="font-bold text-gray-900">Creative Code Workshop</h3>
+                                <p class="text-sm text-gray-500 mt-0.5">April 5, 2026 &middot; 10:00 AM</p>
+                            </div>
+                            <span class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-semibold">Draft</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>Studio 42, New York</span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="flex justify-between text-xs mb-1">
+                                <span class="text-gray-500">Ticket Sales</span>
+                                <span class="font-semibold text-gray-900">0 / 80</span>
+                            </div>
+                            <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-gray-300 rounded-full" style="width:0%"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mt-1">Not yet published</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="flex-1 text-sm font-medium border border-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">Edit Draft</button>
+                            <button class="w-9 h-9 border border-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-50">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Ticket Tiers -->
+            <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+                    <h2 class="font-bold text-gray-900">Ticket Tiers — Design Systems Summit</h2>
+                    <button class="text-xs text-ev-coral hover:underline font-medium">Edit Tiers</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-gray-100 text-left">
+                                <th class="px-5 py-3 text-xs text-gray-500 uppercase tracking-wider font-medium">Tier</th>
+                                <th class="px-5 py-3 text-xs text-gray-500 uppercase tracking-wider font-medium">Price</th>
+                                <th class="px-5 py-3 text-xs text-gray-500 uppercase tracking-wider font-medium">Sold</th>
+                                <th class="px-5 py-3 text-xs text-gray-500 uppercase tracking-wider font-medium">Available</th>
+                                <th class="px-5 py-3 text-xs text-gray-500 uppercase tracking-wider font-medium">Revenue</th>
+                                <th class="px-5 py-3 text-xs text-gray-500 uppercase tracking-wider font-medium">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-5 py-3.5">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 rounded-full bg-ev-teal"></div>
+                                        <span class="font-semibold text-gray-900">Early Bird</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-3.5 text-gray-600">$149</td>
+                                <td class="px-5 py-3.5 font-semibold text-gray-900">300</td>
+                                <td class="px-5 py-3.5 text-gray-400">0</td>
+                                <td class="px-5 py-3.5 font-semibold text-gray-900">$44,700</td>
+                                <td class="px-5 py-3.5"><span class="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-semibold">Sold Out</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-5 py-3.5">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 rounded-full bg-ev-coral"></div>
+                                        <span class="font-semibold text-gray-900">Regular</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-3.5 text-gray-600">$249</td>
+                                <td class="px-5 py-3.5 font-semibold text-gray-900">412</td>
+                                <td class="px-5 py-3.5 text-gray-600">188</td>
+                                <td class="px-5 py-3.5 font-semibold text-gray-900">$102,588</td>
+                                <td class="px-5 py-3.5"><span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">On Sale</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-5 py-3.5">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 rounded-full bg-amber-500"></div>
+                                        <span class="font-semibold text-gray-900">VIP</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-3.5 text-gray-600">$499</td>
+                                <td class="px-5 py-3.5 font-semibold text-gray-900">135</td>
+                                <td class="px-5 py-3.5 text-gray-600">165</td>
+                                <td class="px-5 py-3.5 font-semibold text-gray-900">$67,365</td>
+                                <td class="px-5 py-3.5"><span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">On Sale</span></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="border-t border-gray-200 bg-gray-50">
+                                <td class="px-5 py-3 font-bold text-gray-900">Total</td>
+                                <td class="px-5 py-3"></td>
+                                <td class="px-5 py-3 font-bold text-gray-900">847</td>
+                                <td class="px-5 py-3 text-gray-600">353</td>
+                                <td class="px-5 py-3 font-bold text-gray-900">$214,653</td>
+                                <td class="px-5 py-3"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Check-in Scanner -->
+            <div class="bg-white rounded-xl border border-gray-200 p-5">
+                <h2 class="font-bold text-gray-900 mb-4">Check-in Scanner</h2>
+                <div class="bg-gray-100 rounded-xl h-48 flex flex-col items-center justify-center mb-4">
+                    <svg class="w-16 h-16 text-gray-300 mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                        <path d="M14 14h3v3h-3zM20 14v3h-3M14 20h3M20 20h0"/>
+                    </svg>
+                    <p class="text-sm text-gray-400">Point camera at QR code</p>
+                    <p class="text-xs text-gray-300 mt-1">or enter ticket ID manually</p>
+                </div>
+                <div class="flex gap-2 mb-4">
+                    <input type="text" placeholder="Enter ticket ID..." class="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                    <button class="bg-ev-teal text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-teal-700 transition">Check In</button>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-sm">
+                        <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="text-gray-600">Sarah Mitchell — <span class="text-xs text-gray-400">VIP &middot; 2 min ago</span></span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm">
+                        <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="text-gray-600">James Park — <span class="text-xs text-gray-400">Regular &middot; 5 min ago</span></span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm">
+                        <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="text-gray-600">Maria Gonzalez — <span class="text-xs text-gray-400">VIP &middot; 8 min ago</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Event Timeline / Schedule -->
+            <div class="bg-white rounded-xl border border-gray-200 p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-bold text-gray-900">Event Schedule — Design Systems Summit</h2>
+                    <button class="text-xs text-ev-coral hover:underline font-medium">Edit Schedule</button>
+                </div>
+                <div class="relative">
+                    <div class="absolute left-4 top-0 bottom-0 w-px bg-gray-200"></div>
+                    <div class="space-y-5">
+                        <div class="flex items-start gap-4 relative">
+                            <div class="w-8 h-8 rounded-full bg-ev-teal text-white flex items-center justify-center text-xs font-bold flex-shrink-0 z-10">9</div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Registration & Welcome Coffee</p>
+                                <p class="text-xs text-gray-400">9:00 AM - 9:30 AM &middot; Main Lobby</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 relative">
+                            <div class="w-8 h-8 rounded-full bg-ev-coral text-white flex items-center justify-center text-xs font-bold flex-shrink-0 z-10">K</div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Keynote: The Future of Design Infrastructure</p>
+                                <p class="text-xs text-gray-400">9:30 AM - 10:30 AM &middot; Main Stage</p>
+                                <p class="text-xs text-ev-coral mt-0.5">Speaker: Diana Torres</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 relative">
+                            <div class="w-8 h-8 rounded-full bg-ev-teal text-white flex items-center justify-center text-xs font-bold flex-shrink-0 z-10">W</div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Workshop: Building Tokens from Scratch</p>
+                                <p class="text-xs text-gray-400">10:45 AM - 12:00 PM &middot; Room B</p>
+                                <p class="text-xs text-ev-teal mt-0.5">Speaker: Ryan Cho</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 relative">
+                            <div class="w-8 h-8 rounded-full bg-gray-300 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 z-10">L</div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Lunch Break</p>
+                                <p class="text-xs text-gray-400">12:00 PM - 1:00 PM &middot; Atrium</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 relative">
+                            <div class="w-8 h-8 rounded-full bg-ev-coral text-white flex items-center justify-center text-xs font-bold flex-shrink-0 z-10">P</div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Panel: Scaling Design Systems at Enterprise</p>
+                                <p class="text-xs text-gray-400">1:00 PM - 2:15 PM &middot; Main Stage</p>
+                                <p class="text-xs text-ev-coral mt-0.5">Panelists: Torres, Cho, Patel, Nguyen</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 relative">
+                            <div class="w-8 h-8 rounded-full bg-ev-teal text-white flex items-center justify-center text-xs font-bold flex-shrink-0 z-10">N</div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900">Networking & Closing</p>
+                                <p class="text-xs text-gray-400">4:30 PM - 6:00 PM &middot; Rooftop Terrace</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speaker Lineup -->
+            <div class="bg-white rounded-xl border border-gray-200 p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-bold text-gray-900">Speaker Lineup</h2>
+                    <button class="text-xs text-ev-coral hover:underline font-medium">Add Speaker</button>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50 transition">
+                        <div class="w-12 h-12 rounded-full bg-ev-coral text-white flex items-center justify-center text-lg font-bold flex-shrink-0">DT</div>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-gray-900">Diana Torres</p>
+                            <p class="text-xs text-gray-500">VP of Design, Figma</p>
+                            <p class="text-xs text-ev-coral mt-0.5">Keynote Speaker</p>
+                        </div>
+                        <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">Confirmed</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50 transition">
+                        <div class="w-12 h-12 rounded-full bg-ev-teal text-white flex items-center justify-center text-lg font-bold flex-shrink-0">RC</div>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-gray-900">Ryan Cho</p>
+                            <p class="text-xs text-gray-500">Design Systems Lead, Stripe</p>
+                            <p class="text-xs text-ev-teal mt-0.5">Workshop Host</p>
+                        </div>
+                        <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">Confirmed</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50 transition">
+                        <div class="w-12 h-12 rounded-full bg-amber-500 text-white flex items-center justify-center text-lg font-bold flex-shrink-0">AP</div>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-gray-900">Amara Patel</p>
+                            <p class="text-xs text-gray-500">Head of Product Design, Airbnb</p>
+                            <p class="text-xs text-amber-600 mt-0.5">Panelist</p>
+                        </div>
+                        <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">Confirmed</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50 transition">
+                        <div class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-bold flex-shrink-0">KN</div>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-gray-900">Kevin Nguyen</p>
+                            <p class="text-xs text-gray-500">Staff Engineer, Vercel</p>
+                            <p class="text-xs text-blue-600 mt-0.5">Panelist</p>
+                        </div>
+                        <span class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-semibold">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Attendee List Preview -->
+                <div class="mt-6 pt-5 border-t border-gray-100">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-gray-900">Recent Registrations</h3>
+                        <span class="text-xs text-gray-400">847 total</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center text-[10px] font-bold">LM</div>
+                                <span class="text-gray-700">Laura Mitchell</span>
+                            </div>
+                            <span class="text-xs text-gray-400">VIP &middot; 12 min ago</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center text-[10px] font-bold">TK</div>
+                                <span class="text-gray-700">Tom Keller</span>
+                            </div>
+                            <span class="text-xs text-gray-400">Regular &middot; 1 hr ago</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center text-[10px] font-bold">SJ</div>
+                                <span class="text-gray-700">Sofia Johnson</span>
+                            </div>
+                            <span class="text-xs text-gray-400">Regular &middot; 3 hrs ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet & Delivery Tracking Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { roboto: ['Roboto', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .route-line { position: absolute; height: 3px; background: #2563EB; transform-origin: left center; }
+        .station-dot { width: 10px; height: 10px; border-radius: 50%; position: absolute; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body class="bg-[#F1F5F9] min-h-screen text-slate-800">
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 px-4 py-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-[#2563EB] rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-slate-900">FleetVision</h1>
+                    <p class="text-xs text-slate-500">Real-time Tracking</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-2 bg-slate-100 rounded-lg px-3 py-1.5">
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <input type="text" placeholder="Search vehicles..." class="bg-transparent text-sm outline-none w-40">
+                </div>
+                <button class="relative p-2">
+                    <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="absolute top-1 right-1 w-2 h-2 bg-[#EA580C] rounded-full"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="bg-white border-b border-slate-200 px-4 py-3">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-[#2563EB]/10 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-[#2563EB]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500">Total Fleet</p>
+                    <p class="text-lg font-bold">24</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500">Completed</p>
+                    <p class="text-lg font-bold">142</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-[#EA580C]/10 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-[#EA580C]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500">In Transit</p>
+                    <p class="text-lg font-bold">18</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500">On-Time Rate</p>
+                    <p class="text-lg font-bold text-green-600">94.2%</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500">Active Alerts</p>
+                    <p class="text-lg font-bold text-amber-600">4</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row h-[calc(100vh-140px)]">
+        <!-- Map Area -->
+        <div class="flex-1 relative bg-[#dde6ed] overflow-hidden" style="min-height: 350px;">
+            <!-- Map Background Grid -->
+            <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(#94a3b8 1px, transparent 1px), linear-gradient(90deg, #94a3b8 1px, transparent 1px); background-size: 40px 40px;"></div>
+            <!-- Map roads -->
+            <div class="absolute top-[30%] left-0 right-0 h-[3px] bg-slate-400/40"></div>
+            <div class="absolute top-[55%] left-0 right-0 h-[3px] bg-slate-400/40"></div>
+            <div class="absolute top-[75%] left-[10%] right-[20%] h-[3px] bg-slate-400/40"></div>
+            <div class="absolute top-0 bottom-0 left-[25%] w-[3px] bg-slate-400/40"></div>
+            <div class="absolute top-0 bottom-0 left-[55%] w-[3px] bg-slate-400/40"></div>
+            <div class="absolute top-0 bottom-0 left-[80%] w-[3px] bg-slate-400/40"></div>
+            <!-- Route Lines (blue dashed) -->
+            <svg class="absolute inset-0 w-full h-full" style="pointer-events:none">
+                <line x1="15%" y1="25%" x2="45%" y2="50%" stroke="#2563EB" stroke-width="3" stroke-dasharray="8,4" opacity="0.7"/>
+                <line x1="45%" y1="50%" x2="75%" y2="35%" stroke="#2563EB" stroke-width="3" stroke-dasharray="8,4" opacity="0.7"/>
+                <line x1="30%" y1="70%" x2="60%" y2="55%" stroke="#EA580C" stroke-width="3" stroke-dasharray="8,4" opacity="0.7"/>
+                <line x1="60%" y1="55%" x2="85%" y2="75%" stroke="#EA580C" stroke-width="3" stroke-dasharray="8,4" opacity="0.7"/>
+                <line x1="20%" y1="40%" x2="50%" y2="30%" stroke="#16a34a" stroke-width="3" stroke-dasharray="8,4" opacity="0.5"/>
+            </svg>
+            <!-- Vehicle markers -->
+            <div class="absolute" style="top:23%;left:14%">
+                <div class="w-8 h-8 bg-[#2563EB] rounded-full border-2 border-white shadow-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/></svg>
+                </div>
+                <span class="text-[10px] font-bold bg-white px-1 rounded shadow mt-0.5 block text-center">T-101</span>
+            </div>
+            <div class="absolute" style="top:48%;left:44%">
+                <div class="w-8 h-8 bg-[#2563EB] rounded-full border-2 border-white shadow-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/></svg>
+                </div>
+                <span class="text-[10px] font-bold bg-white px-1 rounded shadow mt-0.5 block text-center">T-104</span>
+            </div>
+            <div class="absolute" style="top:33%;left:74%">
+                <div class="w-8 h-8 bg-green-500 rounded-full border-2 border-white shadow-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span class="text-[10px] font-bold bg-white px-1 rounded shadow mt-0.5 block text-center">T-107</span>
+            </div>
+            <div class="absolute" style="top:68%;left:29%">
+                <div class="w-8 h-8 bg-[#EA580C] rounded-full border-2 border-white shadow-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/></svg>
+                </div>
+                <span class="text-[10px] font-bold bg-white px-1 rounded shadow mt-0.5 block text-center">T-112</span>
+            </div>
+            <div class="absolute" style="top:73%;left:84%">
+                <div class="w-8 h-8 bg-[#EA580C] rounded-full border-2 border-white shadow-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/></svg>
+                </div>
+                <span class="text-[10px] font-bold bg-white px-1 rounded shadow mt-0.5 block text-center">T-115</span>
+            </div>
+            <div class="absolute" style="top:38%;left:19%">
+                <div class="w-8 h-8 bg-slate-400 rounded-full border-2 border-white shadow-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/></svg>
+                </div>
+                <span class="text-[10px] font-bold bg-white px-1 rounded shadow mt-0.5 block text-center">T-103</span>
+            </div>
+            <!-- Depot marker -->
+            <div class="absolute" style="top:50%;left:50%;transform:translate(-50%,-50%)">
+                <div class="w-10 h-10 bg-slate-700 rounded-lg border-2 border-white shadow-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                </div>
+                <span class="text-[10px] font-bold bg-slate-700 text-white px-1.5 rounded shadow mt-0.5 block text-center">DEPOT</span>
+            </div>
+            <!-- Map Legend -->
+            <div class="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3 text-xs">
+                <p class="font-bold mb-2 text-slate-700">Legend</p>
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-[#2563EB]"></div>En Route</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-green-500"></div>Delivered</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-[#EA580C]"></div>Delayed</div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-slate-400"></div>Idle</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="w-full lg:w-96 bg-white border-l border-slate-200 overflow-y-auto">
+            <!-- Vehicle List -->
+            <div class="p-4 border-b border-slate-200">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider">Vehicles</h3>
+                    <span class="text-xs text-slate-500">24 total</span>
+                </div>
+                <div class="space-y-2 max-h-[400px] overflow-y-auto">
+                    <!-- Vehicle items -->
+                    <div class="flex items-center gap-3 p-2 rounded-lg bg-blue-50 border border-blue-200">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-101</p>
+                                <span class="text-[10px] font-bold text-[#2563EB] bg-blue-100 px-1.5 py-0.5 rounded">EN ROUTE</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Mike Johnson &middot; I-84 E, Portland</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-102</p>
+                                <span class="text-[10px] font-bold text-[#2563EB] bg-blue-100 px-1.5 py-0.5 rounded">EN ROUTE</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Sarah Davis &middot; Hwy 26 W, Beaverton</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-103</p>
+                                <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">IDLE</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Carlos Rivera &middot; Depot</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-104</p>
+                                <span class="text-[10px] font-bold text-[#2563EB] bg-blue-100 px-1.5 py-0.5 rounded">EN ROUTE</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Aisha Patel &middot; SE Division St</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-105</p>
+                                <span class="text-[10px] font-bold text-green-600 bg-green-100 px-1.5 py-0.5 rounded">DELIVERED</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Tom Chen &middot; NW 23rd Ave</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-106</p>
+                                <span class="text-[10px] font-bold text-[#2563EB] bg-blue-100 px-1.5 py-0.5 rounded">EN ROUTE</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Emily Ross &middot; I-5 S, Wilsonville</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-107</p>
+                                <span class="text-[10px] font-bold text-green-600 bg-green-100 px-1.5 py-0.5 rounded">DELIVERED</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Ryan Brooks &middot; Tigard</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-108</p>
+                                <span class="text-[10px] font-bold text-[#2563EB] bg-blue-100 px-1.5 py-0.5 rounded">EN ROUTE</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Diana Nguyen &middot; Hwy 217</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-109</p>
+                                <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">IDLE</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Jeff Williams &middot; Depot</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#EA580C]"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-110</p>
+                                <span class="text-[10px] font-bold text-[#EA580C] bg-orange-100 px-1.5 py-0.5 rounded">DELAYED</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Marcus Lee &middot; I-205, Traffic</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-111</p>
+                                <span class="text-[10px] font-bold text-[#2563EB] bg-blue-100 px-1.5 py-0.5 rounded">EN ROUTE</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Kevin O'Brien &middot; Sandy Blvd</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#EA580C]"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium">T-112</p>
+                                <span class="text-[10px] font-bold text-[#EA580C] bg-orange-100 px-1.5 py-0.5 rounded">DELAYED</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate">Lisa Martin &middot; Lake Oswego</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert Feed -->
+            <div class="p-4 border-b border-slate-200">
+                <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">Alert Feed</h3>
+                <div class="space-y-2">
+                    <div class="flex items-start gap-2 p-2 bg-red-50 rounded-lg border border-red-100">
+                        <svg class="w-4 h-4 text-red-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        <div>
+                            <p class="text-xs font-medium text-red-800">T-110 &mdash; Traffic delay on I-205</p>
+                            <p class="text-[10px] text-red-600">ETA delayed by 25 min &middot; 3 min ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2 p-2 bg-amber-50 rounded-lg border border-amber-100">
+                        <svg class="w-4 h-4 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        <div>
+                            <p class="text-xs font-medium text-amber-800">T-103 &mdash; Maintenance due</p>
+                            <p class="text-[10px] text-amber-600">Oil change overdue by 200 mi &middot; 15 min ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2 p-2 bg-amber-50 rounded-lg border border-amber-100">
+                        <svg class="w-4 h-4 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01"/><circle cx="12" cy="12" r="10"/></svg>
+                        <div>
+                            <p class="text-xs font-medium text-amber-800">T-112 &mdash; Route deviation</p>
+                            <p class="text-[10px] text-amber-600">Off planned route, road closure &middot; 28 min ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2 p-2 bg-blue-50 rounded-lg border border-blue-100">
+                        <svg class="w-4 h-4 text-blue-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <div>
+                            <p class="text-xs font-medium text-blue-800">T-109 &mdash; Low fuel</p>
+                            <p class="text-[10px] text-blue-600">Fuel at 18%, refuel before next route &middot; 45 min ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Route Optimization -->
+            <div class="p-4 border-b border-slate-200">
+                <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">Route Optimization</h3>
+                <div class="bg-slate-50 rounded-lg p-3 space-y-2">
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-slate-600">Routes optimized today</span>
+                        <span class="font-bold">18 / 24</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-slate-600">Avg distance saved</span>
+                        <span class="font-bold text-green-600">12.4 mi</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-slate-600">Estimated fuel saved</span>
+                        <span class="font-bold text-green-600">34.2 gal</span>
+                    </div>
+                    <button class="w-full mt-2 py-2 bg-[#2563EB] text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition">Re-optimize Active Routes</button>
+                </div>
+            </div>
+
+            <!-- Fuel Consumption -->
+            <div class="p-4">
+                <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">Fuel Consumption</h3>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-500">Today</span>
+                            <span class="font-medium">286 gal</span>
+                        </div>
+                        <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#2563EB] rounded-full" style="width:72%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-500">This Week</span>
+                            <span class="font-medium">1,847 gal</span>
+                        </div>
+                        <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#2563EB] rounded-full" style="width:65%"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                        <span class="text-xs text-slate-500">Avg MPG (fleet)</span>
+                        <span class="text-sm font-bold">8.4 mpg</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-slate-500">Cost per mile</span>
+                        <span class="text-sm font-bold">$0.52</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

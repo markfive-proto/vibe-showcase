@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Gradebook Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { serif: ['Merriweather', 'serif'], sans: ['Source Sans 3', 'sans-serif'] },
+          colors: {
+            gb: { navy: '#1E3A8A', green: '#059669', paper: '#FAFAF9', cream: '#F5F5F0', dark: '#1C1917', text: '#44403C', muted: '#78716C', border: '#E7E5E4' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gb-paper font-sans min-h-screen">
+
+  <!-- Top Nav -->
+  <header class="bg-gb-navy text-white px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      <span class="font-serif font-bold text-lg">Westfield University</span>
+    </div>
+    <nav class="flex items-center gap-6 text-sm font-medium">
+      <a href="#" class="hover:text-blue-200 transition">Dashboard</a>
+      <a href="#" class="text-blue-200 border-b-2 border-blue-200 pb-0.5">Grades</a>
+      <a href="#" class="hover:text-blue-200 transition">Schedule</a>
+      <a href="#" class="hover:text-blue-200 transition">Financial Aid</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button class="hover:text-blue-200 transition">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <div class="w-8 h-8 rounded-full bg-blue-300 flex items-center justify-center text-gb-navy font-bold text-sm">JD</div>
+    </div>
+  </header>
+
+  <div class="flex">
+
+    <!-- Academic Calendar Sidebar -->
+    <aside class="w-72 bg-white border-r border-gb-border p-5 shrink-0 hidden lg:block min-h-[calc(100vh-52px)] overflow-y-auto">
+      <h3 class="font-serif font-bold text-gb-dark text-sm mb-4">Academic Calendar</h3>
+      <div class="space-y-3 text-sm">
+        <div class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border-l-4 border-gb-navy">
+          <div class="text-center shrink-0">
+            <p class="text-xs font-bold text-gb-navy">MAR</p>
+            <p class="text-lg font-bold text-gb-dark leading-none">21</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gb-dark">Midterm Exams Begin</p>
+            <p class="text-xs text-gb-muted">All courses</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-3 bg-gb-paper rounded-lg">
+          <div class="text-center shrink-0">
+            <p class="text-xs font-bold text-gb-muted">MAR</p>
+            <p class="text-lg font-bold text-gb-dark leading-none">28</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gb-dark">Spring Break</p>
+            <p class="text-xs text-gb-muted">Mar 28 - Apr 4</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-3 bg-gb-paper rounded-lg">
+          <div class="text-center shrink-0">
+            <p class="text-xs font-bold text-gb-muted">APR</p>
+            <p class="text-lg font-bold text-gb-dark leading-none">15</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gb-dark">Course Registration</p>
+            <p class="text-xs text-gb-muted">Fall 2026 opens</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-3 bg-gb-paper rounded-lg">
+          <div class="text-center shrink-0">
+            <p class="text-xs font-bold text-gb-muted">MAY</p>
+            <p class="text-lg font-bold text-gb-dark leading-none">08</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gb-dark">Final Exams Begin</p>
+            <p class="text-xs text-gb-muted">May 8 - 15</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-3 bg-gb-paper rounded-lg">
+          <div class="text-center shrink-0">
+            <p class="text-xs font-bold text-gb-muted">MAY</p>
+            <p class="text-lg font-bold text-gb-dark leading-none">22</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gb-dark">Commencement</p>
+            <p class="text-xs text-gb-muted">Main auditorium</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- GPA Calculator -->
+      <div class="mt-6 pt-5 border-t border-gb-border">
+        <h3 class="font-serif font-bold text-gb-dark text-sm mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-gb-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+          GPA Calculator
+        </h3>
+        <div class="bg-gb-cream rounded-xl p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gb-text">Current GPA</span>
+            <span class="text-lg font-bold text-gb-navy">3.72</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gb-text">Credits Earned</span>
+            <span class="text-sm font-bold text-gb-dark">87 / 120</span>
+          </div>
+          <div class="w-full h-2 bg-gb-border rounded-full overflow-hidden">
+            <div class="h-full bg-gb-navy rounded-full" style="width:72.5%"></div>
+          </div>
+          <p class="text-xs text-gb-muted text-center">72.5% to graduation</p>
+          <div class="pt-2 border-t border-gb-border">
+            <div class="flex items-center justify-between text-xs text-gb-muted">
+              <span>Semester GPA</span>
+              <span class="font-bold text-gb-green">3.85</span>
+            </div>
+            <div class="flex items-center justify-between text-xs text-gb-muted mt-1">
+              <span>Dean's List</span>
+              <span class="font-bold text-gb-green flex items-center gap-1">
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Eligible
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-y-auto">
+
+      <!-- Student Info Header -->
+      <div class="bg-white rounded-xl border border-gb-border p-6 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-full bg-gb-navy flex items-center justify-center text-white font-serif font-bold text-xl">JD</div>
+          <div>
+            <h1 class="font-serif font-bold text-xl text-gb-dark">Jordan Davis</h1>
+            <p class="text-sm text-gb-muted">Student ID: WU-2024-08412 &middot; Computer Science, B.S.</p>
+            <p class="text-sm text-gb-muted">Spring 2026 &middot; Junior Year &middot; Full-time</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-center px-4 py-2 bg-gb-cream rounded-lg">
+            <p class="text-2xl font-bold text-gb-navy font-serif">3.72</p>
+            <p class="text-xs text-gb-muted font-semibold">Cumulative GPA</p>
+          </div>
+          <div class="text-center px-4 py-2 bg-gb-cream rounded-lg">
+            <p class="text-2xl font-bold text-gb-green font-serif">3.85</p>
+            <p class="text-xs text-gb-muted font-semibold">Semester GPA</p>
+          </div>
+          <button class="flex items-center gap-2 bg-gb-navy text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-900 transition">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            Transcript
+          </button>
+        </div>
+      </div>
+
+      <!-- Course Grades Table -->
+      <div class="bg-white rounded-xl border border-gb-border overflow-hidden mb-6">
+        <div class="px-6 py-4 border-b border-gb-border flex items-center justify-between">
+          <h2 class="font-serif font-bold text-gb-dark">Spring 2026 Course Grades</h2>
+          <span class="text-xs text-gb-muted font-semibold">15 Credits</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gb-cream text-left">
+                <th class="px-6 py-3 font-semibold text-gb-muted text-xs uppercase tracking-wider">Course</th>
+                <th class="px-6 py-3 font-semibold text-gb-muted text-xs uppercase tracking-wider">Instructor</th>
+                <th class="px-6 py-3 font-semibold text-gb-muted text-xs uppercase tracking-wider text-center">Credits</th>
+                <th class="px-6 py-3 font-semibold text-gb-muted text-xs uppercase tracking-wider text-center">Grade</th>
+                <th class="px-6 py-3 font-semibold text-gb-muted text-xs uppercase tracking-wider text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gb-border">
+              <tr class="hover:bg-blue-50/50 cursor-pointer transition">
+                <td class="px-6 py-4">
+                  <p class="font-semibold text-gb-dark">CS 340 - Algorithms</p>
+                  <p class="text-xs text-gb-muted">MWF 9:00 - 9:50 AM</p>
+                </td>
+                <td class="px-6 py-4 text-gb-text">Dr. Patricia Huang</td>
+                <td class="px-6 py-4 text-center text-gb-dark font-semibold">3</td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-bold bg-green-100 text-green-700">A-</span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="text-xs font-semibold text-gb-green">In Progress</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-blue-50/50 cursor-pointer transition bg-blue-50/30 border-l-4 border-l-gb-navy">
+                <td class="px-6 py-4">
+                  <p class="font-semibold text-gb-navy">CS 370 - Database Systems</p>
+                  <p class="text-xs text-gb-muted">TR 10:30 - 11:45 AM</p>
+                </td>
+                <td class="px-6 py-4 text-gb-text">Dr. Michael Torres</td>
+                <td class="px-6 py-4 text-center text-gb-dark font-semibold">3</td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-bold bg-green-100 text-green-700">A</span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="text-xs font-semibold text-gb-green">In Progress</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-blue-50/50 cursor-pointer transition">
+                <td class="px-6 py-4">
+                  <p class="font-semibold text-gb-dark">MATH 301 - Linear Algebra</p>
+                  <p class="text-xs text-gb-muted">MWF 11:00 - 11:50 AM</p>
+                </td>
+                <td class="px-6 py-4 text-gb-text">Prof. James Whitfield</td>
+                <td class="px-6 py-4 text-center text-gb-dark font-semibold">3</td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-bold bg-blue-100 text-blue-700">B+</span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="text-xs font-semibold text-gb-green">In Progress</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-blue-50/50 cursor-pointer transition">
+                <td class="px-6 py-4">
+                  <p class="font-semibold text-gb-dark">ENG 215 - Technical Writing</p>
+                  <p class="text-xs text-gb-muted">TR 1:00 - 2:15 PM</p>
+                </td>
+                <td class="px-6 py-4 text-gb-text">Dr. Sarah Collins</td>
+                <td class="px-6 py-4 text-center text-gb-dark font-semibold">3</td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-bold bg-green-100 text-green-700">A</span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="text-xs font-semibold text-gb-green">In Progress</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-blue-50/50 cursor-pointer transition">
+                <td class="px-6 py-4">
+                  <p class="font-semibold text-gb-dark">PHYS 201 - Physics II</p>
+                  <p class="text-xs text-gb-muted">MWF 2:00 - 2:50 PM</p>
+                </td>
+                <td class="px-6 py-4 text-gb-text">Prof. Robert Chen</td>
+                <td class="px-6 py-4 text-center text-gb-dark font-semibold">3</td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-bold bg-blue-100 text-blue-700">B+</span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="text-xs font-semibold text-gb-green">In Progress</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Assignment Detail: CS 370 -->
+      <div class="bg-white rounded-xl border border-gb-border overflow-hidden">
+        <div class="px-6 py-4 border-b border-gb-border flex items-center justify-between">
+          <div>
+            <h2 class="font-serif font-bold text-gb-dark">CS 370 - Database Systems</h2>
+            <p class="text-xs text-gb-muted mt-0.5">Dr. Michael Torres &middot; TR 10:30 - 11:45 AM &middot; Room 214 Turing Hall</p>
+          </div>
+          <div class="text-right">
+            <p class="text-lg font-bold text-gb-green font-serif">95.2%</p>
+            <p class="text-xs text-gb-muted">Current Average</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gb-cream text-left">
+                <th class="px-6 py-3 font-semibold text-gb-muted text-xs uppercase tracking-wider">Assignment</th>
+                <th class="px-6 py-3 font-semibold text-gb-muted text-xs uppercase tracking-wider text-center">Weight</th>
+                <th class="px-6 py-3 font-semibold text-gb-muted text-xs uppercase tracking-wider text-center">Score</th>
+                <th class="px-6 py-3 font-semibold text-gb-muted text-xs uppercase tracking-wider text-center">Due Date</th>
+                <th class="px-6 py-3 font-semibold text-gb-muted text-xs uppercase tracking-wider text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gb-border">
+              <tr>
+                <td class="px-6 py-3">
+                  <p class="font-semibold text-gb-dark">HW 1: ER Diagrams</p>
+                </td>
+                <td class="px-6 py-3 text-center text-gb-muted">5%</td>
+                <td class="px-6 py-3 text-center font-semibold text-gb-dark">48/50</td>
+                <td class="px-6 py-3 text-center text-gb-muted">Jan 24</td>
+                <td class="px-6 py-3 text-center">
+                  <span class="inline-flex items-center gap-1 text-xs font-semibold text-gb-green">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    Graded
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-3">
+                  <p class="font-semibold text-gb-dark">HW 2: SQL Queries</p>
+                </td>
+                <td class="px-6 py-3 text-center text-gb-muted">5%</td>
+                <td class="px-6 py-3 text-center font-semibold text-gb-dark">50/50</td>
+                <td class="px-6 py-3 text-center text-gb-muted">Feb 7</td>
+                <td class="px-6 py-3 text-center">
+                  <span class="inline-flex items-center gap-1 text-xs font-semibold text-gb-green">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    Graded
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-3">
+                  <p class="font-semibold text-gb-dark">HW 3: Normalization</p>
+                </td>
+                <td class="px-6 py-3 text-center text-gb-muted">5%</td>
+                <td class="px-6 py-3 text-center font-semibold text-gb-dark">45/50</td>
+                <td class="px-6 py-3 text-center text-gb-muted">Feb 21</td>
+                <td class="px-6 py-3 text-center">
+                  <span class="inline-flex items-center gap-1 text-xs font-semibold text-gb-green">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    Graded
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-3">
+                  <p class="font-semibold text-gb-dark">Midterm Exam</p>
+                </td>
+                <td class="px-6 py-3 text-center text-gb-muted">25%</td>
+                <td class="px-6 py-3 text-center font-semibold text-gb-dark">92/100</td>
+                <td class="px-6 py-3 text-center text-gb-muted">Mar 7</td>
+                <td class="px-6 py-3 text-center">
+                  <span class="inline-flex items-center gap-1 text-xs font-semibold text-gb-green">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    Graded
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-3">
+                  <p class="font-semibold text-gb-dark">Project: Database Design</p>
+                </td>
+                <td class="px-6 py-3 text-center text-gb-muted">20%</td>
+                <td class="px-6 py-3 text-center text-gb-muted">&mdash;</td>
+                <td class="px-6 py-3 text-center text-amber-600 font-semibold">Apr 11</td>
+                <td class="px-6 py-3 text-center">
+                  <span class="inline-flex items-center gap-1 text-xs font-semibold text-amber-600">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Upcoming
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-3">
+                  <p class="font-semibold text-gb-dark">HW 4: Transactions</p>
+                </td>
+                <td class="px-6 py-3 text-center text-gb-muted">5%</td>
+                <td class="px-6 py-3 text-center text-gb-muted">&mdash;</td>
+                <td class="px-6 py-3 text-center text-gb-muted">Apr 18</td>
+                <td class="px-6 py-3 text-center">
+                  <span class="text-xs font-semibold text-gb-muted">Not Started</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-3">
+                  <p class="font-semibold text-gb-dark">Final Exam</p>
+                </td>
+                <td class="px-6 py-3 text-center text-gb-muted">30%</td>
+                <td class="px-6 py-3 text-center text-gb-muted">&mdash;</td>
+                <td class="px-6 py-3 text-center text-gb-muted">May 12</td>
+                <td class="px-6 py-3 text-center">
+                  <span class="text-xs font-semibold text-gb-muted">Not Started</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="px-6 py-3 bg-gb-cream border-t border-gb-border flex items-center justify-between text-sm">
+          <span class="text-gb-muted">Graded: 40% of total weight</span>
+          <span class="font-semibold text-gb-dark">Weighted Average: <span class="text-gb-green font-bold">95.2%</span></span>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

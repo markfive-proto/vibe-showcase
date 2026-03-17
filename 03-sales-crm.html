@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DealFlow - Sales CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['DM Sans', 'sans-serif'] },
+                    colors: {
+                        teal: '#0D9488',
+                        tealLight: '#14B8A6',
+                        orange: '#EA580C',
+                        orangeLight: '#FB923C',
+                        surface: '#F8FAFC',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'DM Sans', sans-serif; }
+        .kanban-col { min-height: 500px; }
+    </style>
+</head>
+<body class="bg-surface text-gray-900 min-h-screen">
+
+    <!-- Top Nav -->
+    <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.77 4 4 0 0 1 0 6.76 4 4 0 0 1-4.78 4.77 4 4 0 0 1-6.74 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+            <span class="text-xl font-bold tracking-tight">DealFlow</span>
+        </div>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500">
+            <a href="#" class="text-teal font-semibold">Pipeline</a>
+            <a href="#" class="hover:text-gray-900 transition">Contacts</a>
+            <a href="#" class="hover:text-gray-900 transition">Companies</a>
+            <a href="#" class="hover:text-gray-900 transition">Activities</a>
+            <a href="#" class="hover:text-gray-900 transition">Reports</a>
+        </nav>
+        <div class="flex items-center gap-3">
+            <button class="bg-teal text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-teal/90 transition flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                New Deal
+            </button>
+            <div class="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center text-sm font-semibold text-teal">SR</div>
+        </div>
+    </header>
+
+    <!-- Pipeline Summary Bar -->
+    <div class="bg-white border-b border-gray-200 px-6 py-4">
+        <div class="flex flex-wrap items-center gap-6">
+            <div>
+                <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Total Pipeline</p>
+                <p class="text-2xl font-bold text-gray-900">$2,847,500</p>
+            </div>
+            <div class="h-10 w-px bg-gray-200"></div>
+            <div>
+                <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Deals</p>
+                <p class="text-2xl font-bold text-gray-900">24</p>
+            </div>
+            <div class="h-10 w-px bg-gray-200"></div>
+            <div>
+                <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Win Rate</p>
+                <p class="text-2xl font-bold text-teal">34.2%</p>
+            </div>
+            <div class="h-10 w-px bg-gray-200"></div>
+            <div>
+                <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Avg Deal Size</p>
+                <p class="text-2xl font-bold text-gray-900">$118,646</p>
+            </div>
+            <div class="h-10 w-px bg-gray-200"></div>
+            <div>
+                <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Avg Sales Cycle</p>
+                <p class="text-2xl font-bold text-gray-900">42 days</p>
+            </div>
+            <div class="ml-auto flex items-center gap-2">
+                <div class="relative">
+                    <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" placeholder="Search deals..." class="border border-gray-200 rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:border-teal w-52">
+                </div>
+                <button class="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M7 12h10M10 18h4"/></svg>
+                    Filter
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kanban Board -->
+    <div class="p-6 overflow-x-auto">
+        <div class="flex gap-4 min-w-max">
+
+            <!-- Lead Column -->
+            <div class="w-72 flex-shrink-0">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+                        <h3 class="text-sm font-semibold text-gray-700">Lead</h3>
+                        <span class="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">6</span>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500">$485,000</span>
+                </div>
+                <div class="space-y-3 kanban-col">
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Acme Corp</span>
+                            <span class="text-xs text-gray-400">3d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Enterprise License Renewal</p>
+                        <p class="text-lg font-bold text-gray-900">$120,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[10px] font-semibold text-blue-700">JD</div>
+                            <span class="text-xs text-gray-500">James Donovan</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">TechNova Inc</span>
+                            <span class="text-xs text-gray-400">1d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">API Integration Package</p>
+                        <p class="text-lg font-bold text-gray-900">$85,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-[10px] font-semibold text-green-700">LW</div>
+                            <span class="text-xs text-gray-500">Lisa Wang</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">BlueShift Labs</span>
+                            <span class="text-xs text-gray-400">5d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Data Analytics Suite</p>
+                        <p class="text-lg font-bold text-gray-900">$65,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-[10px] font-semibold text-orange-700">RM</div>
+                            <span class="text-xs text-gray-500">Rachel Moore</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Pinnacle Group</span>
+                            <span class="text-xs text-gray-400">2d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Consulting Engagement</p>
+                        <p class="text-lg font-bold text-gray-900">$45,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-teal/10 flex items-center justify-center text-[10px] font-semibold text-teal">KS</div>
+                            <span class="text-xs text-gray-500">Kevin Sharma</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qualified Column -->
+            <div class="w-72 flex-shrink-0">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                        <h3 class="text-sm font-semibold text-gray-700">Qualified</h3>
+                        <span class="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">5</span>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500">$620,000</span>
+                </div>
+                <div class="space-y-3 kanban-col">
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Meridian Health</span>
+                            <span class="text-xs text-gray-400">8d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Patient Portal Platform</p>
+                        <p class="text-lg font-bold text-gray-900">$240,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center text-[10px] font-semibold text-rose-700">AT</div>
+                            <span class="text-xs text-gray-500">Aisha Torres</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Vertex Solutions</span>
+                            <span class="text-xs text-gray-400">12d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Cloud Migration</p>
+                        <p class="text-lg font-bold text-gray-900">$180,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[10px] font-semibold text-blue-700">JD</div>
+                            <span class="text-xs text-gray-500">James Donovan</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">NovaCraft</span>
+                            <span class="text-xs text-gray-400">6d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Security Audit Package</p>
+                        <p class="text-lg font-bold text-gray-900">$95,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-[10px] font-semibold text-green-700">LW</div>
+                            <span class="text-xs text-gray-500">Lisa Wang</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proposal Column -->
+            <div class="w-72 flex-shrink-0">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-orange"></span>
+                        <h3 class="text-sm font-semibold text-gray-700">Proposal</h3>
+                        <span class="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">4</span>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500">$715,000</span>
+                </div>
+                <div class="space-y-3 kanban-col">
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 border-l-4 border-l-orange hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Global Dynamics</span>
+                            <span class="text-xs text-orange font-medium">18d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">ERP Implementation</p>
+                        <p class="text-lg font-bold text-gray-900">$350,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-[10px] font-semibold text-orange-700">RM</div>
+                            <span class="text-xs text-gray-500">Rachel Moore</span>
+                        </div>
+                        <div class="mt-2 text-xs text-orange bg-orange/5 px-2 py-1 rounded-md inline-block">Proposal sent Mar 12</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Streamline Co</span>
+                            <span class="text-xs text-gray-400">10d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Workflow Automation</p>
+                        <p class="text-lg font-bold text-gray-900">$165,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-teal/10 flex items-center justify-center text-[10px] font-semibold text-teal">KS</div>
+                            <span class="text-xs text-gray-500">Kevin Sharma</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">UrbanEdge</span>
+                            <span class="text-xs text-gray-400">7d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Mobile App Development</p>
+                        <p class="text-lg font-bold text-gray-900">$200,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center text-[10px] font-semibold text-rose-700">AT</div>
+                            <span class="text-xs text-gray-500">Aisha Torres</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Negotiation Column -->
+            <div class="w-72 flex-shrink-0">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                        <h3 class="text-sm font-semibold text-gray-700">Negotiation</h3>
+                        <span class="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">3</span>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500">$540,000</span>
+                </div>
+                <div class="space-y-3 kanban-col">
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Atlas Financial</span>
+                            <span class="text-xs text-gray-400">22d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Trading Platform License</p>
+                        <p class="text-lg font-bold text-gray-900">$280,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[10px] font-semibold text-blue-700">JD</div>
+                            <span class="text-xs text-gray-500">James Donovan</span>
+                        </div>
+                        <div class="mt-2 text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded-md inline-block">Contract review in progress</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Cascade Media</span>
+                            <span class="text-xs text-gray-400">15d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Content Platform</p>
+                        <p class="text-lg font-bold text-gray-900">$145,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-[10px] font-semibold text-green-700">LW</div>
+                            <span class="text-xs text-gray-500">Lisa Wang</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Zenith Partners</span>
+                            <span class="text-xs text-gray-400">9d</span>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Advisory Retainer</p>
+                        <p class="text-lg font-bold text-gray-900">$115,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-[10px] font-semibold text-orange-700">RM</div>
+                            <span class="text-xs text-gray-500">Rachel Moore</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Won Column -->
+            <div class="w-72 flex-shrink-0">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-teal"></span>
+                        <h3 class="text-sm font-semibold text-gray-700">Won</h3>
+                        <span class="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">6</span>
+                    </div>
+                    <span class="text-xs font-medium text-teal">$487,500</span>
+                </div>
+                <div class="space-y-3 kanban-col">
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 border-l-4 border-l-teal hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Quantum Systems</span>
+                            <svg class="w-4 h-4 text-teal" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Infrastructure Overhaul</p>
+                        <p class="text-lg font-bold text-teal">$195,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center text-[10px] font-semibold text-rose-700">AT</div>
+                            <span class="text-xs text-gray-500">Aisha Torres</span>
+                        </div>
+                        <div class="mt-2 text-xs text-teal bg-teal/5 px-2 py-1 rounded-md inline-block">Closed Mar 14</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 border-l-4 border-l-teal hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Redwood Analytics</span>
+                            <svg class="w-4 h-4 text-teal" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">BI Dashboard Suite</p>
+                        <p class="text-lg font-bold text-teal">$142,500</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-teal/10 flex items-center justify-center text-[10px] font-semibold text-teal">KS</div>
+                            <span class="text-xs text-gray-500">Kevin Sharma</span>
+                        </div>
+                        <div class="mt-2 text-xs text-teal bg-teal/5 px-2 py-1 rounded-md inline-block">Closed Mar 8</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-gray-200 border-l-4 border-l-teal hover:shadow-md transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-gray-500">Harbor Logistics</span>
+                            <svg class="w-4 h-4 text-teal" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900 mb-1">Supply Chain Module</p>
+                        <p class="text-lg font-bold text-teal">$150,000</p>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[10px] font-semibold text-blue-700">JD</div>
+                            <span class="text-xs text-gray-500">James Donovan</span>
+                        </div>
+                        <div class="mt-2 text-xs text-teal bg-teal/5 px-2 py-1 rounded-md inline-block">Closed Mar 2</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

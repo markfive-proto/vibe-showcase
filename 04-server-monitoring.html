@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NodeWatch - Server Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { mono: ['IBM Plex Mono', 'monospace'], sans: ['IBM Plex Mono', 'monospace'] },
+                    colors: {
+                        slate: '#1E293B',
+                        slateDark: '#0F172A',
+                        slateMid: '#334155',
+                        lime: '#84CC16',
+                        cyan: '#22D3EE',
+                        alert: '#EF4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'IBM Plex Mono', monospace; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #0F172A; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .blink { animation: blink 1.5s ease-in-out infinite; }
+        @keyframes pulse-bar { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+        .pulse-bar { animation: pulse-bar 2s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-slateDark text-gray-300 min-h-screen">
+
+    <!-- Top Bar -->
+    <header class="bg-slate border-b border-slateMid px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-lime" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" fill="currentColor"/><circle cx="6" cy="18" r="1" fill="currentColor"/></svg>
+            <span class="text-lg font-bold text-white tracking-tight">NodeWatch</span>
+            <span class="text-xs text-lime bg-lime/10 px-2 py-0.5 rounded ml-2">v3.2.1</span>
+        </div>
+        <div class="flex items-center gap-4 text-xs">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-lime blink"></span>
+                <span class="text-lime">All Systems Operational</span>
+            </div>
+            <span class="text-gray-500">|</span>
+            <span class="text-gray-400">Last sync: 12s ago</span>
+            <span class="text-gray-500">|</span>
+            <span class="text-gray-400">UTC 2026-03-17 14:32:18</span>
+        </div>
+    </header>
+
+    <div class="flex flex-col lg:flex-row">
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 space-y-6 overflow-auto">
+
+            <!-- Uptime Overview -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-slate rounded-lg p-4 border border-slateMid">
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">TOTAL NODES</p>
+                    <p class="text-2xl font-bold text-white">12</p>
+                </div>
+                <div class="bg-slate rounded-lg p-4 border border-slateMid">
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">HEALTHY</p>
+                    <p class="text-2xl font-bold text-lime">10</p>
+                </div>
+                <div class="bg-slate rounded-lg p-4 border border-slateMid">
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">WARNING</p>
+                    <p class="text-2xl font-bold text-yellow-400">1</p>
+                </div>
+                <div class="bg-slate rounded-lg p-4 border border-slateMid">
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">CRITICAL</p>
+                    <p class="text-2xl font-bold text-alert">1</p>
+                </div>
+            </div>
+
+            <!-- Server Grid -->
+            <div>
+                <h2 class="text-xs text-gray-500 uppercase tracking-widest mb-3 font-semibold">Infrastructure Nodes</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+
+                    <!-- Server 1 - Healthy -->
+                    <div class="bg-slate rounded-lg p-4 border border-slateMid hover:border-lime/30 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-lime"></span>
+                                <span class="text-sm font-semibold text-white">prod-web-01</span>
+                            </div>
+                            <span class="text-[10px] text-lime bg-lime/10 px-2 py-0.5 rounded">99.98%</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>CPU</span><span class="text-gray-300">23%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-lime rounded-full" style="width:23%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>MEM</span><span class="text-gray-300">58%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-cyan rounded-full" style="width:58%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>DISK</span><span class="text-gray-300">42%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-lime rounded-full" style="width:42%"></div></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-[10px] text-gray-500">Ubuntu 22.04 | 16 vCPU | 64GB</div>
+                    </div>
+
+                    <!-- Server 2 -->
+                    <div class="bg-slate rounded-lg p-4 border border-slateMid hover:border-lime/30 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-lime"></span>
+                                <span class="text-sm font-semibold text-white">prod-web-02</span>
+                            </div>
+                            <span class="text-[10px] text-lime bg-lime/10 px-2 py-0.5 rounded">99.99%</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>CPU</span><span class="text-gray-300">31%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-lime rounded-full" style="width:31%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>MEM</span><span class="text-gray-300">62%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-cyan rounded-full" style="width:62%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>DISK</span><span class="text-gray-300">38%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-lime rounded-full" style="width:38%"></div></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-[10px] text-gray-500">Ubuntu 22.04 | 16 vCPU | 64GB</div>
+                    </div>
+
+                    <!-- Server 3 -->
+                    <div class="bg-slate rounded-lg p-4 border border-slateMid hover:border-lime/30 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-lime"></span>
+                                <span class="text-sm font-semibold text-white">prod-api-01</span>
+                            </div>
+                            <span class="text-[10px] text-lime bg-lime/10 px-2 py-0.5 rounded">99.95%</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>CPU</span><span class="text-gray-300">67%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-yellow-400 rounded-full" style="width:67%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>MEM</span><span class="text-gray-300">74%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-yellow-400 rounded-full" style="width:74%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>DISK</span><span class="text-gray-300">55%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-cyan rounded-full" style="width:55%"></div></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-[10px] text-gray-500">Ubuntu 22.04 | 32 vCPU | 128GB</div>
+                    </div>
+
+                    <!-- Server 4 -->
+                    <div class="bg-slate rounded-lg p-4 border border-slateMid hover:border-lime/30 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-lime"></span>
+                                <span class="text-sm font-semibold text-white">prod-api-02</span>
+                            </div>
+                            <span class="text-[10px] text-lime bg-lime/10 px-2 py-0.5 rounded">99.97%</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>CPU</span><span class="text-gray-300">45%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-lime rounded-full" style="width:45%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>MEM</span><span class="text-gray-300">51%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-cyan rounded-full" style="width:51%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>DISK</span><span class="text-gray-300">48%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-lime rounded-full" style="width:48%"></div></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-[10px] text-gray-500">Ubuntu 22.04 | 32 vCPU | 128GB</div>
+                    </div>
+
+                    <!-- Server 5 - Warning -->
+                    <div class="bg-slate rounded-lg p-4 border border-yellow-400/30 hover:border-yellow-400/50 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-yellow-400 blink"></span>
+                                <span class="text-sm font-semibold text-white">prod-db-01</span>
+                            </div>
+                            <span class="text-[10px] text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded">98.42%</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>CPU</span><span class="text-yellow-400">82%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-yellow-400 rounded-full" style="width:82%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>MEM</span><span class="text-yellow-400">89%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-yellow-400 rounded-full" style="width:89%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>DISK</span><span class="text-yellow-400">78%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-yellow-400 rounded-full" style="width:78%"></div></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-[10px] text-yellow-400">WARN: High memory usage</div>
+                    </div>
+
+                    <!-- Server 6 - Critical -->
+                    <div class="bg-slate rounded-lg p-4 border border-alert/40 hover:border-alert/60 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-alert blink"></span>
+                                <span class="text-sm font-semibold text-white">prod-db-02</span>
+                            </div>
+                            <span class="text-[10px] text-alert bg-alert/10 px-2 py-0.5 rounded">94.12%</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>CPU</span><span class="text-alert">94%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-alert rounded-full pulse-bar" style="width:94%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>MEM</span><span class="text-alert">96%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-alert rounded-full pulse-bar" style="width:96%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>DISK</span><span class="text-alert">91%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-alert rounded-full pulse-bar" style="width:91%"></div></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-[10px] text-alert">CRIT: Node near capacity</div>
+                    </div>
+
+                    <!-- Server 7 -->
+                    <div class="bg-slate rounded-lg p-4 border border-slateMid hover:border-lime/30 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-lime"></span>
+                                <span class="text-sm font-semibold text-white">prod-cache-01</span>
+                            </div>
+                            <span class="text-[10px] text-lime bg-lime/10 px-2 py-0.5 rounded">99.99%</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>CPU</span><span class="text-gray-300">12%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-lime rounded-full" style="width:12%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>MEM</span><span class="text-gray-300">85%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-cyan rounded-full" style="width:85%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>DISK</span><span class="text-gray-300">22%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-lime rounded-full" style="width:22%"></div></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-[10px] text-gray-500">Redis 7.2 | 8 vCPU | 32GB</div>
+                    </div>
+
+                    <!-- Server 8 -->
+                    <div class="bg-slate rounded-lg p-4 border border-slateMid hover:border-lime/30 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-lime"></span>
+                                <span class="text-sm font-semibold text-white">prod-worker-01</span>
+                            </div>
+                            <span class="text-[10px] text-lime bg-lime/10 px-2 py-0.5 rounded">99.94%</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>CPU</span><span class="text-gray-300">55%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-cyan rounded-full" style="width:55%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>MEM</span><span class="text-gray-300">44%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-lime rounded-full" style="width:44%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] text-gray-500 mb-1"><span>DISK</span><span class="text-gray-300">61%</span></div>
+                                <div class="w-full h-1.5 bg-slateDark rounded-full"><div class="h-full bg-cyan rounded-full" style="width:61%"></div></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-[10px] text-gray-500">Ubuntu 22.04 | 8 vCPU | 32GB</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Throughput -->
+            <div class="bg-slate rounded-lg p-5 border border-slateMid">
+                <h2 class="text-xs text-gray-500 uppercase tracking-widest mb-4 font-semibold">Network Throughput (Mbps)</h2>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-gray-400 w-28">prod-web-01</span>
+                        <div class="flex-1 flex gap-1">
+                            <div class="flex-1 h-3 bg-lime/20 rounded"><div class="h-full bg-lime rounded" style="width:45%"></div></div>
+                            <div class="flex-1 h-3 bg-cyan/20 rounded"><div class="h-full bg-cyan rounded" style="width:32%"></div></div>
+                        </div>
+                        <span class="text-xs text-gray-400 w-24 text-right">IN: 450 / OUT: 320</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-gray-400 w-28">prod-web-02</span>
+                        <div class="flex-1 flex gap-1">
+                            <div class="flex-1 h-3 bg-lime/20 rounded"><div class="h-full bg-lime rounded" style="width:52%"></div></div>
+                            <div class="flex-1 h-3 bg-cyan/20 rounded"><div class="h-full bg-cyan rounded" style="width:38%"></div></div>
+                        </div>
+                        <span class="text-xs text-gray-400 w-24 text-right">IN: 520 / OUT: 380</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-gray-400 w-28">prod-api-01</span>
+                        <div class="flex-1 flex gap-1">
+                            <div class="flex-1 h-3 bg-lime/20 rounded"><div class="h-full bg-lime rounded" style="width:78%"></div></div>
+                            <div class="flex-1 h-3 bg-cyan/20 rounded"><div class="h-full bg-cyan rounded" style="width:65%"></div></div>
+                        </div>
+                        <span class="text-xs text-gray-400 w-24 text-right">IN: 780 / OUT: 650</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-gray-400 w-28">prod-db-01</span>
+                        <div class="flex-1 flex gap-1">
+                            <div class="flex-1 h-3 bg-yellow-400/20 rounded"><div class="h-full bg-yellow-400 rounded" style="width:88%"></div></div>
+                            <div class="flex-1 h-3 bg-yellow-400/20 rounded"><div class="h-full bg-yellow-400 rounded" style="width:72%"></div></div>
+                        </div>
+                        <span class="text-xs text-yellow-400 w-24 text-right">IN: 880 / OUT: 720</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-gray-400 w-28">prod-db-02</span>
+                        <div class="flex-1 flex gap-1">
+                            <div class="flex-1 h-3 bg-alert/20 rounded"><div class="h-full bg-alert rounded pulse-bar" style="width:95%"></div></div>
+                            <div class="flex-1 h-3 bg-alert/20 rounded"><div class="h-full bg-alert rounded pulse-bar" style="width:90%"></div></div>
+                        </div>
+                        <span class="text-xs text-alert w-24 text-right">IN: 950 / OUT: 900</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terminal Log Viewer -->
+            <div class="bg-slateDark rounded-lg border border-slateMid overflow-hidden">
+                <div class="flex items-center justify-between px-4 py-2 bg-slate border-b border-slateMid">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                        <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">System Log</span>
+                    </div>
+                    <div class="flex gap-2 text-[10px]">
+                        <button class="text-lime bg-lime/10 px-2 py-0.5 rounded">ALL</button>
+                        <button class="text-gray-500 hover:text-gray-300 px-2 py-0.5 rounded">ERROR</button>
+                        <button class="text-gray-500 hover:text-gray-300 px-2 py-0.5 rounded">WARN</button>
+                        <button class="text-gray-500 hover:text-gray-300 px-2 py-0.5 rounded">INFO</button>
+                    </div>
+                </div>
+                <div class="p-4 text-xs leading-6 max-h-64 overflow-y-auto font-mono">
+                    <p><span class="text-gray-600">2026-03-17 14:32:18</span> <span class="text-lime">[INFO]</span> <span class="text-gray-400">prod-web-01</span> Health check passed — response time 12ms</p>
+                    <p><span class="text-gray-600">2026-03-17 14:32:15</span> <span class="text-alert">[ERROR]</span> <span class="text-gray-400">prod-db-02</span> <span class="text-alert">Connection pool exhausted — 0/50 connections available</span></p>
+                    <p><span class="text-gray-600">2026-03-17 14:32:12</span> <span class="text-yellow-400">[WARN]</span> <span class="text-gray-400">prod-db-01</span> <span class="text-yellow-400">Memory usage at 89% — threshold is 85%</span></p>
+                    <p><span class="text-gray-600">2026-03-17 14:32:10</span> <span class="text-lime">[INFO]</span> <span class="text-gray-400">prod-api-01</span> Deployed build #4821 successfully</p>
+                    <p><span class="text-gray-600">2026-03-17 14:32:08</span> <span class="text-lime">[INFO]</span> <span class="text-gray-400">prod-cache-01</span> Cache hit ratio: 94.2% — 1.2M keys</p>
+                    <p><span class="text-gray-600">2026-03-17 14:32:05</span> <span class="text-alert">[ERROR]</span> <span class="text-gray-400">prod-db-02</span> <span class="text-alert">Replication lag: 4.8s (threshold: 2s)</span></p>
+                    <p><span class="text-gray-600">2026-03-17 14:32:02</span> <span class="text-lime">[INFO]</span> <span class="text-gray-400">prod-worker-01</span> Processed 12,482 jobs in last 60s — avg 4.2ms</p>
+                    <p><span class="text-gray-600">2026-03-17 14:31:58</span> <span class="text-cyan">[INFO]</span> <span class="text-gray-400">prod-web-02</span> SSL cert valid for 142 days</p>
+                    <p><span class="text-gray-600">2026-03-17 14:31:55</span> <span class="text-yellow-400">[WARN]</span> <span class="text-gray-400">prod-api-01</span> <span class="text-yellow-400">Rate limit approaching: 8,420/10,000 req/min</span></p>
+                    <p><span class="text-gray-600">2026-03-17 14:31:52</span> <span class="text-lime">[INFO]</span> <span class="text-gray-400">prod-web-01</span> Auto-scaled from 2 to 3 instances</p>
+                    <p><span class="text-gray-600">2026-03-17 14:31:48</span> <span class="text-alert">[ERROR]</span> <span class="text-gray-400">prod-db-02</span> <span class="text-alert">Disk I/O latency spike: 45ms (avg: 8ms)</span></p>
+                    <p><span class="text-gray-600">2026-03-17 14:31:45</span> <span class="text-lime">[INFO]</span> <span class="text-gray-400">prod-cache-01</span> Eviction policy active — freed 128MB</p>
+                    <p><span class="text-gray-600">2026-03-17 14:31:40</span> <span class="text-cyan">[INFO]</span> <span class="text-gray-400">prod-api-02</span> Backup completed: 4.2GB in 38s</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Alert Sidebar -->
+        <aside class="w-full lg:w-72 bg-slate border-l border-slateMid p-5 space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xs text-gray-500 uppercase tracking-widest font-semibold">Active Alerts</h2>
+                <span class="text-xs text-alert bg-alert/10 px-2 py-0.5 rounded">5</span>
+            </div>
+
+            <div class="space-y-3">
+                <div class="bg-alert/5 border border-alert/20 rounded-lg p-3">
+                    <div class="flex items-center gap-2 mb-1">
+                        <svg class="w-3 h-3 text-alert blink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        <span class="text-[10px] text-alert font-semibold uppercase">Critical</span>
+                        <span class="text-[10px] text-gray-500 ml-auto">2m ago</span>
+                    </div>
+                    <p class="text-xs text-gray-300">prod-db-02: Connection pool exhausted</p>
+                </div>
+                <div class="bg-alert/5 border border-alert/20 rounded-lg p-3">
+                    <div class="flex items-center gap-2 mb-1">
+                        <svg class="w-3 h-3 text-alert blink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        <span class="text-[10px] text-alert font-semibold uppercase">Critical</span>
+                        <span class="text-[10px] text-gray-500 ml-auto">5m ago</span>
+                    </div>
+                    <p class="text-xs text-gray-300">prod-db-02: Disk usage at 91%</p>
+                </div>
+                <div class="bg-alert/5 border border-alert/20 rounded-lg p-3">
+                    <div class="flex items-center gap-2 mb-1">
+                        <svg class="w-3 h-3 text-alert" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        <span class="text-[10px] text-alert font-semibold uppercase">Critical</span>
+                        <span class="text-[10px] text-gray-500 ml-auto">8m ago</span>
+                    </div>
+                    <p class="text-xs text-gray-300">prod-db-02: Replication lag 4.8s</p>
+                </div>
+                <div class="bg-yellow-400/5 border border-yellow-400/20 rounded-lg p-3">
+                    <div class="flex items-center gap-2 mb-1">
+                        <svg class="w-3 h-3 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                        <span class="text-[10px] text-yellow-400 font-semibold uppercase">Warning</span>
+                        <span class="text-[10px] text-gray-500 ml-auto">12m ago</span>
+                    </div>
+                    <p class="text-xs text-gray-300">prod-db-01: Memory at 89%</p>
+                </div>
+                <div class="bg-yellow-400/5 border border-yellow-400/20 rounded-lg p-3">
+                    <div class="flex items-center gap-2 mb-1">
+                        <svg class="w-3 h-3 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                        <span class="text-[10px] text-yellow-400 font-semibold uppercase">Warning</span>
+                        <span class="text-[10px] text-gray-500 ml-auto">18m ago</span>
+                    </div>
+                    <p class="text-xs text-gray-300">prod-api-01: Rate limit at 84%</p>
+                </div>
+            </div>
+
+            <!-- Incident History -->
+            <div class="border-t border-slateMid pt-4">
+                <h3 class="text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-semibold">Recent Incidents</h3>
+                <div class="space-y-3">
+                    <div class="flex gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-lime mt-1.5 flex-shrink-0"></span>
+                        <div>
+                            <p class="text-xs text-gray-300">prod-api-02 recovered from timeout</p>
+                            <p class="text-[10px] text-gray-600">Mar 17, 12:18 — resolved in 4m</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-lime mt-1.5 flex-shrink-0"></span>
+                        <div>
+                            <p class="text-xs text-gray-300">prod-cache-01 eviction storm</p>
+                            <p class="text-[10px] text-gray-600">Mar 16, 22:45 — resolved in 12m</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-lime mt-1.5 flex-shrink-0"></span>
+                        <div>
+                            <p class="text-xs text-gray-300">prod-web-01 cert renewal</p>
+                            <p class="text-[10px] text-gray-600">Mar 15, 03:00 — auto-resolved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- On-Call -->
+            <div class="border-t border-slateMid pt-4">
+                <h3 class="text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-semibold">On-Call</h3>
+                <div class="flex items-center gap-3 bg-slateDark rounded-lg p-3">
+                    <div class="w-8 h-8 rounded-full bg-cyan/10 flex items-center justify-center text-xs font-bold text-cyan">DP</div>
+                    <div>
+                        <p class="text-xs text-white font-medium">David Park</p>
+                        <p class="text-[10px] text-gray-500">SRE Lead — until 22:00 UTC</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+</body>
+</html>

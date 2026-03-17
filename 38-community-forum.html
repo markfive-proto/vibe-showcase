@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commune — Community Forum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Nunito Sans', 'sans-serif'] },
+                    colors: {
+                        forum: { rose: '#E11D48', blue: '#2563EB', bg: '#F8FAFC', card: '#FFFFFF' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-forum-bg font-sans text-gray-700 min-h-screen">
+    <!-- Top Nav -->
+    <nav class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2">
+                <svg class="w-7 h-7 text-forum-rose" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span class="text-lg font-bold text-gray-900">Commune</span>
+            </div>
+            <div class="hidden md:flex items-center gap-1">
+                <a href="#" class="text-sm font-semibold text-forum-rose px-3 py-1.5 rounded-lg bg-rose-50">Forum</a>
+                <a href="#" class="text-sm font-medium text-gray-500 px-3 py-1.5 rounded-lg hover:bg-gray-50">Docs</a>
+                <a href="#" class="text-sm font-medium text-gray-500 px-3 py-1.5 rounded-lg hover:bg-gray-50">Changelog</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <!-- Search -->
+            <div class="hidden sm:flex items-center gap-2 bg-forum-bg border border-gray-200 rounded-lg px-3 py-2 w-64">
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" placeholder="Search discussions..." class="bg-transparent text-sm outline-none flex-1 placeholder-gray-400">
+            </div>
+            <button class="bg-forum-blue text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                New Post
+            </button>
+            <div class="w-8 h-8 rounded-full bg-forum-blue text-white flex items-center justify-center text-sm font-bold">J</div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex gap-6">
+        <!-- Main Content -->
+        <div class="flex-1 min-w-0">
+            <!-- Pinned Announcement -->
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 flex items-start gap-3">
+                <svg class="w-5 h-5 text-forum-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs bg-forum-blue text-white px-2 py-0.5 rounded-full font-semibold">Pinned</span>
+                        <h3 class="text-sm font-bold text-gray-900">Community Guidelines Update — March 2026</h3>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">We've updated our guidelines to better foster inclusive discussions. Please review. — <span class="font-semibold">Team Commune</span></p>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                <div class="bg-white rounded-xl p-4 border border-gray-200 hover:border-forum-rose transition cursor-pointer">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-4 h-4 text-forum-rose" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        <span class="text-sm font-bold text-gray-900">General</span>
+                    </div>
+                    <p class="text-xs text-gray-400">342 posts</p>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200 hover:border-forum-blue transition cursor-pointer">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-4 h-4 text-forum-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        <span class="text-sm font-bold text-gray-900">Help</span>
+                    </div>
+                    <p class="text-xs text-gray-400">891 posts</p>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200 hover:border-green-500 transition cursor-pointer">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        <span class="text-sm font-bold text-gray-900">Show & Tell</span>
+                    </div>
+                    <p class="text-xs text-gray-400">256 posts</p>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-gray-200 hover:border-amber-500 transition cursor-pointer">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <span class="text-sm font-bold text-gray-900">Feature Requests</span>
+                    </div>
+                    <p class="text-xs text-gray-400">178 posts</p>
+                </div>
+            </div>
+
+            <!-- Thread List -->
+            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div class="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-bold text-gray-900">All Discussions</span>
+                        <span class="text-xs text-gray-400">1,667 threads</span>
+                    </div>
+                    <select class="text-sm border border-gray-200 rounded-lg px-2 py-1 text-gray-500">
+                        <option>Latest</option>
+                        <option>Most Replies</option>
+                        <option>Unanswered</option>
+                    </select>
+                </div>
+
+                <!-- Thread Items -->
+                <div class="divide-y divide-gray-100">
+                    <div class="p-4 hover:bg-gray-50 transition cursor-pointer">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-rose-100 text-forum-rose flex items-center justify-center font-bold text-sm flex-shrink-0">AK</div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="text-sm font-bold text-gray-900">Best practices for structuring a monorepo?</h3>
+                                    <span class="text-[10px] bg-blue-100 text-forum-blue px-2 py-0.5 rounded-full font-semibold">Help</span>
+                                    <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">Solved</span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">by <span class="font-semibold">Alex Kim</span> &middot; 2 hours ago &middot; Last reply 14 min ago</p>
+                            </div>
+                            <div class="text-center flex-shrink-0 hidden sm:block">
+                                <p class="text-sm font-bold text-gray-700">23</p>
+                                <p class="text-[10px] text-gray-400">replies</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 hover:bg-gray-50 transition cursor-pointer">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 text-forum-blue flex items-center justify-center font-bold text-sm flex-shrink-0">SR</div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="text-sm font-bold text-gray-900">Show & Tell: Built a real-time collaboration editor</h3>
+                                    <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">Show & Tell</span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">by <span class="font-semibold">Sara Reyes</span> &middot; 5 hours ago &middot; Last reply 1 hour ago</p>
+                            </div>
+                            <div class="text-center flex-shrink-0 hidden sm:block">
+                                <p class="text-sm font-bold text-gray-700">41</p>
+                                <p class="text-[10px] text-gray-400">replies</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 hover:bg-gray-50 transition cursor-pointer">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm flex-shrink-0">MP</div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="text-sm font-bold text-gray-900">Feature request: Dark mode for the dashboard</h3>
+                                    <span class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-semibold">Feature Request</span>
+                                    <span class="text-[10px] bg-rose-100 text-forum-rose px-2 py-0.5 rounded-full font-semibold">Popular</span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">by <span class="font-semibold">Marco Polo</span> &middot; 1 day ago &middot; Last reply 3 hours ago</p>
+                            </div>
+                            <div class="text-center flex-shrink-0 hidden sm:block">
+                                <p class="text-sm font-bold text-gray-700">87</p>
+                                <p class="text-[10px] text-gray-400">replies</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 hover:bg-gray-50 transition cursor-pointer">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm flex-shrink-0">LW</div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="text-sm font-bold text-gray-900">How do you handle environment variables in CI/CD?</h3>
+                                    <span class="text-[10px] bg-blue-100 text-forum-blue px-2 py-0.5 rounded-full font-semibold">Help</span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">by <span class="font-semibold">Lena Wu</span> &middot; 1 day ago &middot; Last reply 8 hours ago</p>
+                            </div>
+                            <div class="text-center flex-shrink-0 hidden sm:block">
+                                <p class="text-sm font-bold text-gray-700">15</p>
+                                <p class="text-[10px] text-gray-400">replies</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 hover:bg-gray-50 transition cursor-pointer">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-rose-100 text-forum-rose flex items-center justify-center font-bold text-sm flex-shrink-0">DJ</div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="text-sm font-bold text-gray-900">Introducing myself — new to the community!</h3>
+                                    <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-semibold">General</span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">by <span class="font-semibold">David Jones</span> &middot; 2 days ago &middot; Last reply 1 day ago</p>
+                            </div>
+                            <div class="text-center flex-shrink-0 hidden sm:block">
+                                <p class="text-sm font-bold text-gray-700">8</p>
+                                <p class="text-[10px] text-gray-400">replies</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 hover:bg-gray-50 transition cursor-pointer">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm flex-shrink-0">NP</div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="text-sm font-bold text-gray-900">Performance benchmarks: Bun vs Node.js vs Deno in 2026</h3>
+                                    <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">Show & Tell</span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">by <span class="font-semibold">Nina Patel</span> &middot; 3 days ago &middot; Last reply 2 days ago</p>
+                            </div>
+                            <div class="text-center flex-shrink-0 hidden sm:block">
+                                <p class="text-sm font-bold text-gray-700">64</p>
+                                <p class="text-[10px] text-gray-400">replies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="px-5 py-3 border-t border-gray-100 flex items-center justify-between">
+                    <p class="text-xs text-gray-400">Showing 1-6 of 1,667</p>
+                    <div class="flex gap-1">
+                        <button class="w-8 h-8 rounded-lg bg-forum-rose text-white text-sm font-bold">1</button>
+                        <button class="w-8 h-8 rounded-lg border border-gray-200 text-sm text-gray-600 hover:bg-gray-50">2</button>
+                        <button class="w-8 h-8 rounded-lg border border-gray-200 text-sm text-gray-600 hover:bg-gray-50">3</button>
+                        <span class="w-8 h-8 flex items-center justify-center text-gray-400">...</span>
+                        <button class="w-8 h-8 rounded-lg border border-gray-200 text-sm text-gray-600 hover:bg-gray-50">278</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thread Detail Preview -->
+            <div class="mt-6 bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div class="px-5 py-3 border-b border-gray-100">
+                    <h2 class="text-lg font-bold text-gray-900">Best practices for structuring a monorepo?</h2>
+                    <div class="flex items-center gap-2 mt-1 flex-wrap">
+                        <span class="text-[10px] bg-blue-100 text-forum-blue px-2 py-0.5 rounded-full font-semibold">Help</span>
+                        <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">Solved</span>
+                        <span class="text-xs text-gray-400">&middot; Started 2 hours ago &middot; 23 replies</span>
+                    </div>
+                </div>
+
+                <!-- Original Post -->
+                <div class="p-5 border-b border-gray-100">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-rose-100 text-forum-rose flex items-center justify-center font-bold text-sm flex-shrink-0">AK</div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-sm font-bold text-gray-900">Alex Kim</span>
+                                <span class="text-xs text-gray-400">2 hours ago</span>
+                            </div>
+                            <div class="text-sm text-gray-700 leading-relaxed space-y-3">
+                                <p>Hey everyone! I'm working on a project that has grown to include a frontend (Next.js), a backend (Go), a shared types package, and infrastructure as code. We're 4 developers and things are getting messy with separate repos.</p>
+                                <p>Has anyone migrated to a monorepo successfully? I'm evaluating Turborepo, Nx, and Bazel. Would love to hear what's worked for you, especially around:</p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>CI/CD pipeline setup</li>
+                                    <li>Managing shared dependencies</li>
+                                    <li>Build times as the repo grows</li>
+                                </ul>
+                            </div>
+                            <div class="flex items-center gap-4 mt-3">
+                                <button class="flex items-center gap-1 text-xs text-gray-400 hover:text-forum-rose transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                    <span>12</span>
+                                </button>
+                                <button class="text-xs text-gray-400 hover:text-forum-blue transition">Reply</button>
+                                <button class="text-xs text-gray-400 hover:text-gray-600 transition">Share</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reply -->
+                <div class="p-5 border-b border-gray-100 bg-green-50/30">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm flex-shrink-0">JM</div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-sm font-bold text-gray-900">Jamie Martinez</span>
+                                <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">Accepted Answer</span>
+                                <span class="text-xs text-gray-400">1 hour ago</span>
+                            </div>
+                            <div class="text-sm text-gray-700 leading-relaxed space-y-3">
+                                <p>We made this exact switch about 6 months ago. Went with Turborepo and it's been great. Here's what I'd recommend:</p>
+                                <p><strong>1. Start with Turborepo</strong> — it's the easiest on-ramp and handles caching really well. Build times dropped 60% for us with remote caching.</p>
+                                <p><strong>2. Shared packages</strong> — create a /packages directory for shared types, configs, and utils. Use TypeScript project references.</p>
+                                <p>Happy to share our setup if you want more details!</p>
+                            </div>
+                            <div class="flex items-center gap-4 mt-3">
+                                <button class="flex items-center gap-1 text-xs text-forum-rose">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                    <span>34</span>
+                                </button>
+                                <button class="text-xs text-gray-400 hover:text-forum-blue transition">Reply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compose Reply -->
+                <div class="p-5">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-forum-blue text-white flex items-center justify-center font-bold text-sm flex-shrink-0">J</div>
+                        <div class="flex-1">
+                            <textarea rows="3" placeholder="Write your reply..." class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-forum-blue focus:border-transparent"></textarea>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center gap-2">
+                                    <button class="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50">
+                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                    </button>
+                                    <button class="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50">
+                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                                    </button>
+                                    <button class="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50">
+                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+                                    </button>
+                                </div>
+                                <button class="bg-forum-blue text-white text-sm font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition">Post Reply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <aside class="w-72 hidden lg:block space-y-5">
+            <!-- User Profile Card -->
+            <div class="bg-white rounded-xl border border-gray-200 p-5 text-center">
+                <div class="w-16 h-16 rounded-full bg-forum-blue text-white flex items-center justify-center font-bold text-xl mx-auto mb-3">J</div>
+                <h3 class="text-sm font-bold text-gray-900">Jordan Lee</h3>
+                <p class="text-xs text-gray-400 mb-3">Member since Jan 2024</p>
+                <div class="grid grid-cols-3 gap-2 mb-4">
+                    <div>
+                        <p class="text-lg font-bold text-forum-rose">1,240</p>
+                        <p class="text-[10px] text-gray-400 uppercase">Reputation</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold text-forum-blue">47</p>
+                        <p class="text-[10px] text-gray-400 uppercase">Posts</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold text-gray-700">12</p>
+                        <p class="text-[10px] text-gray-400 uppercase">Solutions</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap justify-center gap-1.5">
+                    <span class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-semibold">Top Contributor</span>
+                    <span class="text-[10px] bg-rose-100 text-forum-rose px-2 py-0.5 rounded-full font-semibold">Helpful</span>
+                    <span class="text-[10px] bg-blue-100 text-forum-blue px-2 py-0.5 rounded-full font-semibold">Early Adopter</span>
+                    <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">Bug Hunter</span>
+                    <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-semibold">1 Year Club</span>
+                </div>
+            </div>
+
+            <!-- Trending Tags -->
+            <div class="bg-white rounded-xl border border-gray-200 p-5">
+                <h3 class="text-sm font-bold text-gray-900 mb-3">Trending Tags</h3>
+                <div class="flex flex-wrap gap-1.5">
+                    <span class="text-xs bg-forum-bg text-gray-600 px-2.5 py-1 rounded-full border border-gray-200 hover:border-forum-blue cursor-pointer transition">typescript</span>
+                    <span class="text-xs bg-forum-bg text-gray-600 px-2.5 py-1 rounded-full border border-gray-200 hover:border-forum-blue cursor-pointer transition">monorepo</span>
+                    <span class="text-xs bg-forum-bg text-gray-600 px-2.5 py-1 rounded-full border border-gray-200 hover:border-forum-blue cursor-pointer transition">nextjs</span>
+                    <span class="text-xs bg-forum-bg text-gray-600 px-2.5 py-1 rounded-full border border-gray-200 hover:border-forum-blue cursor-pointer transition">performance</span>
+                    <span class="text-xs bg-forum-bg text-gray-600 px-2.5 py-1 rounded-full border border-gray-200 hover:border-forum-blue cursor-pointer transition">devops</span>
+                    <span class="text-xs bg-forum-bg text-gray-600 px-2.5 py-1 rounded-full border border-gray-200 hover:border-forum-blue cursor-pointer transition">rust</span>
+                    <span class="text-xs bg-forum-bg text-gray-600 px-2.5 py-1 rounded-full border border-gray-200 hover:border-forum-blue cursor-pointer transition">ai-tools</span>
+                    <span class="text-xs bg-forum-bg text-gray-600 px-2.5 py-1 rounded-full border border-gray-200 hover:border-forum-blue cursor-pointer transition">docker</span>
+                </div>
+            </div>
+
+            <!-- Online Users -->
+            <div class="bg-white rounded-xl border border-gray-200 p-5">
+                <h3 class="text-sm font-bold text-gray-900 mb-3">Online Now</h3>
+                <div class="flex -space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-rose-100 text-forum-rose flex items-center justify-center text-xs font-bold border-2 border-white">AK</div>
+                    <div class="w-8 h-8 rounded-full bg-blue-100 text-forum-blue flex items-center justify-center text-xs font-bold border-2 border-white">SR</div>
+                    <div class="w-8 h-8 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center text-xs font-bold border-2 border-white">JM</div>
+                    <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold border-2 border-white">MP</div>
+                    <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center text-xs font-bold border-2 border-white">+9</div>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">13 members online</p>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

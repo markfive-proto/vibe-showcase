@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantPal - Plant Care & Watering Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { quicksand: ['Quicksand', 'sans-serif'] },
+          colors: {
+            forest: '#15803D',
+            leaf: '#22C55E',
+            pink: '#EC4899',
+            pinkLight: '#FCE7F3',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Quicksand', sans-serif; }
+    .phone-frame::-webkit-scrollbar { width: 0; }
+    .water-ring { background: conic-gradient(#22C55E var(--pct), #E5E7EB var(--pct)); }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center py-10">
+
+  <!-- Phone Frame -->
+  <div class="relative mx-auto" style="width:375px; height:812px;">
+    <div class="w-full h-full bg-white rounded-[2.5rem] shadow-2xl border-[3px] border-gray-800 overflow-hidden flex flex-col">
+
+      <!-- Status Bar -->
+      <div class="flex items-center justify-between px-6 pt-3 pb-1 bg-white">
+        <span class="text-sm font-semibold text-gray-800">9:41</span>
+        <div class="w-20 h-5 bg-gray-900 rounded-full mx-auto"></div>
+        <div class="flex items-center gap-1">
+          <!-- Signal -->
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="8" width="3" height="4" rx="0.5" fill="#1F2937"/><rect x="4" y="5" width="3" height="7" rx="0.5" fill="#1F2937"/><rect x="8" y="2" width="3" height="10" rx="0.5" fill="#1F2937"/><rect x="12" y="0" width="3" height="12" rx="0.5" fill="#1F2937"/></svg>
+          <!-- Battery -->
+          <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="2" stroke="#1F2937" stroke-width="1"/><rect x="2" y="2" width="14" height="8" rx="1" fill="#15803D"/><rect x="22" y="3" width="2" height="5" rx="0.5" fill="#1F2937"/></svg>
+        </div>
+      </div>
+
+      <!-- Scrollable Content -->
+      <div class="flex-1 overflow-y-auto phone-frame bg-white px-4 pb-20">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mt-3 mb-4">
+          <div>
+            <p class="text-sm text-gray-500 font-medium">Good morning!</p>
+            <h1 class="text-xl font-bold text-forest">My Garden</h1>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-leaf/20 flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c0 0 8-4 8-12a8 8 0 0 0-16 0c0 8 8 12 8 12z"/><path d="M12 22V8"/><path d="M8 14c2-2 4-2 4-2s2 0 4 2"/></svg>
+          </div>
+        </div>
+
+        <!-- Today's Reminders -->
+        <div class="bg-forest/5 rounded-2xl p-4 mb-5 border border-forest/10">
+          <div class="flex items-center gap-2 mb-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2" stroke-linecap="round"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+            <h2 class="font-bold text-forest text-sm">Water Today</h2>
+            <span class="ml-auto text-xs font-semibold text-white bg-pink rounded-full px-2 py-0.5">3 plants</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3 bg-white rounded-xl p-2.5">
+              <div class="w-9 h-9 rounded-xl bg-leaf/20 flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-gray-800">Monstera Deliciosa</p>
+                <p class="text-xs text-gray-500">Last watered 4 days ago</p>
+              </div>
+              <button class="w-8 h-8 rounded-full bg-leaf flex items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+              </button>
+            </div>
+            <div class="flex items-center gap-3 bg-white rounded-xl p-2.5">
+              <div class="w-9 h-9 rounded-xl bg-pink/20 flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2"><path d="M12 3c-1.2 0-4.6 3-4.6 7.3C7.4 14 9.5 16 12 16s4.6-2 4.6-5.7C16.6 6 13.2 3 12 3z"/><path d="M12 16v5"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-gray-800">Pink Anthurium</p>
+                <p class="text-xs text-gray-500">Last watered 3 days ago</p>
+              </div>
+              <button class="w-8 h-8 rounded-full bg-leaf flex items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+              </button>
+            </div>
+            <div class="flex items-center gap-3 bg-white rounded-xl p-2.5">
+              <div class="w-9 h-9 rounded-xl bg-forest/15 flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2"><path d="M17 8C8 10 5.9 16.17 3.82 21.34"/><path d="M17 8l4-1-1 4"/><path d="M2 12c5 0 9.27 3.11 11 7"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-gray-800">Fiddle Leaf Fig</p>
+                <p class="text-xs text-gray-500">Last watered 5 days ago</p>
+              </div>
+              <button class="w-8 h-8 rounded-full bg-leaf flex items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- My Plants Grid -->
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-bold text-gray-800">My Plants</h2>
+          <span class="text-xs text-gray-500 font-medium">8 plants</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-5">
+          <!-- Plant 1 -->
+          <div class="bg-white border border-gray-100 rounded-2xl p-3 shadow-sm">
+            <div class="w-full h-20 rounded-xl bg-leaf/10 flex items-center justify-center mb-2">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="1.5"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>
+            </div>
+            <p class="text-sm font-bold text-gray-800">Monstera</p>
+            <p class="text-xs text-gray-500 mb-2">Monstera deliciosa</p>
+            <div class="flex items-center gap-1">
+              <div class="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-pink rounded-full" style="width:30%"></div></div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+            </div>
+            <div class="flex items-center gap-1 mt-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-leaf"></span>
+              <span class="text-[10px] text-leaf font-semibold">Healthy</span>
+            </div>
+          </div>
+          <!-- Plant 2 -->
+          <div class="bg-white border border-gray-100 rounded-2xl p-3 shadow-sm">
+            <div class="w-full h-20 rounded-xl bg-pink/10 flex items-center justify-center mb-2">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="1.5"><path d="M12 3c-1.2 0-4.6 3-4.6 7.3C7.4 14 9.5 16 12 16s4.6-2 4.6-5.7C16.6 6 13.2 3 12 3z"/><path d="M12 16v5"/></svg>
+            </div>
+            <p class="text-sm font-bold text-gray-800">Anthurium</p>
+            <p class="text-xs text-gray-500 mb-2">Anthurium andraeanum</p>
+            <div class="flex items-center gap-1">
+              <div class="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-leaf rounded-full" style="width:70%"></div></div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+            </div>
+            <div class="flex items-center gap-1 mt-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-leaf"></span>
+              <span class="text-[10px] text-leaf font-semibold">Healthy</span>
+            </div>
+          </div>
+          <!-- Plant 3 -->
+          <div class="bg-white border border-gray-100 rounded-2xl p-3 shadow-sm">
+            <div class="w-full h-20 rounded-xl bg-forest/10 flex items-center justify-center mb-2">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="1.5"><path d="M17 8C8 10 5.9 16.17 3.82 21.34"/><path d="M17 8l4-1-1 4"/><path d="M2 12c5 0 9.27 3.11 11 7"/></svg>
+            </div>
+            <p class="text-sm font-bold text-gray-800">Fiddle Leaf</p>
+            <p class="text-xs text-gray-500 mb-2">Ficus lyrata</p>
+            <div class="flex items-center gap-1">
+              <div class="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-pink rounded-full" style="width:15%"></div></div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+            </div>
+            <div class="flex items-center gap-1 mt-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
+              <span class="text-[10px] text-yellow-600 font-semibold">Needs Water</span>
+            </div>
+          </div>
+          <!-- Plant 4 -->
+          <div class="bg-white border border-gray-100 rounded-2xl p-3 shadow-sm">
+            <div class="w-full h-20 rounded-xl bg-leaf/10 flex items-center justify-center mb-2">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            </div>
+            <p class="text-sm font-bold text-gray-800">Snake Plant</p>
+            <p class="text-xs text-gray-500 mb-2">Sansevieria trifasciata</p>
+            <div class="flex items-center gap-1">
+              <div class="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-leaf rounded-full" style="width:85%"></div></div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+            </div>
+            <div class="flex items-center gap-1 mt-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-leaf"></span>
+              <span class="text-[10px] text-leaf font-semibold">Healthy</span>
+            </div>
+          </div>
+          <!-- Plant 5 -->
+          <div class="bg-white border border-gray-100 rounded-2xl p-3 shadow-sm">
+            <div class="w-full h-20 rounded-xl bg-forest/10 flex items-center justify-center mb-2">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="1.5"><path d="M12 10a6 6 0 0 0-6 6h12a6 6 0 0 0-6-6z"/><path d="M12 2v8"/><path d="M8 6l4 4 4-4"/></svg>
+            </div>
+            <p class="text-sm font-bold text-gray-800">Pothos</p>
+            <p class="text-xs text-gray-500 mb-2">Epipremnum aureum</p>
+            <div class="flex items-center gap-1">
+              <div class="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-leaf rounded-full" style="width:55%"></div></div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+            </div>
+            <div class="flex items-center gap-1 mt-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-leaf"></span>
+              <span class="text-[10px] text-leaf font-semibold">Healthy</span>
+            </div>
+          </div>
+          <!-- Plant 6 -->
+          <div class="bg-white border border-gray-100 rounded-2xl p-3 shadow-sm">
+            <div class="w-full h-20 rounded-xl bg-pink/10 flex items-center justify-center mb-2">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="1.5"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10"/><path d="M12 2c3 3.2 5 7.4 5 10s-2 6.8-5 10"/><path d="M2 12h10"/></svg>
+            </div>
+            <p class="text-sm font-bold text-gray-800">Orchid</p>
+            <p class="text-xs text-gray-500 mb-2">Phalaenopsis</p>
+            <div class="flex items-center gap-1">
+              <div class="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-yellow-400 rounded-full" style="width:40%"></div></div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+            </div>
+            <div class="flex items-center gap-1 mt-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
+              <span class="text-[10px] text-yellow-600 font-semibold">Needs Attention</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plant Detail Card -->
+        <div class="bg-forest rounded-2xl p-4 mb-5 text-white">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>
+            </div>
+            <div>
+              <p class="font-bold text-base">Monstera Deliciosa</p>
+              <p class="text-xs text-white/70">Swiss Cheese Plant</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 mb-3">
+            <div class="bg-white/10 rounded-xl p-2.5 text-center">
+              <svg class="mx-auto mb-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-3-2-5-3-7l-1 1a5 5 0 0 1-6 0l-1-1c-1 2-3 4-3 7a7 7 0 0 0 7 7z"/></svg>
+              <p class="text-[10px] text-white/60">Water</p>
+              <p class="text-xs font-bold">Every 5d</p>
+            </div>
+            <div class="bg-white/10 rounded-xl p-2.5 text-center">
+              <svg class="mx-auto mb-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              <p class="text-[10px] text-white/60">Light</p>
+              <p class="text-xs font-bold">Indirect</p>
+            </div>
+            <div class="bg-white/10 rounded-xl p-2.5 text-center">
+              <svg class="mx-auto mb-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z"/></svg>
+              <p class="text-[10px] text-white/60">Temp</p>
+              <p class="text-xs font-bold">18-27C</p>
+            </div>
+          </div>
+          <div class="bg-white/10 rounded-xl p-3">
+            <p class="text-xs font-semibold mb-1">Care Tips</p>
+            <p class="text-[11px] text-white/80 leading-relaxed">Wipe leaves monthly to remove dust. Rotate the pot quarterly for even growth. Mist leaves in dry weather. Use well-draining soil and a pot with drainage holes.</p>
+          </div>
+        </div>
+
+        <!-- Plant Journal -->
+        <div class="mb-5">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="font-bold text-gray-800">Plant Journal</h2>
+            <button class="text-xs text-forest font-semibold">+ Add Note</button>
+          </div>
+          <div class="space-y-2">
+            <div class="bg-leaf/5 border border-leaf/10 rounded-xl p-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-semibold text-forest">Monstera</span>
+                <span class="text-[10px] text-gray-400">Mar 15</span>
+              </div>
+              <p class="text-xs text-gray-600">New leaf unfurling! The fenestrations are starting to show. Moved closer to the window last week and it seems to be responding well.</p>
+            </div>
+            <div class="bg-pink/5 border border-pink/10 rounded-xl p-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-semibold text-pink">Orchid</span>
+                <span class="text-[10px] text-gray-400">Mar 12</span>
+              </div>
+              <p class="text-xs text-gray-600">Noticed some yellowing on lower leaves. Reduced watering frequency and checking root health. May need to repot soon.</p>
+            </div>
+            <div class="bg-forest/5 border border-forest/10 rounded-xl p-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-semibold text-forest">Fiddle Leaf</span>
+                <span class="text-[10px] text-gray-400">Mar 8</span>
+              </div>
+              <p class="text-xs text-gray-600">Fertilized with diluted liquid fertilizer. Pruned a brown leaf at the base. Overall looking much healthier after adjusting light.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seasonal Care Tips -->
+        <div class="mb-5">
+          <h2 class="font-bold text-gray-800 mb-3">Spring Care Tips</h2>
+          <div class="space-y-2">
+            <div class="flex items-start gap-3 bg-leaf/5 rounded-xl p-3">
+              <div class="w-8 h-8 rounded-lg bg-leaf/20 flex items-center justify-center shrink-0 mt-0.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-800">Increase Watering</p>
+                <p class="text-[11px] text-gray-500">Plants are entering active growth. Gradually increase watering frequency.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-forest/5 rounded-xl p-3">
+              <div class="w-8 h-8 rounded-lg bg-forest/15 flex items-center justify-center shrink-0 mt-0.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-800">Start Fertilizing</p>
+                <p class="text-[11px] text-gray-500">Begin monthly fertilizing with balanced liquid fertilizer at half strength.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-pink/5 rounded-xl p-3">
+              <div class="w-8 h-8 rounded-lg bg-pink/15 flex items-center justify-center shrink-0 mt-0.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-800">Check for Pests</p>
+                <p class="text-[11px] text-gray-500">Inspect leaves and soil for signs of pests as temperatures rise.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add New Plant Form -->
+        <div class="mb-6">
+          <h2 class="font-bold text-gray-800 mb-3">Add New Plant</h2>
+          <div class="bg-gray-50 rounded-2xl p-4 space-y-3">
+            <div>
+              <label class="text-xs font-semibold text-gray-600 mb-1 block">Plant Name</label>
+              <input type="text" placeholder="e.g. My Fern" class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-leaf/50">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-600 mb-1 block">Species</label>
+              <input type="text" placeholder="e.g. Nephrolepis exaltata" class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-leaf/50">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-xs font-semibold text-gray-600 mb-1 block">Sunlight</label>
+                <select class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-leaf/50">
+                  <option>Direct</option>
+                  <option selected>Indirect</option>
+                  <option>Low Light</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-xs font-semibold text-gray-600 mb-1 block">Water Every</label>
+                <select class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-leaf/50">
+                  <option>2 days</option>
+                  <option>3 days</option>
+                  <option selected>5 days</option>
+                  <option>7 days</option>
+                  <option>14 days</option>
+                </select>
+              </div>
+            </div>
+            <button class="w-full bg-forest text-white font-semibold rounded-xl py-3 text-sm hover:bg-forest/90 transition">Add Plant</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Navigation -->
+      <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-2 flex items-center justify-around rounded-b-[2.5rem]">
+        <button class="flex flex-col items-center gap-0.5 text-forest">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          <span class="text-[10px] font-semibold">Home</span>
+        </button>
+        <button class="flex flex-col items-center gap-0.5 text-gray-400">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <span class="text-[10px] font-medium">Explore</span>
+        </button>
+        <button class="flex flex-col items-center gap-0.5 text-gray-400">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="text-[10px] font-medium">Add</span>
+        </button>
+        <button class="flex flex-col items-center gap-0.5 text-gray-400">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span class="text-[10px] font-medium">Journal</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
