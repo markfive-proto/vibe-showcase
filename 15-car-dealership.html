@@ -113,10 +113,42 @@
       <div class="flex-1">
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
 
-          <!-- Vehicle 1 -->
+          <!-- Vehicle 1: BMW M4 - Alpine White -->
           <div class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group">
-            <div class="aspect-[16/10] bg-gradient-to-br from-slate-200 to-slate-300 relative flex items-center justify-center">
-              <span class="font-heading text-slate-400 text-lg font-semibold">BMW M4</span>
+            <div class="aspect-[16/10] relative flex items-center justify-center overflow-hidden" style="background: linear-gradient(170deg, #F8FAFC 0%, #E2E8F0 30%, #CBD5E1 60%, #94A3B8 100%);">
+              <!-- Metallic sheen -->
+              <div class="absolute inset-0" style="background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.4) 45%, transparent 55%);"></div>
+              <!-- Road reflection -->
+              <div class="absolute bottom-0 left-0 right-0 h-1/4" style="background: linear-gradient(to top, rgba(15,23,42,0.15), transparent);"></div>
+              <svg width="180" height="80" viewBox="0 0 180 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Car body silhouette -->
+                <path d="M25 55 L30 55 Q35 55 38 50 L55 35 Q60 30 70 28 L110 28 Q120 28 125 32 L145 50 Q148 55 153 55 L160 55" stroke="#475569" stroke-width="2" fill="rgba(71,85,105,0.08)"/>
+                <!-- Roof line -->
+                <path d="M55 35 Q60 25 75 22 L105 22 Q115 22 125 32" stroke="#475569" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <!-- Windows -->
+                <path d="M60 33 L72 24 L100 24 L118 33 Z" stroke="#475569" stroke-width="1" fill="rgba(71,85,105,0.12)"/>
+                <line x1="88" y1="24" x2="85" y2="33" stroke="#475569" stroke-width="0.8" opacity="0.4"/>
+                <!-- Wheels -->
+                <circle cx="50" cy="58" r="11" stroke="#475569" stroke-width="2" fill="rgba(71,85,105,0.1)"/>
+                <circle cx="50" cy="58" r="7" stroke="#475569" stroke-width="1" fill="none" opacity="0.5"/>
+                <circle cx="50" cy="58" r="3" fill="#475569" opacity="0.3"/>
+                <circle cx="138" cy="58" r="11" stroke="#475569" stroke-width="2" fill="rgba(71,85,105,0.1)"/>
+                <circle cx="138" cy="58" r="7" stroke="#475569" stroke-width="1" fill="none" opacity="0.5"/>
+                <circle cx="138" cy="58" r="3" fill="#475569" opacity="0.3"/>
+                <!-- Wheel spokes -->
+                <line x1="50" y1="51" x2="50" y2="47" stroke="#475569" stroke-width="0.8" opacity="0.4"/>
+                <line x1="43" y1="58" x2="39" y2="58" stroke="#475569" stroke-width="0.8" opacity="0.4"/>
+                <line x1="57" y1="58" x2="61" y2="58" stroke="#475569" stroke-width="0.8" opacity="0.4"/>
+                <line x1="138" y1="51" x2="138" y2="47" stroke="#475569" stroke-width="0.8" opacity="0.4"/>
+                <line x1="131" y1="58" x2="127" y2="58" stroke="#475569" stroke-width="0.8" opacity="0.4"/>
+                <line x1="145" y1="58" x2="149" y2="58" stroke="#475569" stroke-width="0.8" opacity="0.4"/>
+                <!-- Headlights -->
+                <path d="M148 45 L158 48 L158 52 L148 55" stroke="#475569" stroke-width="1.5" fill="rgba(251,191,36,0.15)"/>
+                <!-- Taillights -->
+                <path d="M30 48 L22 50 L22 54 L30 55" stroke="#475569" stroke-width="1.5" fill="rgba(220,38,38,0.12)"/>
+                <!-- Ground line -->
+                <line x1="15" y1="69" x2="168" y2="69" stroke="#475569" stroke-width="0.5" opacity="0.2"/>
+              </svg>
               <span class="absolute top-3 left-3 bg-accent text-white text-[10px] font-bold px-2 py-1 rounded">NEW</span>
               <button class="absolute top-3 right-3 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -150,10 +182,41 @@
             </div>
           </div>
 
-          <!-- Vehicle 2 -->
+          <!-- Vehicle 2: Mercedes GLE - Obsidian Black -->
           <div class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group">
-            <div class="aspect-[16/10] bg-gradient-to-br from-zinc-200 to-zinc-300 relative flex items-center justify-center">
-              <span class="font-heading text-zinc-400 text-lg font-semibold">Mercedes GLE</span>
+            <div class="aspect-[16/10] relative flex items-center justify-center overflow-hidden" style="background: linear-gradient(170deg, #334155 0%, #1E293B 35%, #0F172A 70%, #020617 100%);">
+              <!-- Metallic reflection -->
+              <div class="absolute inset-0" style="background: linear-gradient(120deg, transparent 25%, rgba(255,255,255,0.08) 40%, transparent 55%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 h-1/4" style="background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);"></div>
+              <svg width="190" height="85" viewBox="0 0 190 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- SUV body -->
+                <path d="M20 58 L28 58 Q32 58 35 53 L45 40 Q48 36 55 34 L135 34 Q142 34 145 38 L158 53 Q160 58 165 58 L172 58" stroke="#94A3B8" stroke-width="1.8" fill="rgba(148,163,184,0.06)"/>
+                <!-- Tall roof -->
+                <path d="M45 40 Q50 22 65 18 L130 18 Q140 18 145 38" stroke="#94A3B8" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <!-- Windows -->
+                <path d="M52 37 L68 20 L125 20 L140 37 Z" stroke="#94A3B8" stroke-width="1" fill="rgba(148,163,184,0.1)"/>
+                <line x1="90" y1="20" x2="88" y2="37" stroke="#94A3B8" stroke-width="0.8" opacity="0.3"/>
+                <line x1="110" y1="20" x2="112" y2="37" stroke="#94A3B8" stroke-width="0.8" opacity="0.3"/>
+                <!-- Wheels -->
+                <circle cx="48" cy="62" r="13" stroke="#94A3B8" stroke-width="1.8" fill="rgba(148,163,184,0.08)"/>
+                <circle cx="48" cy="62" r="9" stroke="#94A3B8" stroke-width="0.8" fill="none" opacity="0.4"/>
+                <circle cx="48" cy="62" r="4" fill="#94A3B8" opacity="0.2"/>
+                <circle cx="150" cy="62" r="13" stroke="#94A3B8" stroke-width="1.8" fill="rgba(148,163,184,0.08)"/>
+                <circle cx="150" cy="62" r="9" stroke="#94A3B8" stroke-width="0.8" fill="none" opacity="0.4"/>
+                <circle cx="150" cy="62" r="4" fill="#94A3B8" opacity="0.2"/>
+                <!-- Star spoke pattern left -->
+                <line x1="48" y1="53" x2="48" y2="49" stroke="#94A3B8" stroke-width="0.7" opacity="0.3"/>
+                <line x1="39" y1="62" x2="35" y2="62" stroke="#94A3B8" stroke-width="0.7" opacity="0.3"/>
+                <line x1="57" y1="62" x2="61" y2="62" stroke="#94A3B8" stroke-width="0.7" opacity="0.3"/>
+                <line x1="42" y1="56" x2="39" y2="53" stroke="#94A3B8" stroke-width="0.7" opacity="0.3"/>
+                <line x1="54" y1="56" x2="57" y2="53" stroke="#94A3B8" stroke-width="0.7" opacity="0.3"/>
+                <!-- Headlights -->
+                <path d="M160 44 L172 47 L172 53 L160 55" stroke="#94A3B8" stroke-width="1.2" fill="rgba(251,191,36,0.1)"/>
+                <!-- Grille -->
+                <rect x="165" y="48" width="8" height="6" rx="1" stroke="#94A3B8" stroke-width="0.8" fill="none" opacity="0.3"/>
+                <!-- Ground -->
+                <line x1="10" y1="75" x2="182" y2="75" stroke="#94A3B8" stroke-width="0.4" opacity="0.15"/>
+              </svg>
               <span class="absolute top-3 left-3 bg-[#1E293B] text-white text-[10px] font-bold px-2 py-1 rounded">CERTIFIED</span>
             </div>
             <div class="p-4">
@@ -180,10 +243,40 @@
             </div>
           </div>
 
-          <!-- Vehicle 3 -->
+          <!-- Vehicle 3: Porsche Taycan - Frozen Blue -->
           <div class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group">
-            <div class="aspect-[16/10] bg-gradient-to-br from-blue-100 to-blue-200 relative flex items-center justify-center">
-              <span class="font-heading text-blue-300 text-lg font-semibold">Porsche Taycan</span>
+            <div class="aspect-[16/10] relative flex items-center justify-center overflow-hidden" style="background: linear-gradient(170deg, #BFDBFE 0%, #60A5FA 30%, #3B82F6 60%, #1D4ED8 100%);">
+              <div class="absolute inset-0" style="background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.2) 42%, transparent 52%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 h-1/4" style="background: linear-gradient(to top, rgba(29,78,216,0.3), transparent);"></div>
+              <svg width="185" height="78" viewBox="0 0 185 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Sleek sedan body -->
+                <path d="M20 52 L28 52 Q32 52 34 48 L48 35 Q52 30 60 28 L125 28 Q132 28 136 32 L152 48 Q155 52 160 52 L168 52" stroke="white" stroke-width="1.8" fill="rgba(255,255,255,0.06)"/>
+                <!-- Low roofline -->
+                <path d="M48 35 Q55 20 70 17 L115 17 Q125 17 136 32" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <!-- Windows -->
+                <path d="M55 32 L72 19 L112 19 L130 32 Z" stroke="white" stroke-width="1" fill="rgba(255,255,255,0.1)"/>
+                <line x1="92" y1="19" x2="90" y2="32" stroke="white" stroke-width="0.8" opacity="0.3"/>
+                <!-- Wheels -->
+                <circle cx="46" cy="56" r="12" stroke="white" stroke-width="1.8" fill="rgba(255,255,255,0.08)"/>
+                <circle cx="46" cy="56" r="8" stroke="white" stroke-width="0.8" fill="none" opacity="0.4"/>
+                <circle cx="46" cy="56" r="3" fill="white" opacity="0.2"/>
+                <circle cx="148" cy="56" r="12" stroke="white" stroke-width="1.8" fill="rgba(255,255,255,0.08)"/>
+                <circle cx="148" cy="56" r="8" stroke="white" stroke-width="0.8" fill="none" opacity="0.4"/>
+                <circle cx="148" cy="56" r="3" fill="white" opacity="0.2"/>
+                <!-- Aero spokes -->
+                <line x1="46" y1="48" x2="46" y2="44" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="38" y1="56" x2="34" y2="56" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="54" y1="56" x2="58" y2="56" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="148" y1="48" x2="148" y2="44" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="140" y1="56" x2="136" y2="56" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="156" y1="56" x2="160" y2="56" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <!-- LED headlights -->
+                <path d="M155 40 L168 43 L168 49 L155 52" stroke="white" stroke-width="1.2" fill="rgba(255,255,255,0.12)"/>
+                <!-- Charging port hint -->
+                <rect x="82" y="28" width="6" height="3" rx="1" stroke="white" stroke-width="0.8" fill="rgba(255,255,255,0.15)"/>
+                <!-- Ground -->
+                <line x1="12" y1="68" x2="176" y2="68" stroke="white" stroke-width="0.4" opacity="0.15"/>
+              </svg>
               <span class="absolute top-3 left-3 bg-accent text-white text-[10px] font-bold px-2 py-1 rounded">NEW</span>
             </div>
             <div class="p-4">
@@ -210,10 +303,40 @@
             </div>
           </div>
 
-          <!-- Vehicle 4 -->
+          <!-- Vehicle 4: Audi RS6 - Tango Red -->
           <div class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group">
-            <div class="aspect-[16/10] bg-gradient-to-br from-red-100 to-red-200 relative flex items-center justify-center">
-              <span class="font-heading text-red-300 text-lg font-semibold">Audi RS6</span>
+            <div class="aspect-[16/10] relative flex items-center justify-center overflow-hidden" style="background: linear-gradient(170deg, #FCA5A5 0%, #EF4444 30%, #DC2626 60%, #991B1B 100%);">
+              <div class="absolute inset-0" style="background: linear-gradient(115deg, transparent 28%, rgba(255,255,255,0.15) 40%, transparent 50%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 h-1/4" style="background: linear-gradient(to top, rgba(127,29,29,0.3), transparent);"></div>
+              <svg width="190" height="82" viewBox="0 0 190 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Wagon body -->
+                <path d="M18 55 L26 55 Q30 55 33 50 L48 38 Q52 33 60 31 L130 31 Q138 31 140 35 L155 50 Q158 55 162 55 L170 55" stroke="white" stroke-width="1.8" fill="rgba(255,255,255,0.06)"/>
+                <!-- Extended wagon roof -->
+                <path d="M48 38 Q55 22 68 18 L128 18 Q135 18 138 22 L140 35" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <!-- Windows -->
+                <path d="M54 35 L70 20 L126 20 L136 35 Z" stroke="white" stroke-width="1" fill="rgba(255,255,255,0.1)"/>
+                <line x1="88" y1="20" x2="86" y2="35" stroke="white" stroke-width="0.8" opacity="0.3"/>
+                <line x1="108" y1="20" x2="110" y2="35" stroke="white" stroke-width="0.8" opacity="0.3"/>
+                <!-- Wheels -->
+                <circle cx="45" cy="59" r="12" stroke="white" stroke-width="1.8" fill="rgba(255,255,255,0.08)"/>
+                <circle cx="45" cy="59" r="8" stroke="white" stroke-width="0.8" fill="none" opacity="0.4"/>
+                <circle cx="45" cy="59" r="3" fill="white" opacity="0.2"/>
+                <circle cx="150" cy="59" r="12" stroke="white" stroke-width="1.8" fill="rgba(255,255,255,0.08)"/>
+                <circle cx="150" cy="59" r="8" stroke="white" stroke-width="0.8" fill="none" opacity="0.4"/>
+                <circle cx="150" cy="59" r="3" fill="white" opacity="0.2"/>
+                <!-- 5-spoke pattern -->
+                <line x1="45" y1="51" x2="45" y2="47" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="37" y1="55" x2="34" y2="53" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="37" y1="63" x2="34" y2="65" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="53" y1="55" x2="56" y2="53" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="53" y1="63" x2="56" y2="65" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <!-- Headlights -->
+                <path d="M158 42 L170 45 L170 51 L158 53" stroke="white" stroke-width="1.2" fill="rgba(255,255,255,0.1)"/>
+                <!-- Taillights -->
+                <path d="M25 45 L15 48 L15 52 L25 54" stroke="white" stroke-width="1.2" fill="rgba(255,255,255,0.1)"/>
+                <!-- Ground -->
+                <line x1="8" y1="71" x2="180" y2="71" stroke="white" stroke-width="0.4" opacity="0.15"/>
+              </svg>
             </div>
             <div class="p-4">
               <h3 class="font-heading text-xl font-bold">2025 Audi RS6 Avant</h3>
@@ -239,10 +362,37 @@
             </div>
           </div>
 
-          <!-- Vehicle 5 -->
+          <!-- Vehicle 5: Tesla Model S - Pearl White -->
           <div class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group">
-            <div class="aspect-[16/10] bg-gradient-to-br from-slate-100 to-slate-200 relative flex items-center justify-center">
-              <span class="font-heading text-slate-400 text-lg font-semibold">Tesla Model S</span>
+            <div class="aspect-[16/10] relative flex items-center justify-center overflow-hidden" style="background: linear-gradient(170deg, #FFFFFF 0%, #F1F5F9 25%, #E2E8F0 55%, #CBD5E1 100%);">
+              <div class="absolute inset-0" style="background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.6) 45%, transparent 55%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 h-1/4" style="background: linear-gradient(to top, rgba(100,116,139,0.12), transparent);"></div>
+              <svg width="185" height="76" viewBox="0 0 185 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Tesla sedan body - very smooth -->
+                <path d="M22 50 L30 50 Q33 50 35 46 L50 33 Q55 28 62 26 L125 26 Q132 26 136 30 L152 46 Q155 50 160 50 L165 50" stroke="#64748B" stroke-width="1.8" fill="rgba(100,116,139,0.05)"/>
+                <!-- Smooth roof -->
+                <path d="M50 33 Q58 16 72 13 L118 13 Q128 13 136 30" stroke="#64748B" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <!-- Glass roof -->
+                <path d="M56 30 L74 15 L116 15 L130 30 Z" stroke="#64748B" stroke-width="1" fill="rgba(100,116,139,0.08)"/>
+                <!-- No B-pillar - continuous glass -->
+                <!-- Wheels -->
+                <circle cx="48" cy="54" r="12" stroke="#64748B" stroke-width="1.8" fill="rgba(100,116,139,0.06)"/>
+                <circle cx="48" cy="54" r="8" stroke="#64748B" stroke-width="0.8" fill="none" opacity="0.4"/>
+                <circle cx="48" cy="54" r="3" fill="#64748B" opacity="0.2"/>
+                <!-- Aero wheel cover -->
+                <circle cx="48" cy="54" r="10" stroke="#64748B" stroke-width="0.5" fill="none" opacity="0.2"/>
+                <circle cx="146" cy="54" r="12" stroke="#64748B" stroke-width="1.8" fill="rgba(100,116,139,0.06)"/>
+                <circle cx="146" cy="54" r="8" stroke="#64748B" stroke-width="0.8" fill="none" opacity="0.4"/>
+                <circle cx="146" cy="54" r="3" fill="#64748B" opacity="0.2"/>
+                <circle cx="146" cy="54" r="10" stroke="#64748B" stroke-width="0.5" fill="none" opacity="0.2"/>
+                <!-- Headlights (thin LED) -->
+                <line x1="155" y1="40" x2="168" y2="42" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                <line x1="155" y1="44" x2="168" y2="46" stroke="#64748B" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+                <!-- Flush door handles -->
+                <line x1="80" y1="35" x2="90" y2="35" stroke="#64748B" stroke-width="0.8" opacity="0.25"/>
+                <!-- Ground -->
+                <line x1="12" y1="66" x2="175" y2="66" stroke="#64748B" stroke-width="0.4" opacity="0.15"/>
+              </svg>
               <span class="absolute top-3 left-3 bg-accent text-white text-[10px] font-bold px-2 py-1 rounded">NEW</span>
             </div>
             <div class="p-4">
@@ -269,10 +419,40 @@
             </div>
           </div>
 
-          <!-- Vehicle 6 -->
+          <!-- Vehicle 6: Lexus LC 500 - Nori Green -->
           <div class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group">
-            <div class="aspect-[16/10] bg-gradient-to-br from-emerald-100 to-emerald-200 relative flex items-center justify-center">
-              <span class="font-heading text-emerald-300 text-lg font-semibold">Lexus LC 500</span>
+            <div class="aspect-[16/10] relative flex items-center justify-center overflow-hidden" style="background: linear-gradient(170deg, #A7F3D0 0%, #34D399 25%, #059669 55%, #065F46 100%);">
+              <div class="absolute inset-0" style="background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.15) 42%, transparent 52%);"></div>
+              <div class="absolute bottom-0 left-0 right-0 h-1/4" style="background: linear-gradient(to top, rgba(6,78,59,0.3), transparent);"></div>
+              <svg width="185" height="78" viewBox="0 0 185 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Coupe body - aggressive -->
+                <path d="M20 52 L28 52 Q32 52 34 48 L50 34 Q55 28 65 26 L120 26 Q130 26 135 30 L155 48 Q158 52 162 52 L170 52" stroke="white" stroke-width="1.8" fill="rgba(255,255,255,0.06)"/>
+                <!-- Sweeping roofline -->
+                <path d="M50 34 Q58 18 72 15 L108 15 Q120 15 135 30" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <!-- Windows -->
+                <path d="M56 31 L74 17 L106 17 L128 31 Z" stroke="white" stroke-width="1" fill="rgba(255,255,255,0.1)"/>
+                <!-- Wheels -->
+                <circle cx="46" cy="56" r="12" stroke="white" stroke-width="1.8" fill="rgba(255,255,255,0.08)"/>
+                <circle cx="46" cy="56" r="8" stroke="white" stroke-width="0.8" fill="none" opacity="0.4"/>
+                <circle cx="46" cy="56" r="3" fill="white" opacity="0.2"/>
+                <circle cx="150" cy="56" r="12" stroke="white" stroke-width="1.8" fill="rgba(255,255,255,0.08)"/>
+                <circle cx="150" cy="56" r="8" stroke="white" stroke-width="0.8" fill="none" opacity="0.4"/>
+                <circle cx="150" cy="56" r="3" fill="white" opacity="0.2"/>
+                <!-- Multi-spoke -->
+                <line x1="46" y1="48" x2="46" y2="44" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="38" y1="52" x2="35" y2="50" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="38" y1="60" x2="35" y2="62" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="54" y1="52" x2="57" y2="50" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <line x1="54" y1="60" x2="57" y2="62" stroke="white" stroke-width="0.6" opacity="0.3"/>
+                <!-- Spindle grille shape -->
+                <path d="M160 38 L172 42 L172 52 L160 55" stroke="white" stroke-width="1.2" fill="rgba(255,255,255,0.08)"/>
+                <!-- Taillights -->
+                <path d="M26 42 L16 45 L16 50 L26 52" stroke="white" stroke-width="1.2" fill="rgba(255,255,255,0.08)"/>
+                <!-- Side air intake -->
+                <path d="M60 40 L72 38 L72 42 Z" stroke="white" stroke-width="0.8" fill="rgba(255,255,255,0.06)" opacity="0.5"/>
+                <!-- Ground -->
+                <line x1="10" y1="68" x2="178" y2="68" stroke="white" stroke-width="0.4" opacity="0.15"/>
+              </svg>
             </div>
             <div class="p-4">
               <h3 class="font-heading text-xl font-bold">2025 Lexus LC 500</h3>
@@ -305,8 +485,23 @@
 
         <!-- Vehicle Detail Panel -->
         <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
-          <div class="aspect-video bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
-            <span class="font-heading text-slate-400 text-lg">BMW M4 Competition</span>
+          <div class="aspect-video flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(170deg, #F8FAFC 0%, #E2E8F0 30%, #CBD5E1 60%, #94A3B8 100%);">
+            <div class="absolute inset-0" style="background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.4) 45%, transparent 55%);"></div>
+            <svg width="200" height="85" viewBox="0 0 200 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M25 55 L33 55 Q37 55 40 50 L58 35 Q63 30 72 28 L128 28 Q136 28 140 32 L158 50 Q161 55 166 55 L175 55" stroke="#475569" stroke-width="2" fill="rgba(71,85,105,0.06)"/>
+              <path d="M58 35 Q65 22 78 18 L120 18 Q130 18 140 32" stroke="#475569" stroke-width="1.5" fill="none" opacity="0.5"/>
+              <path d="M64 32 L80 20 L118 20 L133 32 Z" stroke="#475569" stroke-width="1" fill="rgba(71,85,105,0.1)"/>
+              <line x1="98" y1="20" x2="96" y2="32" stroke="#475569" stroke-width="0.8" opacity="0.3"/>
+              <circle cx="55" cy="59" r="12" stroke="#475569" stroke-width="2" fill="rgba(71,85,105,0.08)"/>
+              <circle cx="55" cy="59" r="8" stroke="#475569" stroke-width="1" fill="none" opacity="0.4"/>
+              <circle cx="55" cy="59" r="3" fill="#475569" opacity="0.25"/>
+              <circle cx="152" cy="59" r="12" stroke="#475569" stroke-width="2" fill="rgba(71,85,105,0.08)"/>
+              <circle cx="152" cy="59" r="8" stroke="#475569" stroke-width="1" fill="none" opacity="0.4"/>
+              <circle cx="152" cy="59" r="3" fill="#475569" opacity="0.25"/>
+              <path d="M162 42 L175 45 L175 51 L162 54" stroke="#475569" stroke-width="1.5" fill="rgba(251,191,36,0.12)"/>
+              <path d="M35 46 L22 49 L22 53 L35 55" stroke="#475569" stroke-width="1.5" fill="rgba(220,38,38,0.1)"/>
+              <line x1="15" y1="71" x2="185" y2="71" stroke="#475569" stroke-width="0.5" opacity="0.15"/>
+            </svg>
           </div>
           <div class="p-5">
             <h3 class="font-heading text-xl font-bold">2026 BMW M4 Competition</h3>

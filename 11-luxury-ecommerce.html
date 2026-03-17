@@ -101,27 +101,76 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-          <!-- Product 1 -->
+          <!-- Product 1: Structured Tote (Handbag) -->
           <div class="product-card group cursor-pointer">
             <div class="relative overflow-hidden mb-4">
-              <div class="aspect-[3/4] bg-gradient-to-b from-stone-200 to-stone-300 flex items-center justify-center">
-                <span class="font-heading text-stone-400 text-lg italic">Structured Tote</span>
+              <div class="aspect-[3/4] bg-gradient-to-br from-[#1C1917] via-[#44403C] to-[#78350F] flex items-center justify-center relative">
+                <!-- Leather texture pattern -->
+                <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212,168,67,0.3) 2px, rgba(212,168,67,0.3) 4px);"></div>
+                <!-- Handbag SVG -->
+                <svg width="120" height="130" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M35 45 C35 25, 85 25, 85 45" stroke="#D4A843" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                  <rect x="20" y="50" width="80" height="60" rx="4" stroke="#D4A843" stroke-width="2" fill="none"/>
+                  <line x1="20" y1="65" x2="100" y2="65" stroke="#D4A843" stroke-width="1.5" opacity="0.6"/>
+                  <rect x="48" y="60" width="24" height="10" rx="2" stroke="#D4A843" stroke-width="1.5" fill="rgba(212,168,67,0.15)"/>
+                  <line x1="60" y1="75" x2="60" y2="95" stroke="#D4A843" stroke-width="1" opacity="0.3"/>
+                  <circle cx="60" cy="98" r="3" stroke="#D4A843" stroke-width="1" fill="none" opacity="0.4"/>
+                </svg>
+                <!-- Gold accent line -->
+                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#D4A843] to-transparent"></div>
               </div>
               <div class="product-overlay absolute inset-0 bg-noir/20 opacity-0 transition-opacity duration-500 flex items-end justify-center pb-6">
                 <button class="bg-ivory text-noir px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-ivory transition-colors">Quick View</button>
               </div>
               <span class="absolute top-3 left-3 bg-gold text-ivory text-[10px] tracking-[0.15em] uppercase px-3 py-1">New Season</span>
             </div>
-            <h3 class="font-heading text-xl font-medium">Céline Structured Tote</h3>
+            <h3 class="font-heading text-xl font-medium">Celine Structured Tote</h3>
             <p class="text-sm text-noir/50 mt-1">Italian calfskin leather</p>
             <p class="text-gold font-medium mt-2">$3,450</p>
           </div>
 
-          <!-- Product 2 -->
+          <!-- Product 2: Chronograph (Watch) -->
           <div class="product-card group cursor-pointer">
             <div class="relative overflow-hidden mb-4">
-              <div class="aspect-[3/4] bg-gradient-to-b from-amber-100 to-amber-200 flex items-center justify-center">
-                <span class="font-heading text-amber-400 text-lg italic">Chronograph</span>
+              <div class="aspect-[3/4] bg-gradient-to-b from-[#292524] via-[#1C1917] to-[#44403C] flex items-center justify-center relative">
+                <!-- Subtle radial glow -->
+                <div class="absolute inset-0" style="background: radial-gradient(circle at 50% 50%, rgba(212,168,67,0.08) 0%, transparent 70%);"></div>
+                <!-- Watch SVG -->
+                <svg width="130" height="160" viewBox="0 0 130 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Strap top -->
+                  <rect x="48" y="10" width="34" height="35" rx="3" stroke="#D4A843" stroke-width="1.5" fill="rgba(120,53,15,0.3)"/>
+                  <line x1="55" y1="15" x2="55" y2="40" stroke="#D4A843" stroke-width="0.5" opacity="0.3"/>
+                  <line x1="65" y1="15" x2="65" y2="40" stroke="#D4A843" stroke-width="0.5" opacity="0.3"/>
+                  <line x1="75" y1="15" x2="75" y2="40" stroke="#D4A843" stroke-width="0.5" opacity="0.3"/>
+                  <!-- Watch case -->
+                  <circle cx="65" cy="80" r="38" stroke="#D4A843" stroke-width="2.5" fill="rgba(28,25,23,0.8)"/>
+                  <circle cx="65" cy="80" r="34" stroke="#D4A843" stroke-width="1" fill="none" opacity="0.5"/>
+                  <circle cx="65" cy="80" r="32" stroke="#D4A843" stroke-width="0.5" fill="none" opacity="0.3"/>
+                  <!-- Hour markers -->
+                  <line x1="65" y1="50" x2="65" y2="54" stroke="#D4A843" stroke-width="2"/>
+                  <line x1="65" y1="106" x2="65" y2="110" stroke="#D4A843" stroke-width="2"/>
+                  <line x1="97" y1="80" x2="93" y2="80" stroke="#D4A843" stroke-width="2"/>
+                  <line x1="37" y1="80" x2="33" y2="80" stroke="#D4A843" stroke-width="2"/>
+                  <!-- Small markers -->
+                  <circle cx="82" cy="58" r="1" fill="#D4A843" opacity="0.6"/>
+                  <circle cx="48" cy="58" r="1" fill="#D4A843" opacity="0.6"/>
+                  <circle cx="82" cy="102" r="1" fill="#D4A843" opacity="0.6"/>
+                  <circle cx="48" cy="102" r="1" fill="#D4A843" opacity="0.6"/>
+                  <!-- Hands -->
+                  <line x1="65" y1="80" x2="65" y2="57" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+                  <line x1="65" y1="80" x2="80" y2="72" stroke="#D4A843" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="65" y1="80" x2="62" y2="60" stroke="#A16207" stroke-width="0.8" stroke-linecap="round"/>
+                  <circle cx="65" cy="80" r="3" fill="#D4A843"/>
+                  <!-- Sub-dial -->
+                  <circle cx="65" cy="93" r="8" stroke="#D4A843" stroke-width="0.5" fill="none" opacity="0.4"/>
+                  <!-- Crown -->
+                  <rect x="100" y="76" width="8" height="8" rx="2" stroke="#D4A843" stroke-width="1" fill="rgba(212,168,67,0.2)"/>
+                  <!-- Strap bottom -->
+                  <rect x="48" y="115" width="34" height="35" rx="3" stroke="#D4A843" stroke-width="1.5" fill="rgba(120,53,15,0.3)"/>
+                  <line x1="55" y1="120" x2="55" y2="145" stroke="#D4A843" stroke-width="0.5" opacity="0.3"/>
+                  <line x1="65" y1="120" x2="65" y2="145" stroke="#D4A843" stroke-width="0.5" opacity="0.3"/>
+                  <line x1="75" y1="120" x2="75" y2="145" stroke="#D4A843" stroke-width="0.5" opacity="0.3"/>
+                </svg>
               </div>
               <div class="product-overlay absolute inset-0 bg-noir/20 opacity-0 transition-opacity duration-500 flex items-end justify-center pb-6">
                 <button class="bg-ivory text-noir px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-ivory transition-colors">Quick View</button>
@@ -132,11 +181,29 @@
             <p class="text-gold font-medium mt-2">$12,800</p>
           </div>
 
-          <!-- Product 3 -->
+          <!-- Product 3: Stiletto Pump (Shoe) -->
           <div class="product-card group cursor-pointer">
             <div class="relative overflow-hidden mb-4">
-              <div class="aspect-[3/4] bg-gradient-to-b from-rose-100 to-rose-200 flex items-center justify-center">
-                <span class="font-heading text-rose-400 text-lg italic">Stiletto Pump</span>
+              <div class="aspect-[3/4] bg-gradient-to-br from-[#44403C] via-[#292524] to-[#1C1917] flex items-center justify-center relative">
+                <!-- Glossy sheen -->
+                <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 40%, rgba(212,168,67,0.05) 100%);"></div>
+                <!-- Stiletto SVG -->
+                <svg width="140" height="100" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Shoe sole -->
+                  <path d="M15 75 L40 72 Q60 68 80 60 Q100 50 110 40 Q115 35 120 35 L125 38 Q120 42 110 50 Q95 62 75 72 L40 82 Q30 84 20 82 Z" stroke="#D4A843" stroke-width="2" fill="rgba(161,98,7,0.1)"/>
+                  <!-- Heel -->
+                  <path d="M20 82 L15 75 L12 85 Q11 92 15 95 L18 95 Q22 92 20 85 Z" stroke="#D4A843" stroke-width="1.5" fill="rgba(161,98,7,0.15)"/>
+                  <!-- Upper shoe line -->
+                  <path d="M75 72 Q85 60 100 50 Q108 44 115 40" stroke="#D4A843" stroke-width="1" fill="none" opacity="0.5"/>
+                  <!-- Toe opening -->
+                  <path d="M110 40 Q118 36 125 38" stroke="#D4A843" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- Inner detail -->
+                  <path d="M50 74 Q65 66 85 55" stroke="#D4A843" stroke-width="0.8" fill="none" opacity="0.3"/>
+                  <!-- Decorative buckle -->
+                  <rect x="88" y="52" width="10" height="6" rx="1.5" stroke="#D4A843" stroke-width="1" fill="rgba(212,168,67,0.2)"/>
+                </svg>
+                <!-- Reflection line -->
+                <div class="absolute bottom-12 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-[#D4A843]/20 to-transparent"></div>
               </div>
               <div class="product-overlay absolute inset-0 bg-noir/20 opacity-0 transition-opacity duration-500 flex items-end justify-center pb-6">
                 <button class="bg-ivory text-noir px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-ivory transition-colors">Quick View</button>
@@ -148,11 +215,30 @@
             <p class="text-gold font-medium mt-2">$1,290</p>
           </div>
 
-          <!-- Product 4 -->
+          <!-- Product 4: Clutch (Handbag) -->
           <div class="product-card group cursor-pointer">
             <div class="relative overflow-hidden mb-4">
-              <div class="aspect-[3/4] bg-gradient-to-b from-neutral-200 to-neutral-300 flex items-center justify-center">
-                <span class="font-heading text-neutral-400 text-lg italic">Clutch</span>
+              <div class="aspect-[3/4] bg-gradient-to-br from-[#57534E] via-[#44403C] to-[#292524] flex items-center justify-center relative">
+                <!-- Satin shimmer -->
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(ellipse at 70% 60%, rgba(212,168,67,0.06) 0%, transparent 40%);"></div>
+                <!-- Clutch SVG -->
+                <svg width="130" height="90" viewBox="0 0 130 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Main body -->
+                  <rect x="15" y="25" width="100" height="50" rx="4" stroke="#D4A843" stroke-width="2" fill="rgba(161,98,7,0.08)"/>
+                  <!-- Flap -->
+                  <path d="M15 45 L15 29 Q15 25 19 25 L111 25 Q115 25 115 29 L115 45 Q65 60 15 45Z" stroke="#D4A843" stroke-width="1.5" fill="rgba(212,168,67,0.06)"/>
+                  <!-- Crystal clasp -->
+                  <circle cx="65" cy="48" r="6" stroke="#D4A843" stroke-width="1.5" fill="rgba(212,168,67,0.15)"/>
+                  <circle cx="65" cy="48" r="3" stroke="#D4A843" stroke-width="1" fill="rgba(212,168,67,0.25)"/>
+                  <circle cx="65" cy="48" r="1" fill="#D4A843"/>
+                  <!-- Sparkle accents -->
+                  <line x1="75" y1="35" x2="77" y2="33" stroke="#D4A843" stroke-width="0.8" opacity="0.5"/>
+                  <line x1="76" y1="35" x2="76" y2="32" stroke="#D4A843" stroke-width="0.8" opacity="0.5"/>
+                  <line x1="53" y1="38" x2="55" y2="36" stroke="#D4A843" stroke-width="0.8" opacity="0.4"/>
+                  <line x1="54" y1="38" x2="54" y2="35" stroke="#D4A843" stroke-width="0.8" opacity="0.4"/>
+                  <!-- Edge stitching -->
+                  <line x1="20" y1="70" x2="110" y2="70" stroke="#D4A843" stroke-width="0.5" opacity="0.3" stroke-dasharray="4 3"/>
+                </svg>
               </div>
               <div class="product-overlay absolute inset-0 bg-noir/20 opacity-0 transition-opacity duration-500 flex items-end justify-center pb-6">
                 <button class="bg-ivory text-noir px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-ivory transition-colors">Quick View</button>
@@ -163,11 +249,35 @@
             <p class="text-gold font-medium mt-2">$2,150</p>
           </div>
 
-          <!-- Product 5 -->
+          <!-- Product 5: Cashmere Coat -->
           <div class="product-card group cursor-pointer">
             <div class="relative overflow-hidden mb-4">
-              <div class="aspect-[3/4] bg-gradient-to-b from-stone-300 to-stone-400 flex items-center justify-center">
-                <span class="font-heading text-stone-500 text-lg italic">Cashmere Coat</span>
+              <div class="aspect-[3/4] bg-gradient-to-b from-[#78716C] via-[#57534E] to-[#44403C] flex items-center justify-center relative">
+                <!-- Fabric weave texture -->
+                <div class="absolute inset-0 opacity-8" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(212,168,67,0.06) 3px, rgba(212,168,67,0.06) 4px), repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(212,168,67,0.06) 3px, rgba(212,168,67,0.06) 4px);"></div>
+                <!-- Coat SVG -->
+                <svg width="110" height="150" viewBox="0 0 110 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Collar -->
+                  <path d="M35 25 Q40 15 50 18 L55 22" stroke="#D4A843" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <path d="M75 25 Q70 15 60 18 L55 22" stroke="#D4A843" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- Body left -->
+                  <path d="M35 25 L28 130 Q28 135 33 135 L52 135" stroke="#D4A843" stroke-width="1.5" fill="none"/>
+                  <!-- Body right -->
+                  <path d="M75 25 L82 130 Q82 135 77 135 L58 135" stroke="#D4A843" stroke-width="1.5" fill="none"/>
+                  <!-- Center line -->
+                  <line x1="55" y1="22" x2="55" y2="135" stroke="#D4A843" stroke-width="1" opacity="0.4"/>
+                  <!-- Sleeve left -->
+                  <path d="M35 30 L15 70 Q13 75 18 76 L25 76" stroke="#D4A843" stroke-width="1.5" fill="none"/>
+                  <!-- Sleeve right -->
+                  <path d="M75 30 L95 70 Q97 75 92 76 L85 76" stroke="#D4A843" stroke-width="1.5" fill="none"/>
+                  <!-- Buttons -->
+                  <circle cx="55" cy="50" r="2.5" stroke="#D4A843" stroke-width="1" fill="rgba(212,168,67,0.2)"/>
+                  <circle cx="55" cy="68" r="2.5" stroke="#D4A843" stroke-width="1" fill="rgba(212,168,67,0.2)"/>
+                  <circle cx="55" cy="86" r="2.5" stroke="#D4A843" stroke-width="1" fill="rgba(212,168,67,0.2)"/>
+                  <!-- Belt -->
+                  <line x1="30" y1="90" x2="80" y2="90" stroke="#D4A843" stroke-width="1.5" opacity="0.5"/>
+                  <rect x="50" y="87" width="10" height="6" rx="1" stroke="#D4A843" stroke-width="1" fill="rgba(212,168,67,0.15)"/>
+                </svg>
               </div>
               <div class="product-overlay absolute inset-0 bg-noir/20 opacity-0 transition-opacity duration-500 flex items-end justify-center pb-6">
                 <button class="bg-ivory text-noir px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-ivory transition-colors">Quick View</button>
@@ -179,11 +289,35 @@
             <p class="text-gold font-medium mt-2">$5,900</p>
           </div>
 
-          <!-- Product 6 -->
+          <!-- Product 6: Sunglasses -->
           <div class="product-card group cursor-pointer">
             <div class="relative overflow-hidden mb-4">
-              <div class="aspect-[3/4] bg-gradient-to-b from-zinc-200 to-zinc-300 flex items-center justify-center">
-                <span class="font-heading text-zinc-400 text-lg italic">Sunglasses</span>
+              <div class="aspect-[3/4] bg-gradient-to-br from-[#292524] via-[#1C1917] to-[#292524] flex items-center justify-center relative">
+                <!-- Light reflection -->
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 35% 35%, rgba(255,255,255,0.06) 0%, transparent 50%);"></div>
+                <!-- Sunglasses SVG -->
+                <svg width="140" height="80" viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Bridge -->
+                  <path d="M55 35 Q70 30 85 35" stroke="#D4A843" stroke-width="2" fill="none"/>
+                  <!-- Left lens frame -->
+                  <ellipse cx="38" cy="40" rx="28" ry="22" stroke="#D4A843" stroke-width="2" fill="rgba(161,98,7,0.06)"/>
+                  <!-- Left lens gradient -->
+                  <ellipse cx="38" cy="40" rx="24" ry="18" stroke="#D4A843" stroke-width="0.5" fill="rgba(28,25,23,0.4)" opacity="0.6"/>
+                  <!-- Right lens frame -->
+                  <ellipse cx="102" cy="40" rx="28" ry="22" stroke="#D4A843" stroke-width="2" fill="rgba(161,98,7,0.06)"/>
+                  <!-- Right lens gradient -->
+                  <ellipse cx="102" cy="40" rx="24" ry="18" stroke="#D4A843" stroke-width="0.5" fill="rgba(28,25,23,0.4)" opacity="0.6"/>
+                  <!-- Left temple -->
+                  <path d="M10 35 L14 36" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+                  <!-- Right temple -->
+                  <path d="M130 35 L126 36" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+                  <!-- Lens reflections -->
+                  <path d="M28 32 Q33 28 38 32" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" fill="none"/>
+                  <path d="M92 32 Q97 28 102 32" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" fill="none"/>
+                  <!-- Nose pads -->
+                  <circle cx="58" cy="42" r="2" stroke="#D4A843" stroke-width="0.8" fill="rgba(212,168,67,0.15)"/>
+                  <circle cx="82" cy="42" r="2" stroke="#D4A843" stroke-width="0.8" fill="rgba(212,168,67,0.15)"/>
+                </svg>
               </div>
               <div class="product-overlay absolute inset-0 bg-noir/20 opacity-0 transition-opacity duration-500 flex items-end justify-center pb-6">
                 <button class="bg-ivory text-noir px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-ivory transition-colors">Quick View</button>
@@ -200,12 +334,25 @@
       <aside class="w-full lg:w-96 lg:sticky lg:top-24 lg:self-start">
         <div class="border border-noir/10 p-6 sm:p-8 bg-white">
           <!-- Product Image -->
-          <div class="aspect-square bg-gradient-to-br from-stone-100 to-stone-200 mb-6 flex items-center justify-center">
-            <span class="font-heading text-stone-400 text-xl italic">Céline Structured Tote</span>
+          <div class="aspect-square bg-gradient-to-br from-[#1C1917] via-[#44403C] to-[#78350F] mb-6 flex items-center justify-center relative overflow-hidden">
+            <!-- Leather texture -->
+            <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212,168,67,0.3) 2px, rgba(212,168,67,0.3) 4px);"></div>
+            <!-- Larger handbag SVG for detail view -->
+            <svg width="180" height="190" viewBox="0 0 180 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 65 C50 35, 130 35, 130 65" stroke="#D4A843" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <rect x="25" y="70" width="130" height="90" rx="6" stroke="#D4A843" stroke-width="2.5" fill="rgba(161,98,7,0.05)"/>
+              <line x1="25" y1="92" x2="155" y2="92" stroke="#D4A843" stroke-width="2" opacity="0.5"/>
+              <rect x="70" y="84" width="40" height="16" rx="3" stroke="#D4A843" stroke-width="2" fill="rgba(212,168,67,0.12)"/>
+              <circle cx="90" cy="92" r="3" fill="#D4A843" opacity="0.6"/>
+              <line x1="90" y1="105" x2="90" y2="140" stroke="#D4A843" stroke-width="1" opacity="0.25"/>
+              <line x1="50" y1="115" x2="130" y2="115" stroke="#D4A843" stroke-width="0.5" opacity="0.2" stroke-dasharray="5 4"/>
+              <line x1="50" y1="135" x2="130" y2="135" stroke="#D4A843" stroke-width="0.5" opacity="0.2" stroke-dasharray="5 4"/>
+            </svg>
+            <div class="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-[#D4A843] to-transparent"></div>
           </div>
 
           <span class="text-[10px] tracking-[0.2em] uppercase text-gold">Maison Noir Collection</span>
-          <h3 class="font-heading text-2xl sm:text-3xl mt-2 font-medium">Céline Structured Tote</h3>
+          <h3 class="font-heading text-2xl sm:text-3xl mt-2 font-medium">Celine Structured Tote</h3>
           <p class="text-sm text-noir/60 mt-2 leading-relaxed">Masterfully crafted from the finest Italian calfskin leather with hand-stitched detailing and gold-tone hardware. Interior features three compartments with magnetic closure.</p>
 
           <div class="flex items-baseline gap-3 mt-4">
@@ -272,22 +419,34 @@
       <h2 class="font-heading text-3xl font-light italic mb-8">Recently Viewed</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
         <div class="cursor-pointer group">
-          <div class="aspect-[3/4] bg-gradient-to-b from-rose-100 to-rose-200 mb-3 group-hover:opacity-80 transition-opacity"></div>
+          <div class="aspect-[3/4] bg-gradient-to-b from-[#44403C] to-[#292524] mb-3 group-hover:opacity-80 transition-opacity relative overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 30%, rgba(212,168,67,0.08) 0%, transparent 60%);"></div>
+            <svg width="80" height="100" viewBox="0 0 80 100" fill="none"><path d="M20 20 Q25 10 40 15 L40 20 Q40 85 40 85 L20 85 Q15 85 15 80 L15 30 Q15 22 20 20Z" stroke="#D4A843" stroke-width="1.5" fill="none" opacity="0.6"/><path d="M60 20 Q55 10 40 15 L40 20 Q40 85 40 85 L60 85 Q65 85 65 80 L65 30 Q65 22 60 20Z" stroke="#D4A843" stroke-width="1.5" fill="none" opacity="0.6"/><path d="M25 40 Q40 35 55 40" stroke="#D4A843" stroke-width="1" fill="none" opacity="0.4"/></svg>
+          </div>
           <p class="font-heading text-sm">Silk Wrap Dress</p>
           <p class="text-xs text-gold mt-1">$2,890</p>
         </div>
         <div class="cursor-pointer group">
-          <div class="aspect-[3/4] bg-gradient-to-b from-amber-100 to-amber-200 mb-3 group-hover:opacity-80 transition-opacity"></div>
+          <div class="aspect-[3/4] bg-gradient-to-b from-[#292524] to-[#1C1917] mb-3 group-hover:opacity-80 transition-opacity relative overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0" style="background: radial-gradient(circle at 50% 50%, rgba(212,168,67,0.1) 0%, transparent 50%);"></div>
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="20" stroke="#D4A843" stroke-width="2" fill="none"/><circle cx="30" cy="30" r="16" stroke="#D4A843" stroke-width="0.5" fill="none" opacity="0.4"/><path d="M20 30 Q25 28 30 30 Q35 32 40 30" stroke="#D4A843" stroke-width="1.5" fill="none"/><circle cx="30" cy="30" r="3" fill="#D4A843" opacity="0.3"/></svg>
+          </div>
           <p class="font-heading text-sm">Gold Cuff Bracelet</p>
           <p class="text-xs text-gold mt-1">$1,650</p>
         </div>
         <div class="cursor-pointer group">
-          <div class="aspect-[3/4] bg-gradient-to-b from-stone-200 to-stone-300 mb-3 group-hover:opacity-80 transition-opacity"></div>
+          <div class="aspect-[3/4] bg-gradient-to-b from-[#57534E] to-[#44403C] mb-3 group-hover:opacity-80 transition-opacity relative overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(212,168,67,0.3) 4px, rgba(212,168,67,0.3) 5px);"></div>
+            <svg width="80" height="30" viewBox="0 0 80 30" fill="none"><rect x="5" y="8" width="70" height="14" rx="3" stroke="#D4A843" stroke-width="1.5" fill="none"/><circle cx="40" cy="15" r="5" stroke="#D4A843" stroke-width="1.5" fill="rgba(212,168,67,0.15)"/><circle cx="40" cy="15" r="2" fill="#D4A843" opacity="0.4"/></svg>
+          </div>
           <p class="font-heading text-sm">Leather Belt</p>
           <p class="text-xs text-gold mt-1">$890</p>
         </div>
         <div class="cursor-pointer group">
-          <div class="aspect-[3/4] bg-gradient-to-b from-zinc-200 to-zinc-300 mb-3 group-hover:opacity-80 transition-opacity"></div>
+          <div class="aspect-[3/4] bg-gradient-to-b from-[#44403C] to-[#292524] mb-3 group-hover:opacity-80 transition-opacity relative overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 40%, rgba(212,168,67,0.06) 0%, transparent 60%);"></div>
+            <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><rect x="10" y="10" width="50" height="50" rx="2" stroke="#D4A843" stroke-width="1.5" fill="none"/><line x1="10" y1="35" x2="60" y2="35" stroke="#D4A843" stroke-width="0.5" opacity="0.3"/><path d="M25 20 L35 30 L45 20" stroke="#D4A843" stroke-width="1" fill="none" opacity="0.5"/></svg>
+          </div>
           <p class="font-heading text-sm">Silk Pocket Square Set</p>
           <p class="text-xs text-gold mt-1">$420</p>
         </div>

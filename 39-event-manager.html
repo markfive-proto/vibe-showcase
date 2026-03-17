@@ -265,16 +265,103 @@
             <!-- Check-in Scanner -->
             <div class="bg-white rounded-xl border border-gray-200 p-5">
                 <h2 class="font-bold text-gray-900 mb-4">Check-in Scanner</h2>
-                <div class="bg-gray-100 rounded-xl h-48 flex flex-col items-center justify-center mb-4">
-                    <svg class="w-16 h-16 text-gray-300 mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-                        <path d="M14 14h3v3h-3zM20 14v3h-3M14 20h3M20 20h0"/>
-                    </svg>
-                    <p class="text-sm text-gray-400">Point camera at QR code</p>
-                    <p class="text-xs text-gray-300 mt-1">or enter ticket ID manually</p>
+                <style>
+                    @keyframes scanLine { 0% { top: 10%; } 50% { top: 85%; } 100% { top: 10%; } }
+                    .scan-line { animation: scanLine 2.5s ease-in-out infinite; }
+                    @keyframes cornerPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+                    .corner-pulse { animation: cornerPulse 2s ease-in-out infinite; }
+                </style>
+                <div class="bg-gray-900 rounded-xl h-52 relative overflow-hidden mb-4">
+                    <!-- Scanner corners -->
+                    <div class="absolute top-3 left-3 w-8 h-8 border-t-3 border-l-3 border-ev-teal rounded-tl-lg corner-pulse" style="border-width:3px 0 0 3px;border-color:#0D9488"></div>
+                    <div class="absolute top-3 right-3 w-8 h-8 border-t-3 border-r-3 border-ev-teal rounded-tr-lg corner-pulse" style="border-width:3px 3px 0 0;border-color:#0D9488"></div>
+                    <div class="absolute bottom-3 left-3 w-8 h-8 border-b-3 border-l-3 border-ev-teal rounded-bl-lg corner-pulse" style="border-width:0 0 3px 3px;border-color:#0D9488"></div>
+                    <div class="absolute bottom-3 right-3 w-8 h-8 border-b-3 border-r-3 border-ev-teal rounded-br-lg corner-pulse" style="border-width:0 3px 3px 0;border-color:#0D9488"></div>
+                    <!-- Scanning line -->
+                    <div class="scan-line absolute left-4 right-4 h-0.5 bg-ev-teal shadow-lg" style="box-shadow:0 0 8px 2px rgba(13,148,136,0.5)"></div>
+                    <!-- CSS QR Code Pattern -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="opacity-70">
+                            <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                                <!-- Top-left finder pattern -->
+                                <rect x="8" y="8" width="28" height="28" rx="2" fill="white"/>
+                                <rect x="12" y="12" width="20" height="20" rx="1" fill="#1a1a2e"/>
+                                <rect x="17" y="17" width="10" height="10" rx="1" fill="white"/>
+                                <!-- Top-right finder pattern -->
+                                <rect x="84" y="8" width="28" height="28" rx="2" fill="white"/>
+                                <rect x="88" y="12" width="20" height="20" rx="1" fill="#1a1a2e"/>
+                                <rect x="93" y="17" width="10" height="10" rx="1" fill="white"/>
+                                <!-- Bottom-left finder pattern -->
+                                <rect x="8" y="84" width="28" height="28" rx="2" fill="white"/>
+                                <rect x="12" y="88" width="20" height="20" rx="1" fill="#1a1a2e"/>
+                                <rect x="17" y="93" width="10" height="10" rx="1" fill="white"/>
+                                <!-- Data modules -->
+                                <rect x="42" y="10" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="52" y="10" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="62" y="10" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="72" y="10" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="42" y="20" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="58" y="20" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="72" y="20" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="42" y="30" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="52" y="30" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="68" y="30" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="10" y="42" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="20" y="42" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="32" y="42" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="48" y="42" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="60" y="42" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="74" y="42" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="88" y="42" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="100" y="42" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="10" y="52" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="26" y="52" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="42" y="52" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="56" y="52" width="8" height="8" rx="1" fill="white" opacity="0.9"/>
+                                <rect x="70" y="52" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="84" y="52" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="98" y="52" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="10" y="62" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="22" y="62" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="36" y="62" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="50" y="62" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="66" y="62" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="80" y="62" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="94" y="62" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="10" y="72" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="30" y="72" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="44" y="72" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="58" y="72" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="72" y="72" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="90" y="72" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="104" y="72" width="6" height="6" fill="white" opacity="0.7"/>
+                                <!-- Bottom-right data -->
+                                <rect x="42" y="88" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="52" y="88" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="66" y="88" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="78" y="88" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="92" y="88" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="104" y="88" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="42" y="98" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="56" y="98" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="70" y="98" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="84" y="98" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="98" y="98" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="48" y="104" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="62" y="104" width="6" height="6" fill="white" opacity="0.7"/>
+                                <rect x="76" y="104" width="6" height="6" fill="white" opacity="0.9"/>
+                                <rect x="90" y="104" width="6" height="6" fill="white" opacity="0.9"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Status text overlay -->
+                    <div class="absolute bottom-2 left-0 right-0 text-center">
+                        <p class="text-xs text-ev-teal font-semibold">Scan attendee badge</p>
+                    </div>
                 </div>
+                <p class="text-xs text-gray-400 text-center mb-3">Position the QR code within the frame to scan</p>
                 <div class="flex gap-2 mb-4">
-                    <input type="text" placeholder="Enter ticket ID..." class="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                    <input type="text" placeholder="Or enter ticket ID manually..." class="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-ev-teal focus:border-ev-teal outline-none">
                     <button class="bg-ev-teal text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-teal-700 transition">Check In</button>
                 </div>
                 <div class="space-y-2">

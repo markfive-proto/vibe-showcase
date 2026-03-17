@@ -64,54 +64,161 @@
         <!-- Floor Plan -->
         <div class="bg-white rounded-2xl p-6 border border-amber/10">
           <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-bold text-gray-900">Floor Plan</h2>
+            <h2 class="text-lg font-bold text-gray-900">Floor Plan <span class="text-xs font-medium text-gray-400 ml-2">Level 3</span></h2>
             <div class="flex items-center gap-3 text-xs">
               <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-blue/20 border border-blue/40"></span> Available</span>
               <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-amber/30 border border-amber/50"></span> Booked</span>
               <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-gray-200 border border-gray-300"></span> Occupied</span>
             </div>
           </div>
-          <div class="bg-gray-50 rounded-xl p-6 relative" style="min-height:240px">
-            <!-- Zones -->
-            <div class="grid grid-cols-4 gap-3 h-full">
-              <div class="col-span-2 row-span-2 bg-blue/10 border-2 border-blue/30 border-dashed rounded-xl p-3 flex flex-col justify-between">
-                <p class="text-xs font-bold text-blue">Open Workspace</p>
-                <div class="flex items-center gap-1">
-                  <span class="w-2 h-2 rounded-full bg-blue"></span>
-                  <span class="text-[10px] text-blue font-medium">12 desks available</span>
+          <!-- Architectural Floor Plan -->
+          <div class="bg-gray-50 rounded-xl p-4 relative border border-gray-200" style="min-height: 320px;">
+            <!-- Outer wall -->
+            <div class="absolute inset-3 border-2 border-gray-400 rounded-sm">
+              <!-- Main corridor (horizontal) -->
+              <div class="absolute top-[48%] left-0 right-0 h-[8%] bg-gray-100 border-t border-b border-gray-300">
+                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[8px] text-gray-400 font-medium tracking-widest uppercase">Main Corridor</span>
+              </div>
+
+              <!-- === TOP HALF === -->
+
+              <!-- Open Workspace (green zone) - top left large area -->
+              <div class="absolute top-[2%] left-[1%] w-[58%] h-[44%] bg-green-50/80 border border-green-300 rounded-sm">
+                <div class="absolute top-1.5 left-2 flex items-center gap-1">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="2" y="7" width="20" height="4" rx="1"/><path d="M4 11v6M20 11v6"/></svg>
+                  <span class="text-[9px] font-bold text-green-700 uppercase tracking-wider">Open Workspace</span>
+                </div>
+                <div class="absolute top-1.5 right-2 text-[8px] text-green-600 font-medium bg-green-100 px-1.5 py-0.5 rounded">12 desks avail.</div>
+                <!-- Desk grid (rows of small desk dots) -->
+                <div class="absolute top-8 left-3 right-3 bottom-2 grid grid-cols-6 grid-rows-3 gap-x-3 gap-y-2">
+                  <!-- Row 1 -->
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-amber/30 border border-amber/50"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <!-- Row 2 -->
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-amber/30 border border-amber/50"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-gray-200 border border-gray-300"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-gray-200 border border-gray-300"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <!-- Row 3 -->
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-amber/30 border border-amber/50"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-blue/20 border border-blue/40"></div></div>
+                  <div class="flex items-center justify-center"><div class="w-4 h-3 rounded-sm bg-gray-200 border border-gray-300"></div></div>
                 </div>
               </div>
-              <div class="bg-amber/10 border-2 border-amber/30 border-dashed rounded-xl p-3 flex flex-col justify-between">
-                <p class="text-xs font-bold text-amber">Meeting A</p>
-                <span class="text-[10px] text-amber font-medium">Booked</span>
-              </div>
-              <div class="bg-blue/10 border-2 border-blue/30 border-dashed rounded-xl p-3 flex flex-col justify-between">
-                <p class="text-xs font-bold text-blue">Meeting B</p>
-                <span class="text-[10px] text-blue font-medium">Open</span>
-              </div>
-              <div class="bg-gray-200 border-2 border-gray-300 border-dashed rounded-xl p-3 flex flex-col justify-between">
-                <p class="text-xs font-bold text-gray-500">Private 1</p>
-                <span class="text-[10px] text-gray-500 font-medium">Occupied</span>
-              </div>
-              <div class="bg-blue/10 border-2 border-blue/30 border-dashed rounded-xl p-3 flex flex-col justify-between">
-                <p class="text-xs font-bold text-blue">Private 2</p>
-                <span class="text-[10px] text-blue font-medium">Open</span>
-              </div>
-            </div>
-            <div class="grid grid-cols-4 gap-3 mt-3">
-              <div class="bg-blue/10 border-2 border-blue/30 border-dashed rounded-xl p-3">
-                <p class="text-xs font-bold text-blue">Phone Booth 1</p>
-                <span class="text-[10px] text-blue font-medium">Open</span>
-              </div>
-              <div class="bg-amber/10 border-2 border-amber/30 border-dashed rounded-xl p-3">
-                <p class="text-xs font-bold text-amber">Phone Booth 2</p>
-                <span class="text-[10px] text-amber font-medium">Booked</span>
-              </div>
-              <div class="col-span-2 bg-warm border-2 border-amber/20 border-dashed rounded-xl p-3 flex items-center justify-center">
-                <div class="text-center">
-                  <svg class="mx-auto mb-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
-                  <p class="text-xs font-bold text-amber">Kitchen & Lounge</p>
+
+              <!-- Meeting Rooms (blue zone) - top right -->
+              <div class="absolute top-[2%] left-[61%] w-[38%] h-[44%] flex flex-col gap-[3%]">
+                <!-- Meeting Room A -->
+                <div class="flex-1 bg-amber/5 border border-amber/40 rounded-sm relative">
+                  <div class="absolute top-1 left-1.5 text-[8px] font-bold text-amber uppercase">Meeting A</div>
+                  <div class="absolute top-1 right-1.5 text-[7px] text-amber font-medium bg-amber/10 px-1 rounded">Booked</div>
+                  <!-- Door marking -->
+                  <div class="absolute bottom-0 left-[20%] w-[15%] h-[3px] bg-amber/60 rounded-t"></div>
+                  <!-- Table representation -->
+                  <div class="absolute top-[40%] left-[20%] right-[20%] bottom-[25%] border border-amber/30 rounded-sm bg-amber/10 flex items-center justify-center">
+                    <span class="text-[7px] text-amber/70">8 seats</span>
+                  </div>
                 </div>
+                <!-- Meeting Room B -->
+                <div class="flex-1 bg-blue/5 border border-blue/40 rounded-sm relative">
+                  <div class="absolute top-1 left-1.5 text-[8px] font-bold text-blue uppercase">Meeting B</div>
+                  <div class="absolute top-1 right-1.5 text-[7px] text-blue font-medium bg-blue/10 px-1 rounded">Open</div>
+                  <div class="absolute bottom-0 left-[20%] w-[15%] h-[3px] bg-blue/40 rounded-t"></div>
+                  <div class="absolute top-[40%] left-[20%] right-[20%] bottom-[25%] border border-blue/30 rounded-sm bg-blue/5 flex items-center justify-center">
+                    <span class="text-[7px] text-blue/70">6 seats</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- === BOTTOM HALF === -->
+
+              <!-- Private Offices (orange zone) - bottom left -->
+              <div class="absolute top-[58%] left-[1%] w-[35%] h-[40%] flex flex-col gap-[3%]">
+                <!-- Private 1 -->
+                <div class="flex-1 bg-gray-100 border border-gray-300 rounded-sm relative">
+                  <div class="absolute top-1 left-1.5 text-[8px] font-bold text-gray-500 uppercase">Private 1</div>
+                  <div class="absolute top-1 right-1.5 text-[7px] text-gray-500 font-medium bg-gray-200 px-1 rounded">Occupied</div>
+                  <!-- Door -->
+                  <div class="absolute top-0 right-[25%] w-[12%] h-[3px] bg-gray-400 rounded-b"></div>
+                  <!-- Desk inside -->
+                  <div class="absolute bottom-[15%] left-[15%] w-[40%] h-[30%] bg-gray-200 border border-gray-300 rounded-sm"></div>
+                  <!-- Chair dot -->
+                  <div class="absolute bottom-[20%] left-[60%] w-2 h-2 rounded-full bg-gray-400"></div>
+                </div>
+                <!-- Private 2 -->
+                <div class="flex-1 bg-orange-50/50 border border-orange-300/60 rounded-sm relative">
+                  <div class="absolute top-1 left-1.5 text-[8px] font-bold text-orange-600 uppercase">Private 2</div>
+                  <div class="absolute top-1 right-1.5 text-[7px] text-blue font-medium bg-blue/10 px-1 rounded">Open</div>
+                  <div class="absolute top-0 right-[25%] w-[12%] h-[3px] bg-orange-400/60 rounded-b"></div>
+                  <div class="absolute bottom-[15%] left-[15%] w-[40%] h-[30%] bg-orange-100/50 border border-orange-200 rounded-sm"></div>
+                  <div class="absolute bottom-[20%] left-[60%] w-2 h-2 rounded-full bg-orange-300/50"></div>
+                </div>
+              </div>
+
+              <!-- Phone Booths (gray zone) - bottom middle -->
+              <div class="absolute top-[58%] left-[38%] w-[22%] h-[40%] flex flex-col gap-[4%]">
+                <div class="text-[8px] font-bold text-gray-500 uppercase tracking-wider mb-0">Phone Booths</div>
+                <!-- Booth 1 -->
+                <div class="flex-1 bg-blue/5 border border-blue/30 rounded-sm relative flex items-center justify-center">
+                  <div class="absolute top-0.5 left-1 text-[7px] font-bold text-blue">PB-1</div>
+                  <svg class="w-3 h-3 text-blue/50" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3"/></svg>
+                  <div class="absolute bottom-0.5 right-1 text-[6px] text-blue font-medium">Open</div>
+                </div>
+                <!-- Booth 2 -->
+                <div class="flex-1 bg-amber/5 border border-amber/30 rounded-sm relative flex items-center justify-center">
+                  <div class="absolute top-0.5 left-1 text-[7px] font-bold text-amber">PB-2</div>
+                  <svg class="w-3 h-3 text-amber/50" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3"/></svg>
+                  <div class="absolute bottom-0.5 right-1 text-[6px] text-amber font-medium">Booked</div>
+                </div>
+                <!-- Booth 3 -->
+                <div class="flex-1 bg-blue/5 border border-blue/30 rounded-sm relative flex items-center justify-center">
+                  <div class="absolute top-0.5 left-1 text-[7px] font-bold text-blue">PB-3</div>
+                  <svg class="w-3 h-3 text-blue/50" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3"/></svg>
+                  <div class="absolute bottom-0.5 right-1 text-[6px] text-blue font-medium">Open</div>
+                </div>
+              </div>
+
+              <!-- Kitchen / Lounge (warm zone) - bottom right -->
+              <div class="absolute top-[58%] left-[62%] w-[37%] h-[40%] bg-amber/5 border border-amber/20 rounded-sm relative">
+                <div class="absolute top-1.5 left-2 flex items-center gap-1">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+                  <span class="text-[8px] font-bold text-amber uppercase tracking-wider">Kitchen & Lounge</span>
+                </div>
+                <!-- Door -->
+                <div class="absolute top-0 left-[15%] w-[18%] h-[3px] bg-amber/40 rounded-b"></div>
+                <!-- Kitchen counter (top) -->
+                <div class="absolute top-7 right-2 w-[40%] h-[15%] bg-amber/10 border border-amber/20 rounded-sm">
+                  <span class="absolute inset-0 flex items-center justify-center text-[6px] text-amber/60">Counter</span>
+                </div>
+                <!-- Couch -->
+                <div class="absolute bottom-3 left-3 w-[45%] h-[28%] bg-amber/10 border border-amber/25 rounded-md flex items-center justify-center">
+                  <span class="text-[6px] text-amber/60">Lounge Seating</span>
+                </div>
+                <!-- Table -->
+                <div class="absolute bottom-3 right-3 w-[30%] h-[20%] bg-amber/10 border border-amber/20 rounded-sm flex items-center justify-center">
+                  <span class="text-[6px] text-amber/60">Table</span>
+                </div>
+                <!-- Coffee machine icon -->
+                <div class="absolute top-8 left-3">
+                  <div class="w-4 h-4 bg-amber/15 rounded border border-amber/20 flex items-center justify-center">
+                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Entrance arrow -->
+              <div class="absolute -bottom-5 left-[45%] flex flex-col items-center">
+                <svg width="12" height="8" viewBox="0 0 12 8" fill="#9CA3AF"><polygon points="6,0 12,8 0,8"/></svg>
+                <span class="text-[7px] text-gray-400 font-medium mt-0.5">ENTRANCE</span>
               </div>
             </div>
           </div>
