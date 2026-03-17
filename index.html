@@ -1,15 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibe Showcase — 60 Products You Can Build</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = { darkMode: 'class' }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Space Grotesk', sans-serif; }
-        .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.4); }
+        :root {
+            --bg-body: #f0f2f5;
+            --bg-surface: rgba(255,255,255,0.7);
+            --bg-card: rgba(255,255,255,0.6);
+            --border: #dde1e7;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --bg-nav: rgba(240,242,245,0.95);
+            --bg-modal: #ffffff;
+            --bg-modal-border: #e2e8f0;
+            --overlay: rgba(0,0,0,0.25);
+            --bg-tag: #f1f5f9;
+            --tag-border: #e2e8f0;
+            --tag-text: #64748b;
+            --hover-shadow: rgba(0,0,0,0.1);
+            --card-hover-shadow: 0 24px 48px rgba(0,0,0,0.08);
+        }
+        html.dark {
+            --bg-body: #16162a;
+            --bg-surface: rgba(30,30,52,0.5);
+            --bg-card: rgba(30,30,52,0.6);
+            --border: #2a2a48;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --bg-nav: rgba(22,22,42,0.95);
+            --bg-modal: #1e1e36;
+            --bg-modal-border: #2a2a48;
+            --overlay: rgba(0,0,0,0.6);
+            --bg-tag: #2a2a48;
+            --tag-border: #3a3a58;
+            --tag-text: #94a3b8;
+            --hover-shadow: rgba(0,0,0,0.4);
+            --card-hover-shadow: 0 24px 48px rgba(0,0,0,0.4);
+        }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg-body); color: var(--text-primary); transition: background 0.3s ease, color 0.3s ease; }
+        .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; background: var(--bg-card); border-color: var(--border); }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: var(--card-hover-shadow); }
         .card-hover:hover .thumb-overlay { opacity: 1; }
         .thumb-overlay { opacity: 0; transition: opacity 0.2s ease; }
         .section-nav a { transition: color 0.2s; }
@@ -23,9 +62,30 @@
             85% { opacity: 1; transform: translateY(0); }
             100% { opacity: 0; transform: translateY(-10px); }
         }
+        .theme-border { border-color: var(--border); }
+        .theme-text-secondary { color: var(--text-secondary); }
+        .theme-text-muted { color: var(--text-muted); }
+        .hero-bg {
+            background:
+                linear-gradient(135deg, rgba(var(--hero-overlay),0.88) 0%, rgba(var(--hero-overlay),0.75) 50%, rgba(var(--hero-overlay),0.85) 100%),
+                url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80') center/cover no-repeat;
+        }
+        html.dark .hero-bg { --hero-overlay: 22,22,42; }
+        :root .hero-bg { --hero-overlay: 240,242,245; }
+        .theme-toggle { transition: all 0.2s ease; }
+        .theme-toggle:hover { transform: scale(1.1); }
     </style>
+    <script>
+        // Prevent flash — apply saved theme before paint
+        (function() {
+            const saved = localStorage.getItem('vibe-theme');
+            if (saved === 'light') document.documentElement.classList.remove('dark');
+            else if (saved === 'dark') document.documentElement.classList.add('dark');
+            // Default: dark (already set on <html>)
+        })();
+    </script>
 </head>
-<body class="bg-[#020617] text-white min-h-screen">
+<body class="min-h-screen">
 
     <!-- Toast -->
     <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden">
@@ -35,23 +95,23 @@
     </div>
 
     <!-- Prompt Modal -->
-    <div id="promptModal" class="prompt-modal fixed inset-0 z-40 items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onclick="if(event.target===this)closeModal()">
-        <div class="bg-gray-900 border border-gray-700 rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl">
-            <div class="flex items-center justify-between p-5 border-b border-gray-700">
+    <div id="promptModal" class="prompt-modal fixed inset-0 z-40 items-center justify-center p-4 backdrop-blur-sm" style="background:var(--overlay)" onclick="if(event.target===this)closeModal()">
+        <div class="rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl" style="background:var(--bg-modal); border:1px solid var(--bg-modal-border)">
+            <div class="flex items-center justify-between p-5" style="border-bottom:1px solid var(--bg-modal-border)">
                 <h3 id="modalTitle" class="font-bold text-lg"></h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-white p-1">
+                <button onclick="closeModal()" class="theme-text-muted hover:opacity-80 p-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
             <div class="p-5 overflow-y-auto flex-1">
-                <pre id="modalPrompt" class="text-sm text-gray-300 whitespace-pre-wrap leading-relaxed font-[inherit]"></pre>
+                <pre id="modalPrompt" class="text-sm theme-text-secondary whitespace-pre-wrap leading-relaxed font-[inherit]"></pre>
             </div>
-            <div class="p-5 border-t border-gray-700 flex gap-3">
+            <div class="p-5 flex gap-3" style="border-top:1px solid var(--bg-modal-border)">
                 <button onclick="copyCurrentPrompt()" class="flex-1 bg-green-500 hover:bg-green-400 text-black font-semibold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                     Copy Prompt
                 </button>
-                <a id="modalViewLink" href="#" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                <a id="modalViewLink" href="#" class="flex-1 font-semibold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2" style="background:var(--bg-tag); color:var(--text-primary)">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                     View Demo
                 </a>
@@ -60,18 +120,24 @@
     </div>
 
     <!-- Header -->
-    <header class="border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 py-8">
+    <header class="hero-bg theme-border" style="border-bottom:1px solid var(--border)">
+        <div class="max-w-7xl mx-auto px-6 py-10">
             <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                 <div>
                     <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Vibe Showcase</h1>
-                    <p class="text-gray-400 mt-2 text-lg">60 real-world products you can vibe code. Click any card to explore, or copy the prompt to build your own.</p>
+                    <p class="theme-text-secondary mt-2 text-lg">60 real-world products you can vibe code. Click any card to explore, or copy the prompt to build your own.</p>
                 </div>
-                <div class="text-right">
-                    <div class="text-gray-500 text-sm">
-                        <span class="text-green-400 font-semibold text-2xl">22</span> mobile apps &nbsp;&middot;&nbsp;
-                        <span class="text-blue-400 font-semibold text-2xl">38</span> web apps &nbsp;&middot;&nbsp;
-                        <span class="text-amber-400 font-semibold text-2xl">9</span> skills
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleTheme()" class="theme-toggle w-10 h-10 rounded-xl flex items-center justify-center" style="background:var(--bg-surface); border:1px solid var(--border)" title="Toggle light/dark mode" aria-label="Toggle theme">
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                    </button>
+                    <div class="text-right">
+                        <div class="theme-text-muted text-sm">
+                            <span class="text-green-500 dark:text-green-400 font-semibold text-2xl">22</span> mobile apps &nbsp;&middot;&nbsp;
+                            <span class="text-blue-500 dark:text-blue-400 font-semibold text-2xl">38</span> web apps &nbsp;&middot;&nbsp;
+                            <span class="text-amber-500 dark:text-amber-400 font-semibold text-2xl">28</span> skills
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,19 +145,19 @@
     </header>
 
     <!-- Section Nav -->
-    <nav class="border-b border-gray-800 sticky top-0 bg-[#020617]/95 backdrop-blur-sm z-10 section-nav">
+    <nav class="sticky top-0 backdrop-blur-sm z-10 section-nav" style="border-bottom:1px solid var(--border); background:var(--bg-nav)">
         <div class="max-w-7xl mx-auto px-6 py-4 flex gap-6">
-            <a href="#mobile" class="text-green-400 font-semibold flex items-center gap-2">
+            <a href="#mobile" class="text-green-600 dark:text-green-400 font-semibold flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18" stroke-linecap="round"/></svg>
                 Mobile Apps (22)
             </a>
-            <a href="#web" class="text-blue-400 font-semibold flex items-center gap-2">
+            <a href="#web" class="text-blue-600 dark:text-blue-400 font-semibold flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                 Web Apps & Dashboards (38)
             </a>
-            <a href="#skills" class="text-amber-400 font-semibold flex items-center gap-2">
+            <a href="#skills" class="text-amber-600 dark:text-amber-400 font-semibold flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                Skills (9)
+                Skills (28)
             </a>
         </div>
     </nav>
@@ -101,38 +167,38 @@
         <!-- ===================== MOBILE APPS ===================== -->
         <section id="mobile" class="pt-10 pb-6">
             <div class="flex items-center gap-3 mb-2">
-                <div class="w-1 h-8 bg-green-400 rounded-full"></div>
+                <div class="w-1 h-8 bg-green-500 dark:bg-green-400 rounded-full"></div>
                 <h2 class="text-3xl font-bold">Mobile Apps</h2>
             </div>
-            <p class="text-gray-400 mb-8 ml-5">22 mobile app UIs wrapped in realistic phone frames</p>
+            <p class="theme-text-secondary mb-8 ml-5">22 mobile app UIs wrapped in realistic phone frames</p>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5" id="mobile-grid">
             </div>
         </section>
 
-        <div class="border-t border-gray-800 my-4"></div>
+        <div class="my-4" style="border-top:1px solid var(--border)"></div>
 
         <!-- ===================== WEB APPS ===================== -->
         <section id="web" class="pt-10 pb-6">
             <div class="flex items-center gap-3 mb-2">
-                <div class="w-1 h-8 bg-blue-400 rounded-full"></div>
+                <div class="w-1 h-8 bg-blue-500 dark:bg-blue-400 rounded-full"></div>
                 <h2 class="text-3xl font-bold">Web Apps & Dashboards</h2>
             </div>
-            <p class="text-gray-400 mb-8 ml-5">38 desktop web applications, dashboards, and internal tools</p>
+            <p class="theme-text-secondary mb-8 ml-5">38 desktop web applications, dashboards, and internal tools</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="web-grid">
             </div>
         </section>
 
-        <div class="border-t border-gray-800 my-4"></div>
+        <div class="my-4" style="border-top:1px solid var(--border)"></div>
 
         <!-- ===================== DESIGN SKILLS ===================== -->
         <section id="skills" class="pt-10 pb-6">
             <div class="flex items-center gap-3 mb-2">
-                <div class="w-1 h-8 bg-amber-400 rounded-full"></div>
+                <div class="w-1 h-8 bg-amber-500 dark:bg-amber-400 rounded-full"></div>
                 <h2 class="text-3xl font-bold">Skills</h2>
             </div>
-            <p class="text-gray-400 mb-8 ml-5">9 AI-powered design review skills to elevate vibe-coded projects to production quality</p>
+            <p class="theme-text-secondary mb-8 ml-5">28 AI-powered design review skills to elevate vibe-coded projects to production quality</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="skills-grid">
             </div>
@@ -141,9 +207,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-800 mt-12">
-        <div class="max-w-7xl mx-auto px-6 py-8 text-center text-gray-500 text-sm">
-            <p>60 product UIs + 9 design skills. Click "Copy Prompt" on any card to get started.</p>
+    <footer class="mt-12" style="border-top:1px solid var(--border)">
+        <div class="max-w-7xl mx-auto px-6 py-8 text-center theme-text-muted text-sm">
+            <p>60 product UIs + 28 design skills. Click "Copy Prompt" on any card to get started.</p>
         </div>
     </footer>
 
@@ -1515,7 +1581,7 @@ Make it feel like a WeWork or Regus booking interface. Use realistic coworking s
     });
 
     function mobileCard(p) {
-        return `<div class="card-hover rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden">
+        return `<div class="card-hover rounded-xl border overflow-hidden">
             <a href="${p.file}" class="block">
                 <div class="relative overflow-hidden" style="aspect-ratio:9/19">
                     <img src="thumbnails/${p.id}.jpeg" alt="${p.name}" class="w-full h-full object-cover object-top" loading="lazy">
@@ -1526,14 +1592,14 @@ Make it feel like a WeWork or Regus booking interface. Use realistic coworking s
             </a>
             <div class="p-3">
                 <div class="flex items-center justify-between mb-1">
-                    <span class="text-xs text-gray-500">#${p.id}</span>
-                    <button onclick="openModal('${p.id}')" class="text-xs text-green-400 hover:text-green-300 font-medium flex items-center gap-1 cursor-pointer" title="Copy prompt">
+                    <span class="text-xs theme-text-muted">#${p.id}</span>
+                    <button onclick="openModal('${p.id}')" class="text-xs text-green-600 dark:text-green-400 hover:opacity-80 font-medium flex items-center gap-1 cursor-pointer" title="Copy prompt">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                         Prompt
                     </button>
                 </div>
                 <h3 class="font-semibold text-sm">${p.name}</h3>
-                <p class="text-gray-500 text-xs mt-0.5">${p.desc}</p>
+                <p class="theme-text-muted text-xs mt-0.5">${p.desc}</p>
             </div>
         </div>`;
     }
@@ -1541,7 +1607,7 @@ Make it feel like a WeWork or Regus booking interface. Use realistic coworking s
     function webCard(p) {
         const badge = p.badge || 'Web App';
         const badgeClass = p.badgeClass || 'bg-emerald-900/50 text-emerald-300';
-        return `<div class="card-hover rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden">
+        return `<div class="card-hover rounded-xl border overflow-hidden">
             <a href="${p.file}" class="block">
                 <div class="relative overflow-hidden" style="aspect-ratio:16/10">
                     <img src="thumbnails/${p.id}.jpeg" alt="${p.name}" class="w-full h-full object-cover object-top" loading="lazy">
@@ -1554,8 +1620,8 @@ Make it feel like a WeWork or Regus booking interface. Use realistic coworking s
                 <div class="flex items-center justify-between mb-1">
                     <span class="text-xs font-medium px-2 py-0.5 rounded-full ${badgeClass}">${badge}</span>
                     <div class="flex items-center gap-2">
-                        <span class="text-xs text-gray-500">#${p.id}</span>
-                        <button onclick="openModal('${p.id}')" class="text-xs text-green-400 hover:text-green-300 font-medium flex items-center gap-1 cursor-pointer" title="Copy prompt">
+                        <span class="text-xs theme-text-muted">#${p.id}</span>
+                        <button onclick="openModal('${p.id}')" class="text-xs text-green-600 dark:text-green-400 hover:opacity-80 font-medium flex items-center gap-1 cursor-pointer" title="Copy prompt">
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                             Prompt
                         </button>
@@ -1784,32 +1850,1027 @@ Check these critical areas:
    - Uses \`position: sticky\` not \`fixed\` where possible
 
 For each issue: file, line, severity, and specific fix with fallback code.`
+        },
+        {
+            id: "s10", name: "Accessibility Auditor",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2.5"/><path d="M12 7v5m-4-3h8M8 17l4-5 4 5"/></svg>`,
+            desc: "Audits WCAG 2.1 AA compliance: color contrast, keyboard navigation, screen reader labels, focus management, and ARIA patterns",
+            tags: ["WCAG", "Screen Reader", "Keyboard", "ARIA"],
+            color: "from-sky-600 to-blue-400",
+            prompt: `You are an Accessibility Auditor specializing in WCAG 2.1 AA compliance. Audit this codebase for accessibility barriers.
+
+Review these 6 dimensions:
+1. **Color Contrast** — Check all text/background combinations meet WCAG AA minimums (4.5:1 for normal text, 3:1 for large text). Flag any Tailwind color pairings that fail. Test both light and dark mode if applicable.
+2. **Keyboard Navigation** — Verify every interactive element is reachable via Tab key in logical order. Flag elements with \`onClick\` but no \`onKeyDown\`, missing \`tabIndex\`, or custom components that trap focus.
+3. **Screen Reader Labels** — Check all images have meaningful \`alt\` text (not "image" or "icon"). Verify form inputs have associated \`<label>\` or \`aria-label\`. Flag icon-only buttons without \`aria-label\`.
+4. **Focus Indicators** — Ensure visible focus rings on all interactive elements. Flag any \`outline-none\` or \`focus:outline-none\` without a replacement focus style. Check focus is visible against both light and dark backgrounds.
+5. **ARIA Patterns** — Verify correct ARIA roles, states, and properties for custom widgets (modals, dropdowns, tabs, accordions). Flag missing \`role\`, \`aria-expanded\`, \`aria-selected\`, or \`aria-live\` where needed.
+6. **Semantic HTML** — Check for proper heading hierarchy (h1→h2→h3, no skipped levels). Flag \`<div>\` or \`<span>\` used where \`<button>\`, \`<nav>\`, \`<main>\`, \`<section>\` would be correct.
+
+For each issue found, report:
+- File and line number
+- WCAG success criterion violated (e.g., 1.4.3 Contrast)
+- Severity: Critical (blocks users) / Warning (degrades experience) / Suggestion
+- Specific fix with code snippet
+
+Focus on React/Next.js + Tailwind CSS. Check both components and pages.`
+        },
+        {
+            id: "s11", name: "Color Palette Generator",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="2" fill="currentColor"/><circle cx="8" cy="14" r="2" fill="currentColor"/><circle cx="16" cy="14" r="2" fill="currentColor"/></svg>`,
+            desc: "Generates harmonious color palettes with contrast ratios, semantic naming, Tailwind config, and light/dark mode variants",
+            tags: ["Color", "Palette", "Contrast", "Harmony"],
+            color: "from-fuchsia-600 to-pink-400",
+            prompt: `You are a Color Palette Generator. Analyze this codebase's current color usage and generate an improved, harmonious color system.
+
+Your workflow:
+1. **Extract** — Scan all files for color values: Tailwind color classes, hex codes, RGB/HSL values, CSS custom properties. List every unique color found with usage count and location.
+2. **Analyze Harmony** — Check if existing colors follow a color harmony rule (complementary, analogous, triadic, split-complementary). Identify clashing colors or colors that don't belong to any harmony scheme.
+3. **Generate Palette** — Create a complete color palette with:
+   - **Primary** (brand color + 50-950 scale)
+   - **Secondary** (complementary accent + 50-950 scale)
+   - **Neutral** (gray scale for text, borders, backgrounds)
+   - **Semantic** colors: success (green), warning (amber), error (red), info (blue)
+   - Each swatch with hex, HSL, and WCAG contrast ratio against white and black
+4. **Contrast Matrix** — Generate a matrix showing contrast ratios between all common text/background combinations. Flag any pair below 4.5:1 (AA) or 3:1 (AA large text).
+5. **Dark Mode Mapping** — For each light-mode color, provide the dark-mode equivalent maintaining the same perceived contrast and hierarchy.
+6. **Tailwind Config** — Output a \`tailwind.config.js\` theme.extend.colors block that registers all palette colors as utilities.
+
+Output: color-palette.md with swatches, contrast matrix, and tailwind.config.js additions.`
+        },
+        {
+            id: "s12", name: "Responsive Breakpoint QA",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="5" width="8" height="14" rx="1"/><rect x="13" y="3" width="9" height="18" rx="1"/><path d="M6 17h0M17.5 19h0"/></svg>`,
+            desc: "Tests layouts at all Tailwind breakpoints, flags overflow, hidden content, touch target violations, and mobile-first gaps",
+            tags: ["Responsive", "Breakpoints", "Mobile-First", "Overflow"],
+            color: "from-violet-600 to-indigo-400",
+            prompt: `You are a Responsive Breakpoint QA Reviewer. Audit this codebase for responsive design issues across all Tailwind breakpoints.
+
+Test at these breakpoints (Tailwind defaults):
+- **< 640px** (mobile)
+- **640px (sm)**
+- **768px (md)**
+- **1024px (lg)**
+- **1280px (xl)**
+- **1536px (2xl)**
+
+Review these 5 dimensions:
+1. **Mobile-First Validation** — Check that base styles (no prefix) target mobile. Flag desktop-first patterns where styles only work at \`md:\` or \`lg:\` and break on mobile. Every component should be usable at 320px width.
+2. **Content Overflow** — Flag any element that causes horizontal scrolling at any breakpoint: long text without \`truncate\` or \`break-words\`, fixed-width elements, images without \`max-w-full\`, tables without scroll wrappers.
+3. **Hidden Content Audit** — Find all \`hidden\`, \`sm:hidden\`, \`md:block\` patterns. Flag important content or navigation that is hidden on mobile with no alternative. Ensure nothing critical is only visible at desktop.
+4. **Touch Target Compliance** — At mobile breakpoints, verify all interactive elements are at least 44x44px. Flag small links, tiny close buttons, or inputs with padding less than \`p-3\`.
+5. **Grid/Flex Collapse** — Check that multi-column grids collapse appropriately. Flag grids that go from 4 columns directly to 1 (skipping 2-column), or flex containers that don't wrap and cause overflow.
+
+For each issue:
+- File and line number
+- Which breakpoint(s) affected
+- Screenshot description of the problem
+- Severity: Critical / Warning / Suggestion
+- Fix with responsive Tailwind classes`
+        },
+        {
+            id: "s13", name: "Micro-interaction Designer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+            desc: "Designs hover effects, transitions, scroll animations, loading choreography, and gesture feedback with Tailwind + Framer Motion",
+            tags: ["Animation", "Transition", "Hover", "Motion"],
+            color: "from-yellow-500 to-orange-400",
+            prompt: `You are a Micro-interaction Designer. Audit this codebase for missing or poor animations and generate polished micro-interactions.
+
+Review and generate for these 6 categories:
+1. **Hover & Focus Effects** — Every interactive element needs hover feedback. Generate subtle hover effects:
+   - Buttons: slight scale (\`hover:scale-[1.02]\`), shadow lift, color shift
+   - Cards: shadow elevation, border color change, subtle translateY
+   - Links: underline animation, color transition
+   - All transitions should use \`transition-all duration-200 ease-out\`
+
+2. **Page Transitions** — Add enter/exit animations for route changes:
+   - Fade-in with slight upward movement for page content
+   - Staggered children animation for lists and grids
+   - Generate Framer Motion variants: \`initial\`, \`animate\`, \`exit\`
+
+3. **Loading Choreography** — Design loading sequences:
+   - Skeleton shimmer effect (left-to-right gradient animation)
+   - Staggered skeleton appearance (items appear one by one)
+   - Smooth transition from skeleton to real content (crossfade)
+
+4. **Scroll-Triggered Animations** — Add reveal animations for below-the-fold content:
+   - Fade-up on scroll into view using Intersection Observer
+   - Staggered grid item reveals
+   - Counter/number animations for statistics
+
+5. **Feedback Animations** — Add response animations for user actions:
+   - Button click: brief scale-down (\`active:scale-95\`)
+   - Form submit: button → spinner → checkmark sequence
+   - Toast notifications: slide-in from top/bottom with auto-dismiss
+   - Delete: item shrinks and fades out before removal
+
+6. **Reduced Motion** — Wrap all animations in \`prefers-reduced-motion\` media query. Provide static alternatives for every animation.
+
+For each suggestion: file, line, animation code (Tailwind classes or Framer Motion), and a description of the visual effect.`
+        },
+        {
+            id: "s14", name: "Form UX Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h10M7 12h7M7 17h4"/></svg>`,
+            desc: "Audits form validation, inline errors, input types, multi-step flows, autofill support, and mobile keyboard optimization",
+            tags: ["Forms", "Validation", "Error Handling", "Multi-step"],
+            color: "from-teal-600 to-cyan-400",
+            prompt: `You are a Form UX Reviewer. Audit all forms in this codebase for usability, validation, and conversion optimization.
+
+Review these 6 dimensions:
+1. **Inline Validation** — Check that validation happens on blur (not just on submit). Each input should show:
+   - Real-time feedback as user types (debounced)
+   - Green checkmark for valid fields
+   - Red border + error message below invalid fields
+   - Error messages should be specific ("Password must be at least 8 characters") not generic ("Invalid input")
+   Flag any form that only validates on submit.
+
+2. **Input Types & Attributes** — Verify correct HTML5 input types:
+   - Email fields use \`type="email"\` (shows @ keyboard on mobile)
+   - Phone fields use \`type="tel"\` with \`inputMode="numeric"\`
+   - Numbers use \`inputMode="decimal"\` not \`type="number"\` (avoids scroll-to-change)
+   - Passwords have show/hide toggle
+   - Flag missing \`autocomplete\` attributes (browser autofill)
+
+3. **Error Recovery** — When form submission fails:
+   - Scroll to first error and focus the field
+   - Preserve all valid input (don't clear the form)
+   - Show a summary of errors at the top for long forms
+   - Flag forms that clear input on error or don't indicate which fields failed
+
+4. **Multi-Step Flow** — For multi-step forms, check:
+   - Progress indicator showing current step and total steps
+   - Ability to go back without losing data
+   - Step validation before proceeding to next step
+   - Summary/review step before final submission
+
+5. **Mobile Optimization** — Check form usability on mobile:
+   - Labels above inputs (not beside — too cramped on mobile)
+   - Adequate input height (minimum \`h-12\` / 48px)
+   - Proper spacing between fields (\`space-y-4\` minimum)
+   - Keyboard doesn't obscure the active field
+
+6. **Autofill & Accessibility** — Verify:
+   - All inputs have associated \`<label>\` elements
+   - \`autocomplete\` attributes match field purpose
+   - Required fields are marked (asterisk + \`aria-required\`)
+   - Error messages linked via \`aria-describedby\`
+
+For each issue: file, line, severity, and fix with code.`
+        },
+        {
+            id: "s15", name: "Data Visualization Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-6 4 4 5-8"/></svg>`,
+            desc: "Reviews chart types, axis labels, color-blind safety, data density, dashboard layout, and responsive chart behavior",
+            tags: ["Charts", "Dashboard", "Data", "Visualization"],
+            color: "from-blue-600 to-indigo-400",
+            prompt: `You are a Data Visualization Reviewer. Audit all charts, graphs, and data displays in this codebase for clarity and best practices.
+
+Review these 6 dimensions:
+1. **Chart Type Selection** — Is the right chart type used for the data?
+   - Time series → line chart (not bar)
+   - Comparisons → bar chart (horizontal for many categories)
+   - Parts of whole → donut/pie (max 5-6 segments) or stacked bar
+   - Correlation → scatter plot
+   - Distribution → histogram or box plot
+   Flag chart types that misrepresent the data (e.g., pie chart with 15 slices, 3D charts, dual-axis with mismatched scales).
+
+2. **Labeling & Legends** — Check that all charts have:
+   - Clear title describing what the data shows
+   - Axis labels with units (e.g., "Revenue (USD)", "Time (months)")
+   - Legend positioned to not overlap data
+   - Data labels on key points (not every point — avoid clutter)
+   Flag charts missing titles, unlabeled axes, or cryptic legends.
+
+3. **Color-Blind Safety** — Check chart colors against common color vision deficiencies:
+   - Don't rely solely on red/green distinction
+   - Use patterns, shapes, or labels in addition to color
+   - Verify 4+ distinct colors are distinguishable in grayscale
+   Suggest a color-blind-safe palette for each chart.
+
+4. **Data Density** — Check information density:
+   - Remove chartjunk (unnecessary gridlines, borders, backgrounds)
+   - Data-ink ratio should be high (most pixels should represent data)
+   - Flag overly sparse charts (big chart, little data) or overly dense charts (illegible)
+
+5. **Dashboard Layout** — For dashboard pages, check:
+   - Most important metrics at top-left (F-pattern reading)
+   - KPI cards above detailed charts
+   - Consistent card sizes and spacing
+   - Logical grouping of related charts
+
+6. **Responsive Behavior** — Check charts on mobile:
+   - Charts should be scrollable or stackable, not shrunk to illegibility
+   - Touch-friendly tooltips (not hover-only)
+   - Legends should stack below chart on mobile
+
+For each issue: file, line, severity, recommended chart library if applicable, and fix.`
+        },
+        {
+            id: "s16", name: "Performance Optimizer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
+            desc: "Audits Core Web Vitals, image optimization, bundle size, lazy loading, font loading, and render-blocking resources",
+            tags: ["Performance", "Core Web Vitals", "Lazy Load", "Bundle"],
+            color: "from-red-600 to-orange-500",
+            prompt: `You are a Performance Optimizer for Next.js + Tailwind CSS applications. Audit this codebase for performance issues affecting Core Web Vitals.
+
+Review these 6 dimensions:
+1. **Image Optimization** — Check all images:
+   - Using Next.js \`<Image>\` component (not raw \`<img>\`)
+   - Have explicit \`width\` and \`height\` (prevents layout shift / CLS)
+   - Use \`priority\` for above-the-fold hero images
+   - Use \`loading="lazy"\` for below-the-fold images
+   - Serve modern formats (WebP/AVIF via Next.js automatic optimization)
+   - Flag images over 200KB, missing dimensions, or unoptimized formats.
+
+2. **Bundle Size** — Identify heavy imports:
+   - Flag barrel imports (\`import { x } from 'library'\` that pull entire library)
+   - Suggest tree-shakeable alternatives (e.g., \`lodash/get\` instead of \`lodash\`)
+   - Flag client-side imports of server-only libraries
+   - Check for duplicate dependencies in different components
+
+3. **Lazy Loading & Code Splitting** — Check that:
+   - Below-the-fold sections use \`dynamic(() => import(...))\` or React.lazy
+   - Heavy components (charts, editors, maps) are dynamically imported
+   - Modals and drawers are loaded on demand, not at page load
+   - Route-based code splitting is in place (Next.js default, but verify custom setups)
+
+4. **Render-Blocking Resources** — Flag:
+   - External CSS files in \`<head>\` without \`media\` attribute
+   - Synchronous \`<script>\` tags (should be \`async\` or \`defer\`)
+   - Large web fonts loaded without \`font-display: swap\`
+   - Third-party scripts (analytics, chat widgets) loaded before main content
+
+5. **Layout Shift (CLS)** — Flag causes of layout shift:
+   - Images without dimensions
+   - Dynamically injected content above existing content
+   - Web fonts causing FOIT/FOUT (use \`font-display: swap\` + \`size-adjust\`)
+   - Ads or embeds without reserved space
+
+6. **Caching & Preloading** — Check:
+   - Static assets have cache headers
+   - Critical resources use \`<link rel="preload">\`
+   - API responses use SWR/React Query for client-side caching
+   - Static pages use ISR or SSG where appropriate
+
+For each issue: file, line, estimated impact (High/Medium/Low), and specific fix with code.`
+        },
+        {
+            id: "s17", name: "Dark Mode Generator",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`,
+            desc: "Generates dark mode theme tokens, semantic color mappings, auto-switching logic, and contrast-safe dark variants",
+            tags: ["Dark Mode", "Theme", "Tokens", "Switching"],
+            color: "from-slate-600 to-gray-400",
+            prompt: `You are a Dark Mode Generator. Analyze this codebase and generate a complete dark mode implementation.
+
+Your workflow:
+1. **Audit Current Colors** — Scan all components for color usage:
+   - Extract every background, text, border, and shadow color
+   - Map each to its semantic purpose (surface, text-primary, text-secondary, border, accent)
+   - Identify hardcoded colors that won't adapt to dark mode
+
+2. **Generate Dark Palette** — For each light-mode color, create a dark equivalent:
+   - White backgrounds → \`gray-900\` or \`gray-950\`
+   - Light gray surfaces → \`gray-800\`
+   - Dark text → \`gray-100\` or \`white\`
+   - Borders: \`gray-200\` → \`gray-700\`
+   - Shadows: reduce opacity, don't just invert
+   - Accent colors: slightly desaturate and lighten for dark backgrounds
+   - Ensure all text/background pairs maintain WCAG AA contrast in dark mode
+
+3. **CSS Custom Properties** — Generate a token system:
+   \`\`\`css
+   :root { --color-surface: #ffffff; --color-text: #111827; }
+   .dark { --color-surface: #111827; --color-text: #f9fafb; }
+   \`\`\`
+   Map every semantic color to a CSS variable with light and dark values.
+
+4. **Tailwind Dark Classes** — Generate the \`dark:\` variant for every component:
+   - \`bg-white dark:bg-gray-900\`
+   - \`text-gray-900 dark:text-gray-100\`
+   - \`border-gray-200 dark:border-gray-700\`
+   List every file and line that needs dark mode classes added.
+
+5. **Theme Switching** — Generate a React theme toggle component:
+   - Reads system preference via \`prefers-color-scheme\`
+   - Allows manual override stored in \`localStorage\`
+   - Applies \`dark\` class to \`<html>\` element
+   - Avoids flash of wrong theme on page load (script in \`<head>\`)
+
+6. **Dark Mode Gotchas** — Flag common dark mode issues:
+   - Images with white/transparent backgrounds that look broken on dark
+   - Box shadows that become invisible on dark backgrounds
+   - Hover states that don't adapt (light hover on dark background)
+   - Charts/graphs with hardcoded colors that don't invert
+
+Output: dark-mode migration guide with file-by-file changes.`
+        },
+        {
+            id: "s18", name: "SEO & Meta Auditor",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>`,
+            desc: "Audits Open Graph tags, semantic HTML, structured data, meta descriptions, canonical URLs, and sitemap generation",
+            tags: ["SEO", "Open Graph", "Schema.org", "Semantic HTML"],
+            color: "from-lime-600 to-green-400",
+            prompt: `You are an SEO & Meta Auditor for Next.js applications. Audit this codebase for search engine optimization and social sharing readiness.
+
+Review these 6 dimensions:
+1. **Meta Tags** — Check every page/route for:
+   - Unique, descriptive \`<title>\` (50-60 characters)
+   - \`<meta name="description">\` (150-160 characters, includes target keywords)
+   - Canonical URL (\`<link rel="canonical">\`)
+   - Flag pages missing titles, duplicate titles, or generic descriptions like "Welcome to our website"
+   - For Next.js: verify \`metadata\` export or \`generateMetadata\` is used correctly
+
+2. **Open Graph & Social** — Verify social sharing tags:
+   - \`og:title\`, \`og:description\`, \`og:image\` (1200x630px recommended)
+   - \`og:type\`, \`og:url\`
+   - Twitter Card tags: \`twitter:card\`, \`twitter:title\`, \`twitter:image\`
+   - Flag pages without OG images or with low-resolution images
+   - Test that shared links preview correctly
+
+3. **Semantic HTML** — Check document structure:
+   - One \`<h1>\` per page (not zero, not multiple)
+   - Heading hierarchy: h1→h2→h3 (no skipping levels)
+   - Use \`<main>\`, \`<nav>\`, \`<article>\`, \`<section>\`, \`<aside>\` appropriately
+   - Use \`<time>\` for dates, \`<address>\` for contact info
+   - Flag \`<div>\` soup where semantic elements should be used
+
+4. **Structured Data (JSON-LD)** — Check for and generate Schema.org markup:
+   - Organization/WebSite schema on homepage
+   - BreadcrumbList on interior pages
+   - Product schema on product pages
+   - Article schema on blog posts
+   - FAQ schema where applicable
+   Generate missing JSON-LD scripts for each page type.
+
+5. **Performance SEO** — Check technical SEO factors:
+   - \`robots.txt\` exists and is correct
+   - \`sitemap.xml\` is generated (Next.js \`sitemap.ts\`)
+   - Images have \`alt\` text (also an accessibility issue)
+   - Internal links use \`<Link>\` component (not \`<a>\`)
+   - No orphan pages (every page reachable from navigation)
+
+6. **Internationalization** — If multi-language:
+   - \`hreflang\` tags for each language variant
+   - \`<html lang="...">\` attribute set correctly
+   - Localized meta descriptions per language
+
+For each issue: file, line, SEO impact (High/Medium/Low), and specific fix with code snippet.`
+        },
+        {
+            id: "s19", name: "User Flow Auditor",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 5H1v7h12V5z"/><path d="M23 12h-12v7h12v-7z"/><path d="M7 12v2"/><path d="M17 5v-2"/><path d="M7 16l10-11"/></svg>`,
+            desc: "Audits task completion paths, dead ends, friction points, happy/unhappy paths, and drop-off risks across user journeys",
+            tags: ["Flows", "Journeys", "Friction", "Drop-off"],
+            color: "from-purple-600 to-violet-400",
+            prompt: `You are a User Flow Auditor. Audit this codebase for user flow quality, identifying friction points and dead ends that prevent task completion.
+
+Review these 6 dimensions:
+
+1. **Happy Path Completeness** — Trace the primary user journey for each key task (signup, purchase, create, etc.):
+   - Can users complete the task end-to-end without confusion?
+   - Are there clear success states and confirmation screens?
+   - Flag flows that end abruptly or lack feedback on completion
+   - Verify each step has a clear next action
+
+2. **Unhappy Path Handling** — Check what happens when things go wrong:
+   - Back button behavior — does it preserve state or reset forms?
+   - Browser refresh — is progress lost?
+   - Invalid input mid-flow — does the user have to restart?
+   - Permission denied / 403 — is there a helpful redirect?
+   - Flag flows with no error recovery strategy
+
+3. **Dead End Detection** — Identify pages/states with no way forward:
+   - Empty states without CTAs (empty cart, no results, no data)
+   - Success screens with no next step suggestion
+   - 404 pages without navigation back to content
+   - Modals that trap focus with no close mechanism
+   - Flag any screen where the user has zero actionable options
+
+4. **Friction Point Analysis** — Identify unnecessary steps or cognitive load:
+   - Multi-step flows that could be simplified (too many form pages)
+   - Required fields that could be optional or deferred
+   - Redundant confirmation dialogs that slow users down
+   - Forced account creation before value delivery
+   - Flag any step that doesn't directly serve the user's goal
+
+5. **Drop-off Risk Assessment** — Identify where users are likely to abandon:
+   - Long forms without progress indicators
+   - Pages requiring information users may not have handy
+   - Steps with external dependencies (email verification mid-flow)
+   - Price/cost reveals late in funnel
+   - Flag high-risk drop-off points and suggest mitigation
+
+6. **Cross-flow Consistency** — Check that parallel flows behave consistently:
+   - Similar tasks should have similar step counts and patterns
+   - Navigation patterns should be predictable across flows
+   - Error handling should be uniform
+   - Flag inconsistencies between similar user journeys
+
+For each issue found, report:
+- File and line number
+- Flow name and step where issue occurs
+- Severity (Critical / Warning / Suggestion)
+- User impact description
+- Specific fix recommendation
+
+Focus on Next.js + React codebases. Trace routes, form handlers, redirects, and conditional rendering logic.`
+        },
+        {
+            id: "s20", name: "Onboarding Experience Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+            desc: "Reviews first-run UX, activation funnels, progressive disclosure, empty-to-full states, and time-to-value optimization",
+            tags: ["Onboarding", "Activation", "First-run", "Time-to-value"],
+            color: "from-sky-500 to-cyan-300",
+            prompt: `You are an Onboarding Experience Reviewer. Audit this codebase for first-run user experience quality and activation funnel effectiveness.
+
+Review these 6 dimensions:
+
+1. **Time-to-Value** — How quickly does a new user experience the product's core value?
+   - Count the steps between landing and first meaningful interaction
+   - Flag signup forms that ask for unnecessary information upfront
+   - Check if users can experience value before creating an account
+   - Identify opportunities for "try before you buy" patterns
+   - Flag any flow where value delivery takes more than 3 steps
+
+2. **Progressive Disclosure** — Is complexity revealed gradually?
+   - Check that advanced features are hidden from new users
+   - Verify settings/preferences aren't overwhelming on first visit
+   - Flag interfaces that show all options at once instead of guiding
+   - Check for contextual help that appears when features are first encountered
+   - Verify tooltips, coaches, and hints are used appropriately
+
+3. **Empty-to-Full State Transitions** — What do new users see before they have data?
+   - Check every list/table/dashboard for empty state handling
+   - Empty states should have: illustration/icon, helpful message, primary CTA
+   - Flag empty states that just show "No data" or blank space
+   - Verify sample/demo data is available where appropriate
+   - Check that empty states guide users toward populating the interface
+
+4. **Activation Funnel** — Are key activation milestones defined and guided?
+   - Identify the "aha moment" — the action that converts visitors to users
+   - Check if there's a setup checklist or progress indicator
+   - Flag flows where users can get stuck between signup and activation
+   - Verify email verification doesn't block core functionality
+   - Check for re-engagement hooks if users drop off mid-setup
+
+5. **Contextual Guidance** — Is help available where users need it?
+   - Check for inline hints on complex form fields
+   - Verify error messages explain how to fix the issue, not just what went wrong
+   - Flag technical jargon in user-facing copy
+   - Check for a help/FAQ accessible from within flows
+   - Verify keyboard shortcuts are discoverable (not just documented)
+
+6. **Personalization & Segmentation** — Does onboarding adapt to user type?
+   - Check if onboarding asks about user role/goals
+   - Verify the experience differs based on user type (admin vs. member)
+   - Flag one-size-fits-all onboarding for products with diverse user types
+   - Check if returning users see a different experience than new users
+
+For each issue found, report:
+- File and line number
+- Onboarding step where issue occurs
+- Severity (Critical / Warning / Suggestion)
+- Impact on activation rate
+- Specific fix recommendation with code example
+
+Focus on Next.js + React codebases. Check route guards, conditional rendering, localStorage/cookie checks for first-visit detection, and onboarding component logic.`
+        },
+        {
+            id: "s21", name: "Navigation & IA Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/><circle cx="17" cy="12" r="2"/></svg>`,
+            desc: "Audits information architecture, nav patterns, breadcrumbs, wayfinding, menu depth, and search discoverability",
+            tags: ["Navigation", "IA", "Wayfinding", "Breadcrumbs"],
+            color: "from-indigo-600 to-purple-400",
+            prompt: `You are a Navigation & Information Architecture Reviewer. Audit this codebase for navigation quality and information architecture effectiveness.
+
+Review these 6 dimensions:
+
+1. **Navigation Structure** — Is the nav hierarchy logical and shallow?
+   - Check that primary navigation has 5-7 items maximum
+   - Flag navigation deeper than 3 levels (users get lost beyond this)
+   - Verify mobile navigation is accessible and not hidden behind obscure icons
+   - Check that the current page/section is clearly indicated in nav
+   - Flag hamburger menus on desktop (anti-pattern for >3 items)
+
+2. **Wayfinding & Location Awareness** — Can users always tell where they are?
+   - Check for breadcrumbs on pages deeper than 2 levels
+   - Verify active nav states are visually distinct (not just color change)
+   - Flag pages with no indication of current location in the app
+   - Check that page titles match navigation labels
+   - Verify URL structure mirrors the navigation hierarchy
+
+3. **Search Discoverability** — Can users find things through search?
+   - Check if search is globally accessible (visible on every page)
+   - Flag search inputs hidden in dropdowns or secondary menus
+   - Verify search has autocomplete/suggestions for common queries
+   - Check that search results show relevant context (not just titles)
+   - Flag apps with >20 pages but no search functionality
+
+4. **Menu Patterns & Consistency** — Are navigation patterns consistent?
+   - Check that similar pages use the same navigation pattern
+   - Flag mixed navigation paradigms (tabs + sidebar + breadcrumbs inconsistently)
+   - Verify dropdown menus are keyboard accessible
+   - Check that navigation order follows user mental models (most used first)
+   - Flag navigation items that change position or disappear between pages
+
+5. **Cross-linking & Related Content** — Are related items connected?
+   - Check for "related items" or "see also" links on detail pages
+   - Flag orphan pages only reachable via direct URL
+   - Verify that success/completion screens link to relevant next actions
+   - Check that error pages provide useful navigation options
+   - Flag content silos where users can't easily move between related sections
+
+6. **Responsive Navigation** — Does nav adapt well to all screen sizes?
+   - Verify mobile nav is a proper drawer/sheet, not a squished desktop nav
+   - Check that touch targets are at least 44x44px on mobile
+   - Flag horizontal scrolling navigation without scroll indicators
+   - Verify bottom nav (if used) has 3-5 items max
+   - Check that navigation transitions are smooth (no layout shift)
+
+For each issue found, report:
+- File and line number
+- Navigation component/pattern affected
+- Severity (Critical / Warning / Suggestion)
+- User impact (confusion, dead end, extra clicks)
+- Specific fix with Tailwind classes and component structure
+
+Focus on Next.js + React codebases. Check layout components, nav bars, sidebars, breadcrumbs, Link components, and route structures.`
+        },
+        {
+            id: "s22", name: "UX Microcopy Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z"/></svg>`,
+            desc: "Reviews button labels, error messages, tooltips, empty states, confirmation dialogs, and tone of voice for clarity",
+            tags: ["Microcopy", "UX Writing", "Tone", "Clarity"],
+            color: "from-rose-500 to-pink-400",
+            prompt: `You are a UX Microcopy Reviewer. Audit this codebase for the quality and clarity of all user-facing text — buttons, labels, errors, tooltips, and empty states.
+
+Review these 6 dimensions:
+
+1. **Button & Action Labels** — Are CTAs clear and action-oriented?
+   - Buttons should use verbs: "Save changes" not "OK", "Delete account" not "Yes"
+   - Flag generic labels: "Submit", "OK", "Cancel", "Click here", "Go"
+   - Primary actions should be specific: "Create project" not "Create"
+   - Destructive actions should state the consequence: "Delete 3 files" not "Delete"
+   - Flag buttons where the label doesn't match what actually happens
+
+2. **Error Messages** — Are errors helpful, not hostile?
+   - Error messages should explain what went wrong AND how to fix it
+   - Flag technical errors shown to users: "Error 500", "null reference", "ECONNREFUSED"
+   - Check validation messages: "Invalid email" should be "Enter a valid email like name@example.com"
+   - Flag error messages that blame the user: "You entered wrong..." should be "This field needs..."
+   - Verify error messages appear next to the relevant field, not just at the top
+
+3. **Empty States & Zero Data** — Is the absence of data handled with personality and guidance?
+   - Check every empty list/table/search result for copy quality
+   - Empty states should answer: What is this? Why is it empty? What should I do?
+   - Flag generic "No results found" without suggestions
+   - Verify empty search results suggest alternative queries
+   - Check that empty states match the tone of the product
+
+4. **Confirmation Dialogs** — Are destructive actions confirmed clearly?
+   - Confirmation should state the action AND its consequences
+   - Flag "Are you sure?" dialogs without context
+   - Verify the confirm button repeats the action: "Delete project" not "OK"
+   - Check that cancel is visually de-emphasized vs. the destructive action
+   - Flag dialogs for non-destructive actions (unnecessary friction)
+
+5. **Tooltips & Helper Text** — Is contextual help actually helpful?
+   - Check that tooltips explain WHY, not just repeat the label
+   - Flag missing tooltips on icon-only buttons
+   - Verify helper text under form fields is concise and actionable
+   - Flag placeholder text used as labels (disappears on focus)
+   - Check that technical terms have explanatory tooltips
+
+6. **Tone Consistency** — Is the voice consistent across the product?
+   - Check for consistent formality level (casual vs. formal throughout)
+   - Flag inconsistent pronoun usage (mixing "you/your" with "the user")
+   - Verify success messages are positive but not over-the-top
+   - Check loading states have appropriate copy (not just spinners)
+   - Flag inconsistent capitalization (Title Case vs. Sentence case)
+
+For each issue found, report:
+- File and line number
+- Current copy (quoted)
+- Suggested replacement copy
+- Severity (Critical / Warning / Suggestion)
+- Reasoning for the change
+
+Focus on Next.js + React codebases. Check JSX string literals, translation files, error boundaries, toast notifications, and form validation messages.`
+        },
+        {
+            id: "s23", name: "Conversion & CTA Optimizer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+            desc: "Optimizes CTA placement, friction reduction, trust signals, social proof, pricing page patterns, and funnel analysis",
+            tags: ["Conversion", "CTA", "Funnel", "Trust"],
+            color: "from-emerald-600 to-teal-400",
+            prompt: `You are a Conversion & CTA Optimizer. Audit this codebase for conversion rate optimization, identifying missed opportunities and friction in the conversion funnel.
+
+Review these 6 dimensions:
+
+1. **CTA Placement & Hierarchy** — Are calls-to-action visible and compelling?
+   - Check that primary CTAs are above the fold on key pages
+   - Flag pages with competing CTAs of equal visual weight
+   - Verify CTA buttons use contrasting colors that stand out from the page
+   - Check that CTAs repeat at logical intervals on long pages
+   - Flag pages with no clear primary action (what should the user do here?)
+
+2. **Friction Reduction** — Remove unnecessary barriers to conversion:
+   - Flag required fields that aren't actually needed for the action
+   - Check that forms use smart defaults and autofill where possible
+   - Verify guest checkout is available (don't force account creation)
+   - Flag multi-step processes that could be single-step
+   - Check that social login / SSO is available to reduce signup friction
+
+3. **Trust Signals** — Are credibility indicators present where decisions happen?
+   - Check for trust badges near payment forms (SSL, payment provider logos)
+   - Flag pricing pages without money-back guarantees or free trial mentions
+   - Verify testimonials/reviews appear on decision-making pages
+   - Check for security indicators during sensitive operations
+   - Flag "Sign up" pages with no value proposition or social proof
+
+4. **Social Proof** — Is evidence of others' behavior visible?
+   - Check for user counts, testimonials, or logos on landing pages
+   - Flag signup/pricing pages with zero social proof
+   - Verify reviews/ratings are displayed on product/listing pages
+   - Check for "popular" or "recommended" badges on pricing tiers
+   - Flag social proof that's generic or unverifiable
+
+5. **Pricing Page Patterns** — Is pricing presented for conversion?
+   - Check that the recommended tier is visually highlighted
+   - Verify feature comparison is clear and scannable
+   - Flag pricing without annual/monthly toggle (leaving money on the table)
+   - Check for a free tier or trial to reduce commitment anxiety
+   - Verify pricing answers "What happens after the trial?" clearly
+
+6. **Funnel Analysis** — Trace the conversion funnel for leaks:
+   - Map the path from landing page to conversion (signup/purchase/subscribe)
+   - Count clicks required — flag funnels >4 steps
+   - Check that each step has clear progress indication
+   - Flag steps that navigate away from the funnel (external links, unnecessary pages)
+   - Verify abandoned funnel recovery (saved form state, reminder emails)
+
+For each issue found, report:
+- File and line number
+- Funnel stage affected
+- Severity (Critical / Warning / Suggestion)
+- Estimated impact on conversion
+- Specific fix with Tailwind classes and component changes
+
+Focus on Next.js + React codebases. Check landing pages, pricing components, signup flows, checkout processes, and CTA components.`
+        },
+        {
+            id: "s24", name: "Error & Edge Case Auditor",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+            desc: "Audits boundary conditions, network failures, empty/null states, timeout handling, graceful degradation, and offline mode",
+            tags: ["Errors", "Edge Cases", "Offline", "Resilience"],
+            color: "from-orange-600 to-amber-400",
+            prompt: `You are an Error & Edge Case Auditor. Audit this codebase for robustness in handling errors, boundary conditions, and edge cases that real users will encounter.
+
+Review these 6 dimensions:
+
+1. **Network Failure Handling** — What happens when API calls fail?
+   - Check every fetch/axios call for error handling (try/catch, .catch())
+   - Flag API calls with no loading state, no error state, or no retry mechanism
+   - Verify timeout handling — do requests hang forever or timeout gracefully?
+   - Check for offline detection and appropriate messaging
+   - Flag optimistic updates without rollback on failure
+   - Verify that partial failures are handled (some items save, some fail)
+
+2. **Empty & Null State Handling** — What happens with missing data?
+   - Check every data-dependent render for null/undefined guards
+   - Flag optional chaining chains deeper than 3 levels (data?.user?.profile?.avatar)
+   - Verify arrays are checked for length before mapping
+   - Check that missing images have fallback/placeholder
+   - Flag components that crash when passed empty props instead of degrading gracefully
+
+3. **Boundary Conditions** — What happens at the extremes?
+   - Check for max-length handling on text inputs (what happens with 10,000 chars?)
+   - Flag number inputs without min/max constraints
+   - Verify pagination handles: page 0, negative pages, pages beyond total
+   - Check file upload: max size, wrong type, corrupt file
+   - Flag lists/tables that don't handle 0 items, 1 item, or 10,000+ items
+
+4. **Loading & Timeout States** — Is the UI responsive during slow operations?
+   - Check every async operation for a loading indicator
+   - Flag operations >2 seconds without visual feedback
+   - Verify buttons disable during form submission (prevent double-submit)
+   - Check for skeleton screens on initial data loads
+   - Flag infinite spinners with no timeout or cancel option
+
+5. **Graceful Degradation** — Does the app work when features fail?
+   - Check error boundaries around major sections (one crash shouldn't kill the page)
+   - Verify third-party integrations (analytics, chat, maps) fail silently
+   - Flag features that require JavaScript for basic content viewing
+   - Check that CSS fails gracefully (content readable without styles)
+   - Verify service worker doesn't break the app when cache is stale
+
+6. **Concurrency & Race Conditions** — What happens with rapid interactions?
+   - Flag rapid-fire button clicks that trigger duplicate requests
+   - Check for debouncing on search/autocomplete inputs
+   - Verify that navigating away during a save doesn't corrupt data
+   - Flag useEffect cleanup functions that are missing (memory leaks)
+   - Check that stale closures don't show outdated data
+
+For each issue found, report:
+- File and line number
+- Edge case scenario description
+- Severity (Critical / Warning / Suggestion)
+- User impact when this edge case occurs
+- Specific fix with code example
+
+Focus on Next.js + React codebases. Check API routes, data fetching hooks, form handlers, error boundaries, and conditional rendering.`
+        },
+        {
+            id: "s25", name: "Auth & Security UX Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1"/></svg>`,
+            desc: "Reviews login/signup flows, password UX, 2FA, social login, session expiry, OAuth, and trust indicators",
+            tags: ["Auth", "Security", "Login", "OAuth"],
+            color: "from-gray-600 to-slate-400",
+            prompt: `You are an Auth & Security UX Reviewer. Audit this codebase for authentication and security user experience, ensuring secure flows that don't frustrate users.
+
+Review these 6 dimensions:
+
+1. **Login/Signup Flow** — Is account creation smooth and secure?
+   - Check that signup requires minimal fields (email + password minimum)
+   - Verify password strength indicator is present and real-time
+   - Flag forms that clear all fields on validation error
+   - Check that login error messages don't reveal whether email exists ("Invalid credentials" not "User not found")
+   - Verify email/username field has autocomplete="username" and password has autocomplete="current-password"
+   - Flag signup flows without email verification
+
+2. **Password UX** — Does password handling respect modern best practices?
+   - Check for a show/hide password toggle on all password fields
+   - Flag password rules that are overly restrictive or shown only after error
+   - Verify password requirements are displayed before user starts typing
+   - Check that paste is allowed in password fields (don't disable it)
+   - Verify forgot-password flow is accessible from login page (not hidden)
+   - Flag password confirmation fields (unnecessary friction — show/hide toggle is sufficient)
+
+3. **Social Login & SSO** — Are third-party auth options well-implemented?
+   - Check that social login buttons are visually prominent on login page
+   - Verify OAuth redirect returns to the original intended page (not homepage)
+   - Flag social login that creates a separate account vs. linking to existing
+   - Check for proper error handling when OAuth provider is unavailable
+   - Verify social login buttons follow provider brand guidelines
+
+4. **Session Management** — Is session handling transparent and user-friendly?
+   - Check for session timeout warnings before auto-logout
+   - Flag instant logouts without saved state (user loses form progress)
+   - Verify "Remember me" option is available and functional
+   - Check that expired sessions redirect to login with return-to URL
+   - Flag session conflicts (logged in on multiple devices) without user notification
+
+5. **Two-Factor Authentication (2FA)** — If implemented, is it user-friendly?
+   - Check that 2FA setup includes QR code AND manual key option
+   - Verify backup codes are generated and displayed clearly
+   - Flag 2FA that blocks access with no recovery path
+   - Check that 2FA remembers trusted devices
+   - Verify SMS fallback is available alongside authenticator app
+
+6. **Trust & Security Indicators** — Does the UI communicate security to users?
+   - Check for HTTPS indicators on sensitive forms
+   - Verify that payment/sensitive data forms feel visually secure (lock icons, badges)
+   - Flag forms that submit sensitive data without visual security cues
+   - Check that third-party privacy policies are linked during signup
+   - Verify data deletion / account deletion is accessible and clear
+
+For each issue found, report:
+- File and line number
+- Auth flow step affected
+- Severity (Critical / Warning / Suggestion)
+- Security risk or UX impact
+- Specific fix recommendation with code example
+
+Focus on Next.js + React codebases. Check auth pages, middleware, session management, OAuth callbacks, and form components.`
+        },
+        {
+            id: "s26", name: "Notification & Feedback Designer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>`,
+            desc: "Designs toast notifications, alert banners, badge systems, push notification copy, email triggers, and real-time updates",
+            tags: ["Notifications", "Toasts", "Alerts", "Badges"],
+            color: "from-cyan-600 to-blue-400",
+            prompt: `You are a Notification & Feedback Designer. Audit this codebase for the quality and consistency of user notifications, system feedback, and real-time communication patterns.
+
+Review these 6 dimensions:
+
+1. **Toast & Snackbar Notifications** — Are transient messages used correctly?
+   - Check that success toasts auto-dismiss (3-5 seconds) and error toasts persist
+   - Flag toasts that stack or overlap (should queue or replace)
+   - Verify toasts include an undo option for destructive actions
+   - Check that toast position is consistent (top-right or bottom-center, not mixed)
+   - Flag toasts used for critical information (should be inline or modal instead)
+   - Verify toasts don't cover important UI elements
+
+2. **Alert Banners & Inline Messages** — Are persistent messages clear and actionable?
+   - Check that alert types are visually distinct (info=blue, success=green, warning=amber, error=red)
+   - Flag alerts without a dismiss option (unless truly critical)
+   - Verify alert copy includes a CTA or next step
+   - Check that banners don't push content down repeatedly (layout shift)
+   - Flag alerts that use the wrong severity (info styled as error, etc.)
+
+3. **Badge & Counter Systems** — Are notification indicators well-implemented?
+   - Check that badge counts update in real-time
+   - Flag badges showing exact counts >99 (should show "99+")
+   - Verify badges disappear after user views the content
+   - Check for badge hierarchy (unread vs. new vs. action required)
+   - Flag badge fatigue — too many red dots competing for attention
+
+4. **Loading & Progress Feedback** — Does the UI communicate ongoing processes?
+   - Check that every user action has immediate visual feedback (<100ms)
+   - Flag buttons without loading/disabled state during async operations
+   - Verify long operations (>3 seconds) show progress bars, not just spinners
+   - Check that background processes (file upload, sync) show progress
+   - Flag processes that complete silently without success confirmation
+
+5. **Email & Push Notifications** — Are triggered communications well-designed?
+   - Check that email templates match the app's visual identity
+   - Flag notification triggers without user opt-in or preference management
+   - Verify push notification copy is concise and actionable
+   - Check that notifications deep-link to the relevant screen (not homepage)
+   - Flag notification fatigue — too many triggers or no frequency capping
+
+6. **Real-time Updates** — Are live changes communicated clearly?
+   - Check that real-time data changes are visually highlighted (pulse, flash)
+   - Flag data that updates without any visual indication
+   - Verify WebSocket/SSE disconnection is handled with a reconnecting message
+   - Check that concurrent editing shows presence indicators
+   - Flag real-time updates that cause layout shifts or scroll jumps
+
+For each issue found, report:
+- File and line number
+- Notification type and trigger context
+- Severity (Critical / Warning / Suggestion)
+- User impact
+- Specific fix with Tailwind classes and component structure
+
+Focus on Next.js + React codebases. Check toast libraries, alert components, badge components, WebSocket handlers, and notification preference systems.`
+        },
+        {
+            id: "s27", name: "Internationalization Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>`,
+            desc: "Reviews RTL layout support, date/number/currency formats, string externalization, locale handling, and pluralization",
+            tags: ["i18n", "RTL", "Locale", "Pluralization"],
+            color: "from-pink-600 to-purple-400",
+            prompt: `You are an Internationalization (i18n) Reviewer. Audit this codebase for internationalization readiness, identifying hardcoded strings, locale issues, and layout problems that prevent global scaling.
+
+Review these 6 dimensions:
+
+1. **String Externalization** — Are all user-facing strings translation-ready?
+   - Flag hardcoded strings in JSX (text not wrapped in t() or <Trans>)
+   - Check that string keys are descriptive: "auth.login.submit" not "str_42"
+   - Flag string concatenation for sentences (breaks in other languages)
+   - Verify ICU message format for plurals and variables
+   - Check that alt text, aria-labels, and title attributes are also externalized
+   - Flag template literals with embedded user-facing text
+
+2. **RTL Layout Support** — Does the layout work in right-to-left languages?
+   - Check that layout uses logical properties: \\\`ms-4\\\` not \\\`ml-4\\\`, \\\`ps-3\\\` not \\\`pl-3\\\`
+   - Flag absolute positioning that assumes LTR (left: 0 should be inset-inline-start)
+   - Verify icons that imply direction (arrows, back buttons) flip in RTL
+   - Check that text alignment uses \\\`text-start\\\`/\\\`text-end\\\` not \\\`text-left\\\`/\\\`text-right\\\`
+   - Flag CSS transforms or animations that assume LTR direction
+   - Verify \\\`dir="rtl"\\\` is set on <html> when locale requires it
+
+3. **Date, Number & Currency Formatting** — Are formats locale-aware?
+   - Flag hardcoded date formats ("MM/DD/YYYY" is US-only)
+   - Check that dates use \\\`Intl.DateTimeFormat\\\` or a locale-aware library
+   - Verify numbers use \\\`Intl.NumberFormat\\\` (commas vs. periods vary by locale)
+   - Check that currency display includes the symbol AND locale-correct positioning
+   - Flag hardcoded currency symbols ($ could be USD, CAD, AUD, etc.)
+   - Verify time zones are handled (not assuming UTC or local)
+
+4. **Pluralization & Grammar** — Do dynamic strings handle linguistic rules?
+   - Check for proper plural handling: \\\`{count, plural, one {# item} other {# items}}\\\`
+   - Flag naive pluralization: \\\`count + " item" + (count !== 1 ? "s" : "")\\\`
+   - Verify gender-neutral language or gender-aware translations where needed
+   - Check that word order in dynamic strings is flexible (not all languages are SVO)
+   - Flag strings that assume English grammar structures
+
+5. **Locale Management** — Is locale switching well-implemented?
+   - Check for language/locale selector in the UI
+   - Verify locale persists across sessions (cookie/localStorage)
+   - Flag full page reloads on locale change (should be client-side)
+   - Check that locale is reflected in URL (e.g., /en/about, /ja/about)
+   - Verify fallback locale chain (fr-CA then fr then en)
+   - Check that \\\`<html lang="...">\\\` updates when locale changes
+
+6. **Content & Layout Flexibility** — Does the UI accommodate text expansion?
+   - German text is ~30% longer than English — check that containers don't overflow
+   - Flag fixed-width containers for dynamic text (buttons, labels, nav items)
+   - Verify that truncation with ellipsis is used where space is truly limited
+   - Check that fonts support the target character sets (CJK, Arabic, Cyrillic)
+   - Flag images with embedded text (can't be translated)
+   - Verify responsive design accounts for text expansion at all breakpoints
+
+For each issue found, report:
+- File and line number
+- i18n dimension violated
+- Severity (Critical / Warning / Suggestion)
+- Languages/locales affected
+- Specific fix with code example
+
+Focus on Next.js + React codebases. Check next-intl/react-intl configuration, translation files, locale routing, and component text handling.`
+        },
+        {
+            id: "s28", name: "SaaS SVG Illustration Generator",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/><circle cx="12" cy="12" r="3"/></svg>`,
+            desc: "Generates brand-aligned SVG illustrations for SaaS UIs — monotone, duotone, or complementary palettes with style-matched linework",
+            tags: ["SVG", "Illustration", "Brand", "SaaS"],
+            color: "from-fuchsia-600 to-pink-400",
+            prompt: `You are a SaaS SVG Illustration Generator. Generate inline SVG illustrations for product UIs that seamlessly blend with the product's theme, brand colors, and visual identity.
+
+Before generating, analyze the codebase to determine:
+- **Brand palette** — Extract primary, secondary, and accent colors from Tailwind config, CSS variables, or design tokens
+- **Visual weight** — Match the density and complexity of existing UI elements
+- **Border radius language** — Mirror the product's rounding (sharp, slightly rounded, fully rounded)
+
+Then generate SVG illustrations following these 6 dimensions:
+
+1. **Color Strategy Selection** — Choose the palette approach that best fits the context:
+   - **Monotone** — Single brand color at varying opacities (10%, 20%, 40%, 100%). Best for: subtle backgrounds, empty states, onboarding hints. Use when the surrounding UI is already colorful.
+   - **Duotone** — Primary + secondary brand color. Best for: hero sections, feature highlights, marketing pages. Creates visual interest without clashing.
+   - **Complementary** — Brand color + its complement on the color wheel. Best for: CTAs, attention-grabbing spots, upgrade prompts. Use sparingly for maximum impact.
+   - **Analogous range** — 2-3 adjacent hues from the brand's neighborhood. Best for: dashboards, data viz decorations, gradual storytelling. Feels harmonious and calm.
+   - Always reference the product's actual CSS variables or Tailwind colors — never use arbitrary hex values.
+   - Output the chosen strategy and reasoning in a comment above the SVG.
+
+2. **Illustration Style Selection** — Match the product's visual language:
+   - **Clean vector / geometric** — Precise lines, consistent stroke width (1.5-2px), mathematical shapes. Best for: enterprise SaaS, fintech, developer tools. Feels professional and trustworthy.
+   - **Organic hand-drawn / sketch** — Slightly irregular paths, varied stroke width (1-3px), imperfect curves, optional pencil texture. Best for: creative tools, education, wellness apps. Feels approachable and human.
+   - **Flat minimal** — No strokes, filled shapes only, sharp or subtly rounded edges. Best for: modern consumer SaaS, productivity apps. Feels lightweight and fast.
+   - **3D isometric** — 30° isometric projection, consistent depth, subtle shadows. Best for: infrastructure, DevOps, architecture diagrams. Feels technical and spatial.
+   - **Outlined / line art** — Stroke-only, no fills (or minimal accent fills), consistent weight. Best for: documentation, settings pages, secondary illustrations. Feels clean and unobtrusive.
+   - Analyze the product's existing icons, buttons, and UI chrome to determine which style is the best fit. State your reasoning.
+
+3. **Stroke & Weight Calibration** — Ensure visual consistency:
+   - Match stroke width to the product's icon system (check existing SVG icons in the codebase)
+   - If product uses 1.5px stroke icons, illustration strokes should be 1.5-2px (not 4px)
+   - Line caps and joins should match (round vs. square vs. butt)
+   - For hand-drawn style: use \`stroke-linecap="round"\` and add subtle path variations
+   - For geometric style: use \`stroke-linejoin="round"\` or \`miter\` consistently
+   - Ensure the illustration doesn't visually overpower surrounding UI text and components
+
+4. **SVG Structure & Quality** — Generate production-ready SVGs:
+   - Use \`viewBox\` (never fixed width/height) for responsive scaling
+   - Group related elements with \`<g>\` and meaningful IDs
+   - Use \`currentColor\` for strokes/fills that should inherit text color (dark mode support)
+   - Reference CSS variables for brand colors: \`fill="var(--color-primary)"\` or Tailwind's theme colors
+   - Optimize paths — no unnecessary decimal places, no redundant points
+   - Include \`aria-hidden="true"\` for decorative illustrations or \`role="img"\` with \`<title>\` for meaningful ones
+   - Keep file size small: aim for <5KB per illustration
+
+5. **Context-Specific Illustration Types** — Generate the right illustration for the use case:
+   - **Empty states** — Friendly, simple, conveys "nothing here yet" with a subtle CTA suggestion. 80-120px recommended size.
+   - **Onboarding / feature tours** — Step-by-step visuals, slightly more detailed, numbered or sequential. 150-200px.
+   - **Error pages (404, 500)** — Lighthearted but not dismissive, brand-consistent. 200-300px.
+   - **Hero / marketing** — High-impact, can be more complex, supports the headline message. 300-500px.
+   - **Spot illustrations** — Small accent graphics next to text, very simple, 40-60px. Think: checkmarks, arrows, decorative dots.
+   - **Dashboard decorations** — Subtle background patterns or section dividers. Use very low opacity (5-15%).
+
+6. **Dark Mode & Theme Adaptation** — Ensure illustrations work across themes:
+   - Use CSS variables or \`currentColor\` so illustrations auto-adapt to dark/light mode
+   - Avoid pure white (#fff) fills — use \`var(--bg-surface)\` or similar tokens
+   - Test contrast: illustrations should be visible but not glaring in both modes
+   - For opacity-based illustrations, adjust opacity values for dark mode (dark backgrounds need higher opacity fills)
+   - Provide both light and dark variants if CSS variables aren't available
+
+For each illustration generated, provide:
+- The complete inline SVG code (ready to paste into JSX)
+- Color strategy used and why
+- Style choice and reasoning
+- Recommended placement and sizing
+- Dark mode compatibility notes
+- Any CSS variables or Tailwind classes the SVG depends on
+
+Focus on Next.js + React + Tailwind CSS codebases. Check tailwind.config for theme colors, globals.css for CSS variables, and existing SVG usage patterns in the codebase.`
         }
     ];
 
-    // Render design skills
+    // Render design skills in product lifecycle order
     const skillsGrid = document.getElementById('skills-grid');
-    designSkills.forEach(s => {
-        skillsGrid.innerHTML += skillCard(s);
+    const skillOrder = ['s19','s21','s20','s1','s2','s11','s3','s5','s4','s28','s6','s7','s13','s14','s15','s26','s22','s8','s23','s24','s25','s10','s12','s17','s16','s18','s9','s27'];
+    skillOrder.forEach(id => {
+        const s = designSkills.find(x => x.id === id);
+        if (s) skillsGrid.innerHTML += skillCard(s);
     });
 
     function skillCard(s) {
-        return `<div class="card-hover rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden">
+        return `<div class="card-hover rounded-xl border overflow-hidden">
             <div class="h-2 bg-gradient-to-r ${s.color}"></div>
             <div class="p-5">
                 <div class="flex items-start justify-between mb-3">
                     <div class="w-11 h-11 rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center text-white shrink-0">
                         ${s.icon}
                     </div>
-                    <button onclick="openModal('${s.id}')" class="text-xs text-green-400 hover:text-green-300 font-medium flex items-center gap-1 cursor-pointer mt-1" title="Copy prompt">
+                    <button onclick="openModal('${s.id}')" class="text-xs text-green-600 dark:text-green-400 hover:opacity-80 font-medium flex items-center gap-1 cursor-pointer mt-1" title="Copy prompt">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                         Copy Prompt
                     </button>
                 </div>
                 <h3 class="font-semibold text-base mb-2">${s.name}</h3>
-                <p class="text-gray-400 text-sm mb-3 leading-relaxed">${s.desc}</p>
+                <p class="theme-text-secondary text-sm mb-3 leading-relaxed">${s.desc}</p>
                 <div class="flex flex-wrap gap-1.5">
-                    ${s.tags.map(t => `<span class="text-xs px-2 py-0.5 rounded-full bg-gray-800 text-gray-400 border border-gray-700">${t}</span>`).join('')}
+                    ${s.tags.map(t => `<span class="text-xs px-2 py-0.5 rounded-full border" style="background:var(--bg-tag); border-color:var(--tag-border); color:var(--tag-text)">${t}</span>`).join('')}
                 </div>
             </div>
         </div>`;
@@ -1857,6 +2918,13 @@ For each issue: file, line, severity, and specific fix with fallback code.`
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') closeModal();
     });
+
+    // Theme toggle
+    function toggleTheme() {
+        const html = document.documentElement;
+        const isDark = html.classList.toggle('dark');
+        localStorage.setItem('vibe-theme', isDark ? 'dark' : 'light');
+    }
     </script>
 </body>
 </html>
