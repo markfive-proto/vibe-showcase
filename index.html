@@ -70,7 +70,8 @@
                 <div class="text-right">
                     <div class="text-gray-500 text-sm">
                         <span class="text-green-400 font-semibold text-2xl">22</span> mobile apps &nbsp;&middot;&nbsp;
-                        <span class="text-blue-400 font-semibold text-2xl">38</span> web apps
+                        <span class="text-blue-400 font-semibold text-2xl">38</span> web apps &nbsp;&middot;&nbsp;
+                        <span class="text-amber-400 font-semibold text-2xl">9</span> design skills
                     </div>
                 </div>
             </div>
@@ -87,6 +88,10 @@
             <a href="#web" class="text-blue-400 font-semibold flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                 Web Apps & Dashboards (38)
+            </a>
+            <a href="#skills" class="text-amber-400 font-semibold flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                Design Skills (9)
             </a>
         </div>
     </nav>
@@ -119,12 +124,26 @@
             </div>
         </section>
 
+        <div class="border-t border-gray-800 my-4"></div>
+
+        <!-- ===================== DESIGN SKILLS ===================== -->
+        <section id="skills" class="pt-10 pb-6">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-1 h-8 bg-amber-400 rounded-full"></div>
+                <h2 class="text-3xl font-bold">Design Skills</h2>
+            </div>
+            <p class="text-gray-400 mb-8 ml-5">9 AI-powered design review skills to elevate vibe-coded projects to production quality</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="skills-grid">
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
     <footer class="border-t border-gray-800 mt-12">
         <div class="max-w-7xl mx-auto px-6 py-8 text-center text-gray-500 text-sm">
-            <p>60 self-contained HTML products built with Tailwind CSS. Click "Copy Prompt" on any card to get the exact prompt to build your own version.</p>
+            <p>60 product UIs + 9 design skills. Click "Copy Prompt" on any card to get started.</p>
         </div>
     </footer>
 
@@ -1547,16 +1566,271 @@ Make it feel like a WeWork or Regus booking interface. Use realistic coworking s
         </div>`;
     }
 
+    // ========== DESIGN SKILLS DATA ==========
+    const designSkills = [
+        {
+            id: "s1", name: "Layout Composition Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
+            desc: "Audits spatial structure, grid alignment, whitespace intent, density zones, and responsive breakpoints",
+            tags: ["Grid", "Spacing", "Responsive", "Whitespace"],
+            color: "from-blue-600 to-cyan-500",
+            prompt: `You are a Layout Composition Reviewer. Audit the UI layout of this codebase for spatial structure and composition quality.
+
+Review these 5 dimensions:
+1. **Column Grid Alignment** — Are elements snapping to a consistent grid system? Flag orphan widths, inconsistent gaps, or mixed grid strategies.
+2. **Whitespace Intent** — Is spacing purposeful? Check for trapped whitespace, uneven padding, and inconsistent section spacing.
+3. **Alignment Axes** — Are elements aligned on clear vertical/horizontal axes? Flag elements that break alignment without reason.
+4. **Density Zones** — Is content density appropriate? Flag areas that are too cramped or too sparse relative to their surroundings.
+5. **Responsive Breakpoints** — Do layouts gracefully adapt? Flag components that break, overflow, or become unusable at common breakpoints (640, 768, 1024, 1280px).
+
+For each issue found, report:
+- File and line number
+- Which dimension is violated
+- Severity (Critical / Warning / Suggestion)
+- Specific fix recommendation with Tailwind classes
+
+Focus on Next.js + Tailwind CSS codebases. Check page layouts, component compositions, and nested containers.`
+        },
+        {
+            id: "s2", name: "Typography System Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>`,
+            desc: "Audits type scale ratio, font size consistency, line-height, measure, font weight logic, and mobile readability",
+            tags: ["Typography", "Scale", "Readability", "Font"],
+            color: "from-rose-600 to-pink-500",
+            prompt: `You are a Typography System Reviewer. Audit the typography system of this codebase for consistency and readability.
+
+Review these 5 dimensions:
+1. **Type Scale Ratio** — Is there a consistent mathematical ratio between font sizes (e.g., 1.25 Major Third)? Flag arbitrary font sizes that don't follow a scale.
+2. **Font Size Count Per View** — Count unique font sizes per page/view. Flag views with more than 5-6 distinct sizes (too many = visual noise).
+3. **Line-Height & Measure** — Check that body text has line-height 1.5-1.75 and measure (line length) of 45-75 characters. Flag violations.
+4. **Font Weight Logic** — Are font weights used semantically? (Bold for emphasis, semibold for headings, regular for body). Flag decorative weight usage.
+5. **Mobile Text Breaking** — Does text wrap gracefully on mobile? Flag long words, titles that break mid-word, or text that overflows containers.
+
+For each issue, report: file, line, dimension violated, severity, and specific Tailwind fix.
+
+Focus on Tailwind CSS text-* classes, font-* classes, and leading-* classes. Check both components and pages.`
+        },
+        {
+            id: "s3", name: "Design Token Enforcer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>`,
+            desc: "Generates production-ready design token systems: tokens.css, tailwind.config.js extensions, and migration guides",
+            tags: ["Tokens", "CSS Variables", "Migration", "System"],
+            color: "from-amber-600 to-yellow-500",
+            prompt: `You are a Design Token Enforcer. Generate a production-ready design token system from this codebase.
+
+Your workflow:
+1. **Audit** — Scan all components for hardcoded values: colors (hex, rgb, hsl), spacing (px, rem), font sizes, border radii, shadows, and z-indices.
+2. **Normalize** — Group similar values and pick canonical tokens. E.g., if you find #3B82F6, #3b82f6, and blue-500 — normalize to one token.
+3. **Generate tokens.css** — Output CSS custom properties organized by category:
+   - \`--color-primary\`, \`--color-surface\`, \`--color-text-*\`
+   - \`--space-1\` through \`--space-12\`
+   - \`--radius-sm\`, \`--radius-md\`, \`--radius-lg\`
+   - \`--shadow-sm\`, \`--shadow-md\`, \`--shadow-lg\`
+4. **Generate tailwind.config.js extension** — Map tokens to Tailwind theme extensions so \`bg-primary\` uses \`var(--color-primary)\`.
+5. **Generate migration guide** — List every file and line that needs to change from hardcoded values to token references.
+
+Output 3 files: tokens.css, tailwind.config.js additions, and MIGRATION.md with a checklist of changes.`
+        },
+        {
+            id: "s4", name: "Design Consistency Auditor",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>`,
+            desc: "Audits button styles, color usage, spacing values, border radii, and icon sizes for cross-component consistency",
+            tags: ["Audit", "Consistency", "Buttons", "Colors"],
+            color: "from-emerald-600 to-green-500",
+            prompt: `You are a Design Consistency Auditor. Analyze this codebase for visual inconsistencies across components.
+
+Audit these 5 categories:
+1. **Buttons** — Find all button variants. Flag inconsistent padding, font sizes, border radii, or hover states between buttons that should match.
+2. **Colors** — Extract all color values used. Flag: hardcoded hex instead of Tailwind classes, similar-but-not-identical colors (e.g., gray-400 and gray-500 used interchangeably), and colors used only once.
+3. **Spacing** — Check padding and margin values. Flag inconsistent spacing between similar elements (e.g., card padding varies between p-4, p-5, p-6 across cards).
+4. **Border Radius** — Find all rounded-* classes. Flag mixed radius strategies (some cards rounded-lg, others rounded-xl, some rounded-2xl).
+5. **Icon Sizes** — Check SVG/icon dimensions. Flag inconsistent icon sizes within the same context (e.g., nav icons mixing w-4, w-5, w-6).
+
+For each inconsistency:
+- List all variants found with file:line references
+- Recommend which value should be canonical
+- Rate severity: Critical (user-facing inconsistency) / Warning / Nitpick
+
+Output a scored report: consistency score 0-100 per category and overall.`
+        },
+        {
+            id: "s5", name: "UI Hierarchy Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 3h18v6H3zM3 15h8v6H3z"/><path d="M15 15h6v6h-6z"/></svg>`,
+            desc: "Analyzes visual hierarchy: focal points, type scale contrast, color weight, Gestalt proximity, and above-the-fold priority",
+            tags: ["Hierarchy", "Visual Weight", "Focal Point", "Gestalt"],
+            color: "from-indigo-600 to-blue-500",
+            prompt: `You are a UI Hierarchy Reviewer. Analyze the visual hierarchy of this UI to ensure clear scanning paths and visual weight distribution.
+
+Review these 5 dimensions:
+1. **Focal Point** — Does each view have ONE clear primary focal point? Flag pages where everything competes for attention equally (flat hierarchy).
+2. **Type Scale Contrast** — Is there sufficient size contrast between headings and body text? The primary heading should be 2-3x the body text size. Flag insufficient contrast.
+3. **Color Weight** — Are accent/primary colors used sparingly for emphasis? Flag pages where the primary color is used on too many elements, diluting its impact.
+4. **Gestalt Proximity** — Are related elements grouped closely together? Flag elements that are logically related but spatially distant, or unrelated elements that are too close.
+5. **Above-the-Fold Priority** — Is the most important content visible without scrolling? Flag pages where key actions or information are buried below the fold.
+
+For each issue:
+- Describe what's wrong and why it hurts usability
+- Provide a specific fix with Tailwind classes
+- Rate: Critical / Warning / Suggestion`
+        },
+        {
+            id: "s6", name: "Component States Reviewer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>`,
+            desc: "Audits default, hover, active, focus, disabled, loading, error, success, and empty states for all interactive components",
+            tags: ["States", "Hover", "Loading", "Error"],
+            color: "from-orange-600 to-red-500",
+            prompt: `You are a Component States Reviewer. Audit every interactive component for complete state coverage.
+
+Check these 9 states for each interactive component:
+1. **Default** — Base appearance when idle
+2. **Hover** — Visual feedback on mouse hover (cursor, color change, shadow)
+3. **Active/Pressed** — Visual feedback when clicked/tapped
+4. **Focus** — Keyboard focus indicator (accessibility requirement)
+5. **Disabled** — Grayed out, non-interactive appearance with cursor-not-allowed
+6. **Loading** — Spinner, skeleton, or progress indicator during async operations
+7. **Error** — Red border, error message, shake animation for invalid input
+8. **Success** — Green confirmation, checkmark, success message after completion
+9. **Empty** — Meaningful empty state with illustration and call-to-action when no data
+
+For each component, create a coverage matrix:
+| Component | Default | Hover | Active | Focus | Disabled | Loading | Error | Success | Empty |
+|-----------|---------|-------|--------|-------|----------|---------|-------|---------|-------|
+
+Flag any missing states as: Critical (focus, disabled — accessibility), Warning (loading, error), or Suggestion (empty, success).
+
+Generate code snippets for missing states using Tailwind CSS classes.`
+        },
+        {
+            id: "s7", name: "Loading States Generator",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`,
+            desc: "Generates skeleton loaders, error boundaries, empty states, and optimistic UI patterns for React components",
+            tags: ["Skeleton", "Loading", "Error Boundary", "Empty State"],
+            color: "from-cyan-600 to-teal-500",
+            prompt: `You are a Loading States Generator. For each component or page in this codebase, generate the missing loading, error, and empty states.
+
+Generate these 4 patterns for each component that fetches data:
+
+1. **Skeleton Loader** — Create a skeleton version that matches the component's layout:
+   - Use \`animate-pulse\` with \`bg-gray-200 rounded\` blocks matching text/image/button sizes
+   - Match the exact height, width, and spacing of the real component
+   - Show 3-5 skeleton items for lists
+
+2. **Error Boundary** — Create an error state component:
+   - Error icon (alert triangle SVG)
+   - User-friendly error message (not technical jargon)
+   - "Try Again" retry button
+   - Optional "Contact Support" link
+
+3. **Empty State** — Create a meaningful empty state:
+   - Relevant illustration or icon
+   - Helpful message explaining what will appear here
+   - Primary action button to create first item
+   - Example: "No invoices yet. Create your first invoice to get started."
+
+4. **Optimistic UI** — For mutation actions (create, update, delete):
+   - Show the expected result immediately
+   - Add subtle loading indicator (spinner in button)
+   - Roll back on error with toast notification
+
+Generate production-ready React + Tailwind code for each pattern.`
+        },
+        {
+            id: "s8", name: "UX Copywriter (Malaysian)",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`,
+            desc: "Reviews and rewrites UI text for Malaysian markets with Bahasa Malaysia/English bilingual consistency and cultural tone",
+            tags: ["Copywriting", "Malaysian", "Bilingual", "UX Text"],
+            color: "from-pink-600 to-rose-500",
+            prompt: `You are a UX Copywriter specializing in Malaysian markets. Audit and rewrite UI text in this codebase for Malaysian/Southeast Asian users.
+
+Review and improve:
+1. **Button Labels** — Make action buttons clear and culturally appropriate. Prefer "Hantar" over "Submit", "Teruskan" over "Continue" where BM is primary.
+2. **Error Messages** — Rewrite technical errors into friendly, helpful messages. Malaysian users prefer warm, non-confrontational tone.
+3. **Empty States** — Write encouraging empty state messages that motivate action. Use light humor where appropriate (Malaysian style).
+4. **Onboarding Text** — Write welcoming copy that feels local. Reference Malaysian context where relevant.
+5. **Form Labels & Placeholders** — Ensure form fields use familiar Malaysian terminology (e.g., "No. Telefon" not "Phone Number", "Nama Penuh" not "Full Name").
+6. **Bilingual Consistency** — If the UI mixes BM and English, ensure consistent strategy. Don't randomly switch languages mid-flow.
+
+For each text change:
+- Show original text
+- Show rewritten text (with BM translation if applicable)
+- Explain the cultural/UX reasoning
+
+Tone guide: Friendly, respectful, slightly informal (like a helpful neighbor), avoid corporate-speak.`
+        },
+        {
+            id: "s9", name: "WhatsApp WebView Optimizer",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>`,
+            desc: "Optimizes UI for WhatsApp in-app browser: touch targets, thumb zones, viewport handling, CSS compatibility",
+            tags: ["WhatsApp", "WebView", "Mobile", "Touch"],
+            color: "from-green-600 to-emerald-500",
+            prompt: `You are a WhatsApp WebView Optimizer. Audit this UI for compatibility and usability within WhatsApp's in-app browser (WebView).
+
+Check these critical areas:
+1. **Touch Targets** — All interactive elements must be minimum 44x44px. Flag buttons, links, or inputs smaller than this. Check tap spacing between adjacent targets (minimum 8px gap).
+2. **Thumb Zone Mapping** — Primary actions should be in the bottom 1/3 of the screen (easy thumb reach). Flag important CTAs placed in the top zone. Navigation should be bottom-anchored.
+3. **Viewport Handling** — WhatsApp WebView has a dynamic address bar. Check that:
+   - \`height: 100vh\` is NOT used (use \`height: 100dvh\` or JS-based height)
+   - Fixed positioning accounts for safe areas
+   - Content doesn't hide behind the address bar
+4. **Keyboard Avoidance** — When the keyboard opens, forms should scroll into view. Check that fixed bottom elements move up when keyboard appears.
+5. **CSS Compatibility** — Flag CSS features not supported in older WebViews:
+   - \`backdrop-filter\` (limited support)
+   - \`gap\` in flexbox (older WebViews)
+   - CSS nesting
+   - Container queries
+6. **Bottom Navigation Pattern** — If using bottom nav, ensure it:
+   - Has safe-area-inset-bottom padding
+   - Doesn't overlap with WhatsApp's own bottom bar
+   - Uses \`position: sticky\` not \`fixed\` where possible
+
+For each issue: file, line, severity, and specific fix with fallback code.`
+        }
+    ];
+
+    // Render design skills
+    const skillsGrid = document.getElementById('skills-grid');
+    designSkills.forEach(s => {
+        skillsGrid.innerHTML += skillCard(s);
+    });
+
+    function skillCard(s) {
+        return `<div class="card-hover rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden">
+            <div class="h-2 bg-gradient-to-r ${s.color}"></div>
+            <div class="p-5">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center text-white shrink-0">
+                        ${s.icon}
+                    </div>
+                    <button onclick="openModal('${s.id}')" class="text-xs text-green-400 hover:text-green-300 font-medium flex items-center gap-1 cursor-pointer mt-1" title="Copy prompt">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Copy Prompt
+                    </button>
+                </div>
+                <h3 class="font-semibold text-base mb-2">${s.name}</h3>
+                <p class="text-gray-400 text-sm mb-3 leading-relaxed">${s.desc}</p>
+                <div class="flex flex-wrap gap-1.5">
+                    ${s.tags.map(t => `<span class="text-xs px-2 py-0.5 rounded-full bg-gray-800 text-gray-400 border border-gray-700">${t}</span>`).join('')}
+                </div>
+            </div>
+        </div>`;
+    }
+
     // ========== MODAL & COPY ==========
     function openModal(id) {
-        const p = products.find(x => x.id === id);
+        const p = products.find(x => x.id === id) || designSkills.find(x => x.id === id);
         if (!p) return;
         currentPrompt = p.prompt;
         currentTitle = p.name;
-        currentFile = p.file;
-        document.getElementById('modalTitle').textContent = `#${p.id} — ${p.name}`;
+        currentFile = p.file || '';
+        document.getElementById('modalTitle').textContent = p.id.startsWith('s') ? p.name : `#${p.id} — ${p.name}`;
         document.getElementById('modalPrompt').textContent = p.prompt;
-        document.getElementById('modalViewLink').href = p.file;
+        const viewLink = document.getElementById('modalViewLink');
+        if (p.file) {
+            viewLink.href = p.file;
+            viewLink.style.display = 'flex';
+        } else {
+            viewLink.style.display = 'none';
+        }
         document.getElementById('promptModal').classList.add('active');
         document.body.style.overflow = 'hidden';
     }
